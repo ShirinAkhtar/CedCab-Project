@@ -147,6 +147,25 @@ class Registration extends Databases
         }
     }
 
+    public function user_filterByName($Fname)
+    {
+        $ride = array();
+        $sql = "SELECT * FROM `tbl_user` WHERE  Uname = '" . $Fname . "' ";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows > 0)
+        {
+            while ($row = $result->fetch_assoc())
+            {
+                array_push($ride, $row);
+            }
+            return $ride;
+        }
+        else
+        {
+            return $ride;
+        }
+    }
+
     public function del_user($id)
     {
         $sql = "DELETE FROM `tbl_user` WHERE `Uid` = '$id'";
@@ -245,7 +264,6 @@ class Registration extends Databases
 
 }
 /** Ride Class  */
-
 class Ride extends Databases
 {
     public function avilable_rides()
@@ -274,9 +292,7 @@ class Ride extends Databases
         $ride = array();
         $sql = "SELECT $fields FROM `tbl_ride` where $conditions ORDER BY $sort $sort_type";
 
-        $result = $this
-            ->conn
-            ->query($sql);
+        $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
         {
             while ($row = $result->fetch_assoc())
@@ -294,6 +310,27 @@ class Ride extends Databases
         $result = $this
             ->conn
             ->query($sql);
+        if ($result->num_rows > 0)
+        {
+            while ($row = $result->fetch_assoc())
+            {
+                array_push($ride, $row);
+            }
+            return $ride;
+        }
+        else
+        {
+            return $ride;
+        }
+    }
+    public function ride_filterByDate($startdate,$endate)
+    {
+        $ride = array();
+        $sql = "SELECT * FROM `tbl_ride`";
+        if(!empty($startdate) && !empty($endate)){
+            $sql .= " WHERE CAST(Rdate AS DATE) between '".$startdate."' AND '".$endate."' ";
+        }
+        $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
         {
             while ($row = $result->fetch_assoc())
@@ -407,27 +444,6 @@ class Ride extends Databases
     {
         $ride = array();
         $sql = "SELECT * FROM tbl_ride WHERE `Uid` = '$id'";
-        $result = $this
-            ->conn
-            ->query($sql);
-        if ($result->num_rows > 0)
-        {
-            while ($row = $result->fetch_assoc())
-            {
-                array_push($ride, $row);
-            }
-            return $ride;
-        }
-        else
-        {
-            return $ride;
-        }
-    }
-
-    public function analysis()
-    {
-        $ride = array();
-        $sql = "SELECT DISTINCT (Rfrom) ,SUM(tfare) FROM `tbl_ride` group by Rfrom";
         $result = $this
             ->conn
             ->query($sql);

@@ -46,21 +46,14 @@
                     <?php endforeach; ?>
                 </ul>
             <?php endif;?>
-           
         </div>
         <h1 class="header">Update Ride Status</h1>
-       
         <form id="Register Form"  method = "POST">
-        <label for="Lname">Ride Name<input type="text" name="Lname" value="<?php echo $_SESSION['Locationdata']['locationname'] ?>" required>
-        </label><br>
-        <label for="Ldis">Location Distance<input type="text" name="Ldis" value="<?php echo $_SESSION['Locationdata']['location_dis'] ?>" required>
-        </label><br>
-        <label for="Lavilable">Location Avilable<input type="text" name="Lavilable" value="<?php echo $_SESSION['Locationdata']['location_avl'] ?>" required>
-        </label><br>
-        <p><input type="submit" name="submit" value="Update Location" required></p>
+            <label for="Lname">Ride Name<input type="text" name="Lname" value="<?php echo $_SESSION['Locationdata']['locationname'] ?>" required></label><br>
+            <label for="Ldis">Location Distance<input type="text" name="Ldis" value="<?php echo $_SESSION['Locationdata']['location_dis'] ?>" required></label><br>
+            <label for="Lavilable">Location Avilable<input type="text" name="Lavilable" value="<?php echo $_SESSION['Locationdata']['location_avl'] ?>" required></label><br>
+            <p><input type="submit" name="submit" value="Update Location" required></p>
         </form>
-        
         <a href="change.php" class="a2" role="button" aria-pressed="true">Change Password</a>
     </body>
-
 </html>

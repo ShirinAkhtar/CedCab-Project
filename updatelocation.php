@@ -51,19 +51,12 @@
         </div>
         <h1 class="header">Update Locations of CedCab</h1>
         <?php //print_r($_SESSION['userdata']); ?>
-       
-        <form id="Update Form"  method = "POST">
-        
-        <label for="location">Location<br><input type="text" name="Lname" value="<?php echo $_SESSION['Locationdata']['locationname'] ?>" required>
-        </label><br>
-        
-        <label for="distance">Location Distance<input type="text" name="Ldistance" value="<?php echo $_SESSION['Locationdata']['location_dis'] ?>" required></label required><br>
-        <label for="avilable">Location Avilable<input type="text" name="Lavil" value="<?php echo $_SESSION['Locationdata']['location_avl'] ?>" required></label required><br>
-        
-        <p><input type="submit" name="submit" value="Update Record" required></p>    
-        </form>
-        
-        <a href="location.php" class="a4" role="button" aria-pressed="true">Back to Location Table</a>
+            <form id="Update Form"  method = "POST">
+                <label for="location">Location<br><input type="text" name="Lname" value="<?php echo $_SESSION['Locationdata']['locationname'] ?>" required></label><br>
+                <label for="distance">Location Distance<input type="text" name="Ldistance" value="<?php echo $_SESSION['Locationdata']['location_dis'] ?>" required></label required><br>
+                <label for="avilable">Location Avilable<input type="text" name="Lavil" value="<?php echo $_SESSION['Locationdata']['location_avl'] ?>" required></label required><br>
+                <p><input type="submit" name="submit" value="Update Record" required></p>    
+            </form>
+            <a href="location.php" class="a4" role="button" aria-pressed="true">Back to Location Table</a>
     </body>
-
 </html>

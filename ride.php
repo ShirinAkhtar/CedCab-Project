@@ -27,15 +27,18 @@ if(isset($_POST['fare'])) {
     $store1 = $Ride-> ride_sortByFare();
     //header('Location: request.php');
 }
+if(isset($_POST['filter'])) {
+	$startdate = isset($_POST['startdate'])?$_POST['startdate']:'';
+    $endate = isset($_POST['endate'])?$_POST['endate']:'';
+    $store1 = $Ride-> ride_filterByDate($startdate,$endate);
+    //header('Location: request.php');
+}
 ?>
-	<html>
-
-	<head>
-		<title>CedCab</title>
-	</head>
-
-	<body style="background-color:white;">
-		<br/>
+<html>
+<head>
+	<title>CedCab</title>
+</head>
+<body style="background-color:white;"><br/>
 		<div class="card">
 			<div class="card-header">
 				<div class="row">
@@ -63,15 +66,15 @@ if(isset($_POST['fare'])) {
 										<input type="submit" name="date" value="Date" class="input" />
 										<input type="submit" name="distance" value="Distance" class="input" />
 										<input type="submit" name="fare" value="Total Fare" class="input" />
-										<th>
+									    <input type="date" name="startdate"/>
+										<input type="date" name="endate"/>
+  										<input type="submit" name="filter" value="Filter"/>
+									<th>
 								</tr>
 							</thead>
 							<?php 
-            foreach($store1 as $key=> $value){
-               // if($value['Isblock'] == 0){
-                   $total = $total + $value['tfare'];
-                   //echo $total;
-            ?>
+            					foreach($store1 as $key=> $value){
+               						$total = $total + $value['tfare'];?>
 								<tr>
 									<td>
 										<?php echo $value['Rid'] ?>
@@ -115,5 +118,13 @@ if(isset($_POST['fare'])) {
 			</div>
 		</div>
 	</body>
+	<script type="text/javascript">
 
+    $(document).ready(function(){
+		document.getElementById("btn1").style.display = "none";
+        $('#cabf').on("click", function(e) {
+			document.getElementById("btn1").style.display = "block";
+		});
+    });
+</script>
 	</html>

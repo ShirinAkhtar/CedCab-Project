@@ -32,17 +32,11 @@ if(isset($_REQUEST["Did"]))
 
 	<head>
 		<title>Location List</title>
-		<link type="text/css" rel="stylesheet" href="style.css"> </head>
-
+		<link type="text/css" rel="stylesheet" href="style.css">
+	</head>
 	<body style="background-color:white;">
-		<h1><center>Avilable Locations</center></h1>
-		<br/>
+		<h1><center>Avilable Locations</center></h1><br/>
 		<div class="card">
-			<div class="card-header">
-				<div class="row">
-					<div class="col-md-9"> </div>
-				</div>
-			</div>
 			<div class="card-body">
 				<div class="table-responsive">
 					<table id="exam_data_table" class="table table-bordered table-striped table-hover">
@@ -55,40 +49,24 @@ if(isset($_REQUEST["Did"]))
 								<th>Action</th>
 							</tr>
 						</thead>
-						<?php  //print_r($lo);
-            foreach($lo as $key=> $value){
-                //print_r($lo);
-               // if($value['Isblock'] == 0){
-            ?>
+						<?php  foreach($lo as $key=> $value) { ?>
 							<tr>
-								<td>
-									<?php echo $value['Lid'] ?>
-								</td>
-								<td>
-									<?php echo $value['Lname']; ?>
-								</td>
-								<td>
-									<?php echo $value['Ldis']; ?>
-								</td>
-								<td>
-									<?php echo $value['Lavilable']; ?>
-								</td>
-								<?php if ($value['Lavilable'] == "0")
-             { ?>
-									<td> <a href="location.php?action=access&Aid=<?php echo $value['Lid'];?>" class="edit_btn" name="access_granted">Avliable</a> </td>
-									<?php } else 
-            { ?>
-										<td> <a href="location.php?action=access&Did=<?php echo $value['Lid'];?>" class="edit_btn1" name="access_granted">UnAvliable</a> </td>
-										<?php } ?>
-											<td> <a href="updatelocation.php?action=edit&id=<?php echo $value['Lid'];?>" class="edit_btn">Edit</a> </td>
-											<td> <a href="deleteLocation.php?action=delete&id=<?php echo $value['Lid'];?>" onClick="return confirm('Are you sure you want to delete?')" class="del_btn">Delete</a> </td>
+								<td><?php echo $value['Lid'] ?></td>
+								<td><?php echo $value['Lname']; ?></td>
+								<td><?php echo $value['Ldis']; ?></td>
+								<td><?php echo $value['Lavilable']; ?></td>
+								<?php if ($value['Lavilable'] == "0") { ?>
+									<td><a href="location.php?action=access&Aid=<?php echo $value['Lid'];?>" class="edit_btn" name="access_granted">Avliable</a> </td>
+									<?php } else { ?>
+										<td><a href="location.php?action=access&Did=<?php echo $value['Lid'];?>" class="edit_btn1" name="access_granted">UnAvliable</a> </td>
+									<?php } ?>
+								<td><a href="updatelocation.php?action=edit&id=<?php echo $value['Lid'];?>" class="edit_btn">Edit</a> </td>
+								<td><a href="deleteLocation.php?action=delete&id=<?php echo $value['Lid'];?>" onClick="return confirm('Are you sure you want to delete?')" class="del_btn">Delete</a> </td>
 							</tr>
-							<?php
-         }?>
+							<?php } ?>
 					</table>
 				</div>
 			</div>
 		</div>
 	</body>
-
-	</html>
+</html>

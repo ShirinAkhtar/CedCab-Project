@@ -100,39 +100,4 @@
 		</div>
 	</div>
 </body>
-<!-- <script>
-
-$('#msg2').change(function() {
-	if($(this).val() == 'CedMicro') {
-		$('#msg1').prop("disabled", true);
-	} else {
-		$('#msg1').prop("disabled", false);
-	}
-});
-$('#cabf').on("click", function(e) {
-	var pick = $("#msg4").val();
-	var drop = $("#msg3").val();
-	var cabType = $("#msg2").val();
-	var lug = $("#msg1").val();
-	console.log(pick);
-	console.log(drop);
-	console.log(cabType);
-	$.ajax({
-		method: 'POST',
-		url: 'cab.php',
-		dataType: 'html',
-		data: {
-			pick: pick,
-			drop: drop,
-			cabType: cabType,
-			lug: lug
-		},
-		success: function(response) {
-			$("#res").html(response);
-		}
-	});
-	e.preventDefault();
-});
-</script> -->
-
 </html>

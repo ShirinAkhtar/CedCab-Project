@@ -17,9 +17,4 @@
   $lo = $Ride->del_ride($id);
   unset($_SESSION['Ridedata']['Rid']);
   unset($_SESSION['Ridedata']['Rname']);
-
- header('Location: ride.php');
- 
-
-
-?>
+  header('Location: ride.php');?>

@@ -35,9 +35,7 @@ if (isset($_POST['submit']))
     $Registration->set_val($id, $name, $mobile);
 }
 ?>
-
 <html>
-
 <head>
 	<title>Update form</title>
 	<link type="text/css" rel="stylesheet" href="style.css">
@@ -61,24 +59,12 @@ if (isset($_POST['submit']))
 	<h1 class="header">Update Record CedCab</h1>
 	<?php //print_r($_SESSION[ 'userdata']); ?>
 	<form id="Update Form" method="POST">
-		<label for="Uname">Username
-			<input type="text" name="Uname" value="<?php echo $_SESSION['userdata']['username'] ?>" required>
-		</label>
-		<br>
-		<label for="name">Name
-			<br>
-			<input type="text" name="name" value="<?php echo $_SESSION['userdata']['dataname'] ?>" required>
-		</label>
-		<br>
-		<label for="mobile">Mobile
-			<input type="text" name="mobile" value="<?php echo $_SESSION['userdata']['datamobile'] ?>" required>
-		</label required>
-		<br>
-		<p>
-			<input type="submit" name="submit" value="Update Record" required>
-		</p>
-	</form> <a href="password.php" class="a4" role="button" aria-pressed="true">Change Password</a>
+		<label for="Uname">Username<input type="text" name="Uname" value="<?php echo $_SESSION['userdata']['username'] ?>" required/></label><br>
+		<label for="name">Name<br><input type="text" name="name" value="<?php echo $_SESSION['userdata']['dataname'] ?>" required/></label><br>
+		<label for="mobile">Mobile<input type="text" name="mobile" value="<?php echo $_SESSION['userdata']['datamobile'] ?>" required/></label required><br>
+		<p><input type="submit" name="submit" value="Update Record" required></p>
+	</form> 
+	<a href="password.php" class="a4" role="button" aria-pressed="true">Change Password</a>
 	<a href="cabhome1.php" class="a3" role="button" aria-pressed="true">Dashboard</a>
 </body>
-
 </html>

@@ -138,33 +138,33 @@ $loc = $Location->location_avilable();
 		<div class="grid-container">
 			<div onclick="location.href='request.php'">
 				<div class="header1">
-                <h2><?php echo sizeof($store1);?></h2> 
+                <h1><?php echo sizeof($store1);?></h1> 
 					<h3>Pending Request</h3>
 				</div>
 			</div>
 			<div onclick="location.href='request.php'">
 				<div class="header2">
-					<h2><?php echo sizeof($store1);?></h2>
+					<h1><?php echo sizeof($store1);?></h1>
 					<h3>All Request</h3> </div>
 			</div>
 			<div onclick="location.href='pendingRide.php'">
 				<div class="header3">
-					<h2><?php echo sizeof($store2);?></h2>
+					<h1><?php echo sizeof($store2);?></h1>
 					<h3>Pending Ride</h3> </div>
 			</div>
 			<div onclick="location.href='completedRide.php'">
 				<div class="header4">
-					<h2><?php echo sizeof($loc);?></h2>
+					<h1><?php echo sizeof($loc);?></h1>
 					<h3>Completed Ride</h3> </div>
 			</div>
 			<div onclick="location.href='location.php'">
 				<div class="header5">
-					<h2><?php echo sizeof($loc);?></h2>
+					<h1><?php echo sizeof($loc);?></h1>
 					<h3>Total Locations</h3> </div>
 			</div>
 			<div onclick="location.href='invoices.php'">
 				<div class="header6">
-					<h2><?php echo sizeof($loc);?></h2>
+					<h1><?php echo sizeof($loc);?></h1>
 					<h3>Invoices</h3> </div>
 			</div>
 		</div>

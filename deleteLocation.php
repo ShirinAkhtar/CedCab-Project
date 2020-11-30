@@ -17,9 +17,5 @@
   $lo = $Location->del_location($id);
   unset($_SESSION['Locationdata']['Lid']);
   unset($_SESSION['Locationdata']['Lname']);
-
- header('Location: location.php');
- 
-
-
+  header('Location: location.php');
 ?>

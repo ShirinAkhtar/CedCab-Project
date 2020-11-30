@@ -28,14 +28,11 @@ if(isset($_POST['fare'])) {
     
 }
 ?>
-	<html>
-
+<html>
 	<head>
 		<title>CedCab</title>
 	</head>
-
-	<body style="background-color:white;">
-		<br/>
+	<body style="background-color:white;"><br/>
 		<div class="card">
 			<div class="card-header">
 				<div class="row">
@@ -63,57 +60,32 @@ if(isset($_POST['fare'])) {
 										<input type="submit" name="date" value="Date" class="input" />
 										<input type="submit" name="distance" value="Distance" class="input" />
 										<input type="submit" name="fare" value="Total Fare" class="input" />
-										<th>
+									<th>
 								</tr>
 							</thead>
-							<?php 
-            foreach($store1 as $key=> $value){
-                if($value['Uid'] == $_SESSION['userdata']['userid']){
-                   $total = $total + $value['tfare'];
-            ?>
-								<tr>
-									<td>
-										<?php echo $_SESSION['userdata']['dataname'] ?>
-									</td>
-									<td>
-										<?php echo $value['Rdate']; ?>
-									</td>
-									<td>
-										<?php echo $value['Rfrom']; ?>
-									</td>
-									<td>
-										<?php echo $value['Rto']; ?>
-									</td>
-									<td>
-										<?php echo $value['tdistance']; ?>
-									</td>
-									<td>
-										<?php echo $value['cabtype']; ?>
-									</td>
-									<td>
-										<?php echo $value['lug']; ?>
-									</td>
-									<td>
-										<?php echo $value['tfare']; ?>
-									</td>
-									<td> <a href="deleteRide.php?action=edit&id=<?php echo $value['Rid'];?>" onClick="return confirm('Are you sure you want to delete?')" class="del_btn">Delete</a> </td>
-									<?php 
-        
-         }?>
-								</tr>
-								<?php 
-        
-         }?>
-									<tr>
-										<td>
-											<?php echo "Total Earnings:".$total; ?>
-										</td>
+							<?php foreach($store1 as $key=> $value){
+                					if($value['Uid'] == $_SESSION['userdata']['userid']){
+                   						$total = $total + $value['tfare']; ?>
+										<tr>
+											<td><?php echo $_SESSION['userdata']['dataname'] ?></td>
+											<td><?php echo $value['Rdate']; ?></td>
+											<td><?php echo $value['Rfrom']; ?></td>
+											<td><?php echo $value['Rto']; ?></td>
+											<td><?php echo $value['tdistance']; ?></td>
+											<td><?php echo $value['cabtype']; ?></td>
+											<td><?php echo $value['lug']; ?></td>
+											<td><?php echo $value['tfare']; ?></td>
+											<td><a href="deleteRide.php?action=edit&id=<?php echo $value['Rid'];?>" onClick="return confirm('Are you sure you want to delete?')" class="del_btn">Delete</a> </td>
+										<?php }?>
 									</tr>
+								<?php }?>
+								<tr>
+								<td><?php echo "Total Earnings:".$total; ?></td>
+								</tr>
 						</table>
 					</form>
 				</div>
 			</div>
 		</div>
 	</body>
-
-	</html>
+</html>

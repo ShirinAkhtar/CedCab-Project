@@ -45,17 +45,17 @@
                     <?php endforeach; ?>
                 </ul>
             <?php endif;?>
-           
         </div>
         <h1 class="header">Forget Password</h1>
         <form id="SignUp Form" action = "password.php" method = "POST">
-        <label for="Uname">Previous Password<input type="text" name="oldPass" >
-        </label><br>
-        <label for="pswd">New Password<input type="text" name="newPass" ></label>
-        <br>
-        <p><input type="submit" name="submit" value="Update Password"></p>
+            <label for="Uname">Previous Password<input type="text" name="oldPass" ></label><br>
+            <label for="pswd">New Password<input type="text" name="newPass" ></label><br>
+            <p><input type="submit" name="submit" value="Update Password"></p>
         </form>
-        <a href="cabhome1.php" class="a5" role="button" aria-pressed="true">Dashboard</a>
+        <?php if ($_SESSION['userdata']['username'] == "admin") { ?>
+        <a href="admin.php" class="a5" role="button" aria-pressed="true">Dashboard</a>
+        <?php } else if ($_SESSION['userdata']['username'] == "shirin") 
+        	{ ?>
+            <a href="cabhome1.php" class="a5" role="button" aria-pressed="true">Dashboard</a> <?php } ?>
     </body>
-
 </html>

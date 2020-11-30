@@ -35,6 +35,11 @@ if(isset($_POST['date'])) {
     $store1 = $Registration-> userRequest_sortByDate();
     //header('Location: request.php');
 }
+if(isset($_POST['filter'])) {
+	$Fname = isset($_POST['Fname'])?$_POST['Fname']:'';
+	$store1 = $Registration-> user_filterByName($Fname);
+    //header('Location: request.php');
+}
 ?>
 	<html>
 
@@ -43,10 +48,8 @@ if(isset($_POST['date'])) {
 		<link type="text/css" rel="stylesheet" href="style2.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	</head>
-
 	<body style="background-color:white;">
-		<h1 class="header">User Request List</h1>
-		<br/>
+		<h1 class="header">User Request List</h1><br/>
 		<form method="post">
 			<table id="exam_data_table" class="table table-bordered table-striped table-hover">
 				<thead>
@@ -60,72 +63,40 @@ if(isset($_POST['date'])) {
 						<th>Admin Status</th>
 						<th>Action</th>
 						<th>Action</th>
-						<th>Sort By</th>
+						<th>Sort & Filter By</th>
 						<th>
 							<input type="submit" name="id" value="Id" class="input" />
 							<input type="submit" name="username" value="UserName" class="input" />
 							<input type="submit" name="date" value="Date" class="input" />
+							<input type="text" name="Fname"/>
+  							<input type="submit" name="filter" value="Filter"/>
 						</th>
 					</tr>
 				</thead>
-				<?php 
-            
-            foreach($store1 as $key=> $value){
-                if($value['isAdmin'] == 0){
-               
-            ?>
-					<tr>
-						<td>
-							<?php echo $value['Uid'] ?>
-						</td>
-						<td>
-							<?php echo $value['Uname']; ?>
-						</td>
-						<td>
-							<?php echo $value['name']; ?>
-						</td>
-						<td>
-							<?php echo $value['Sdate']; ?>
-						</td>
-						<td>
-							<?php echo $value['mobile']; ?>
-						</td>
-						<td>
-							<?php echo $value['Isblock']; ?>
-						</td>
-						<td>
-							<?php echo $value['isAdmin']; ?>
-						</td>
-						<?php if ($value['Isblock'] == "0")
-             { ?>
-							<td> <a href="request.php?action=access&Aid=<?php echo $value['Uid'];?>" class="edit_btn" name="access_granted">Access Granted</a> </td>
-							<?php } else 
-            { ?>
-								<td> <a href="request.php?action=access&Did=<?php echo $value['Uid'];?>" class="edit_btn1" name="access_granted">Access Denied</a> </td>
+				<?php  foreach($store1 as $key=> $value){
+                			if($value['isAdmin'] == 0){ ?>
+							<tr>
+								<td><?php echo $value['Uid'] ?></td>
+								<td><?php echo $value['Uname']; ?></td>
+								<td><?php echo $value['name']; ?></td>
+								<td><?php echo $value['Sdate']; ?></td>
+								<td><?php echo $value['mobile']; ?></td>
+								<td><?php echo $value['Isblock']; ?></td>
+								<td><?php echo $value['isAdmin']; ?></td>
+								<?php if ($value['Isblock'] == "0") { ?>
+								<td><a href="request.php?action=access&Aid=<?php echo $value['Uid'];?>" class="edit_btn" name="access_granted">Access Granted</a> </td>
+								<?php } else 
+            								{ ?>
+								<td><a href="request.php?action=access&Did=<?php echo $value['Uid'];?>" class="edit_btn1" name="access_granted">Access Denied</a> </td>
 								<?php } ?>
-									<td> <a href="deleteAccess.php?action=access&id=<?php echo $value['Uid'];?>" onClick="return confirm('Are you sure you want to delete?')" class="del_btn">Delete</a> </td>
-									<?php
-         }?>
-					</tr>
-					<?php
-         }?>
-			</table>
-		</form>
+								<td><a href="deleteAccess.php?action=access&id=<?php echo $value['Uid'];?>" onClick="return confirm('Are you sure you want to delete?')" class="del_btn">Delete</a> </td>
+								<?php } ?>
+							</tr>
+					<?php } ?>
+				</table>
+			</form>
 		</div>
-		</div>
-		</div>
-		<!-- <script>
-        function change() {
-            alert($(this).val());
-            if($(this).val() == 'Id') {
-            <?php //$store1 = $Registration-> userRequest_sortById();?>
-            } else if($(this).val() == 'UserName') {
-            <?php //$store1 = $Registration->userRequest_sortByName(); ?>
-            } else if($(this).val() == 'Date') {
-            <?php //$Registration->userRequest_sortByDate(); ?>
-            }
-        });
-</script> -->
-	</body>
-
-	</html>
+	</div>
+</div>
+</body>
+</html>

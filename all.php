@@ -125,8 +125,5 @@ $lo = $Location->location_avilable();
         </table>
    </div>
 </div>
-</div>
-    
 </body>
-
 </html>

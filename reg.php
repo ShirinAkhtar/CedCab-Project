@@ -49,26 +49,17 @@ if (isset($_POST['submit'])) {
                     <?php endforeach; ?>
                 </ul>
             <?php endif;?>
-           
         </div>
         <h1 class="header">Register Yourself with CedCab</h1>
-       
         <form id="Register Form" action = "reg.php" method = "POST">
-        <label for="Uname">Username<input type="text" name="Uname" required>
-        </label><br>
-        <label for="name">Name<br><input type="text" name="name" required>
-        </label><br>
-        
-        <label for="mobile">Mobile<input type="text" name="mobile" required></label required><br>
-        
-
-        <label for="pswd">Password<input type="text" name="pswd" required></label>
-        <br>
-        <label for="Sdate">Confirm Password<input type="text" name="pswd" required></label><br>
-        <p><input type="submit" name="submit" value="Register" required></p>
+            <label for="Uname">Username<input type="text" name="Uname" required></label><br>
+            <label for="name">Name<br><input type="text" name="name" required></label><br>
+            <label for="mobile">Mobile<input type="text" name="mobile" required></label required><br>
+            <label for="pswd">Password<input type="text" name="pswd" required></label><br>
+            <label for="Sdate">Confirm Password<input type="text" name="pswd" required></label><br>
+            <p><input type="submit" name="submit" value="Register" required></p>
         </form>
-        <p class="p2">Already User?</p><br>
-        <a href="login.php" class="a5" role="button" aria-pressed="true">Login</a>
+            <p class="p2">Already User?</p><br>
+            <a href="login.php" class="a5" role="button" aria-pressed="true">Login</a>
     </body>
-
 </html>

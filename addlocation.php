@@ -42,21 +42,15 @@ if (isset($_POST['submit'])) {
                     <?php endforeach; ?>
                 </ul>
             <?php endif;?>
-           
         </div>
         <h1 class="header">Add Locations</h1>
-       
         <form id="Register Form" action = "addlocation.php" method = "POST">
-        <label for="Lname">Location Name<input type="text" name="Lname" required>
-        </label><br>
-        <label for="Ldis">Location Distance<input type="text" name="Ldis" required>
-        </label><br>
-        <label for="Lavilable">Location Avilable<input type="text" name="Lavilable" required>
-        </label><br>
-        <p><input type="submit" name="submit" value="Add Location" required></p>
+            <label for="Lname">Location Name<input type="text" name="Lname" required></label><br>
+            <label for="Ldis">Location Distance<input type="text" name="Ldis" required></label><br>
+            <label for="Lavilable">Location Avilable<input type="text" name="Lavilable" required></label><br>
+            <p><input type="submit" name="submit" value="Add Location" required></p>
         </form>
         <p class="p2">Back to Dashboard?</p><br>
         <a href="admin.php" class="a5" role="button" aria-pressed="true">Dashboard</a>
     </body>
-
 </html>

@@ -48,35 +48,21 @@ $store1 = $Ride->avilable_rides();
                     <th>Action</th>
                 </tr>
             </thead>
-            <?php 
-            foreach($store1 as $key=> $value){
-               // if($value['Isblock'] == 0){
-            ?> 
+            <?php foreach($store1 as $key=> $value) { ?> 
             <tr>
-            <td><?php echo $value['Rid'] ?></td>
-            <td><?php echo $value['Rdate']; ?></td>
-            <td><?php echo $value['Rfrom']; ?></td>
-            <td><?php echo $value['Rto']; ?></td>
-            <td><?php echo $value['tdistance']; ?></td>
-            <td><?php echo $value['lug']; ?></td>
-            <td><?php echo $value['tfare']; ?></td>
-            <td><?php echo $value['status']; ?></td>
-            <td>
-                <a href="update2.php" class="edit_btn" >Edit</a>
-            </td>
-            <td>
-                <a  href="delete2.php" 
-            onClick="return confirm('Are you sure you want to delete?')" 
-                class="del_btn">Delete</a>
-            </td>
-            
-        </tr><?php
-         }?>
+                <td><?php echo $value['Rid'] ?></td>
+                <td><?php echo $value['Rdate']; ?></td>
+                <td><?php echo $value['Rfrom']; ?></td>
+                <td><?php echo $value['Rto']; ?></td>
+                <td><?php echo $value['tdistance']; ?></td>
+                <td><?php echo $value['lug']; ?></td>
+                <td><?php echo $value['tfare']; ?></td>
+                <td><?php echo $value['status']; ?></td>
+                <td><a href="update2.php" class="edit_btn" >Edit</a></td>
+                <td><a  href="delete2.php" onClick="return confirm('Are you sure you want to delete?')" class="del_btn">Delete</a></td>
+            </tr><?php}?>
         </table>
-   </div>
+    </div>
 </div>
-</div>
-    
 </body>
-
 </html>

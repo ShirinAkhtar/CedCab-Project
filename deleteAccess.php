@@ -17,7 +17,5 @@
   $lo = $Registration->del_user($id);
   unset($_SESSION['userdata']['userid']);
   unset($_SESSION['userdata']['username']);
-    header('Location: request.php');
-
-
+  header('Location: request.php');
 ?>
