@@ -13,7 +13,7 @@ require 'class.php';
 $Location = new Location();
 $lo = $Location->location_avilable();
 $Ride = new Ride();
-$status = 1;
+$status = 0;
 //$p = 0;$d = 0;$dist = 0;
 $pick = isset($_POST['pick']) ? $_POST['pick'] : '';
 $drop = isset($_POST['drop']) ? $_POST['drop'] : '';

@@ -162,7 +162,7 @@ $loc = $Location->location_avilable();
 					<h1><?php echo sizeof($loc);?></h1>
 					<h3>Total Locations</h3> </div>
 			</div>
-			<div onclick="location.href='invoices.php'">
+			<div onclick="location.href='analysis.php'">
 				<div class="header6">
 					<h1><i class="fa fa-bar-chart" aria-hidden="true" style="font-size:36px;"></i></h1>
 					<h3>Report Analysis</h3> </div>

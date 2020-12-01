@@ -39,38 +39,40 @@ $lo = $Location->location_avilable();
         <div class="table-responsive">
         <table id="exam_data_table" class="table table-bordered table-striped table-hover">
             <thead>
+            <tr><th>1.User List<th></tr>
                 <tr>
                     <th>User Id</th>
                     <th>UserName</th>
                     <th>Name</th>
                     <th>Date</th>
                     <th>Mobile</th>
-                    <th>Block Status</th>
-                    <th>Admin Status</th>
+                   
+                    
                    
                 </tr>
             </thead>
             <?php 
             foreach($store1 as $key=> $value){
                 if($value['Isblock'] == 0){
-            ?> 
+                    if($value['isAdmin'] == 0){ ?>
             <tr>
             <td><?php echo $value['Uid'] ?></td>
             <td><?php echo $value['Uname']; ?></td>
             <td><?php echo $value['name']; ?></td>
             <td><?php echo $value['Sdate']; ?></td>
             <td><?php echo $value['mobile']; ?></td>
-            <td><?php echo $value['Isblock']; ?></td>
-            <td><?php echo $value['isAdmin']; ?></td>
+           
+           
             <?php
          }?>
         </tr><?php
-         }?>
+       }  }?>
         </table>
         <br>
             <table id="exam_data_table" 
             class="table table-bordered table-striped table-hover">
             <thead>
+            <tr><th>2.Ride List<th></tr>
                 <tr>
                     <th>Ride Id</th>
                     <th>Ride Date</th>
@@ -102,6 +104,7 @@ $lo = $Location->location_avilable();
         <table id="exam_data_table" 
             class="table table-bordered table-striped table-hover">
             <thead>
+            <tr><th>3.Location List<th></tr>
                 <tr>
                     <th>Location Id</th>
                     <th>Location Name</th>
@@ -110,10 +113,8 @@ $lo = $Location->location_avilable();
                    
                 </tr>
             </thead>
-            <?php // print_r($lo);
+            <?php
             foreach($lo as $key=> $value){
-                //print_r($lo);
-               // if($value['Isblock'] == 0){
             ?> 
             <tr>
             <td><?php echo $value['Lid'] ?></td>

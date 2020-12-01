@@ -20,12 +20,11 @@
         $pswd = isset($_POST['pswd'])?$_POST['pswd']:'';
         echo  $Registration->regLogin($Uname,$pswd);
 	}  
-/*	if($_POST["remember_me"]=='1' || $_POST["remember_me"]=='on')
+	if(isset($_POST["rememberme"]))
 	{
 		$hour = time() + 3600 * 24 * 30;
-		setcookie('username', $Uname, $hour);
-		setcookie('password', $pswd, $hour);
-	} */
+		setcookie('username', $_POST['Uname'], $hour);
+	}	
 ?>
 <html>
 	<head>
@@ -49,11 +48,11 @@
 		</div>
 		<h1 class="header">Login</h1>
 		<form id="SignUp Form" action="login.php" method="POST">
-			<label for="Uname">Username<input type="text" name="Uname"></label><br>
+			<label for="Uname">Username<input type="text" name="Uname" value="<?php if(isset($_COOKIE['username'])) { echo $_COOKIE['username'];}?>"></label><br>
 			<label for="pswd">Password<input type="password" name="pswd"></label><br>
 			<p><input type="submit" name="submit" value="LOGIN"></p>
 			<p class="remember_me">
-      <label><input type="checkbox" name="remember_me" id="remember_me">Remember me </label>
+      <label><input type="checkbox" name="rememberme" id="remember_me">Remember me </label>
 		</form><a class="a4" href="password.php?action=pass&id=<?php echo $_SESSION['userdata']['userid'];?>">Forget Password?</a> <a href="reg.php" class="a2" role="button" aria-pressed="true">Register Now</a> </body>
 	</body>
 </html>
