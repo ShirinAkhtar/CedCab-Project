@@ -25,6 +25,18 @@ if(isset($_POST['distance'])) {
 if(isset($_POST['fare'])) {
     $store1 = $Ride-> ride_sortByFare();
 }
+if(isset($_REQUEST["Aid"]))
+{
+    $id = $_REQUEST["Aid"];
+    $Ride->access($_REQUEST["Aid"]);
+    header('Location: pendingRide.php');
+}
+if(isset($_REQUEST["Did"]))
+{
+    $id = $_REQUEST["Did"];
+    $Ride->denied($id);
+    header('Location: pendingRide.php');
+}
 ?>
 <html>
 	<head>
@@ -75,6 +87,13 @@ if(isset($_POST['fare'])) {
 							<td><?php echo $value['lug']; ?></td>
 							<td><?php echo $value['tfare']; ?></td>
 							<td><?php echo $value['status']; ?></td>
+							<?php if ($value['status'] == "0") { ?>
+								<td><a href="pendingRide.php?action=access&Aid=<?php echo $value['Rid'];?>" class="edit_btn1" name="access_granted">Pending Ride</a> 
+								<?php } else 
+											{ ?>
+								<td><a href="pendingRide.php?action=access&Did=<?php echo $value['Rid'];?>" class="edit_btn" name="access_granted">Completed Ride</a> </td>
+								
+								<?php } ?></td>
 							<td><a href="deleteRide.php?action=edit&id=<?php echo $value['Rid'];?>" onClick="return confirm('Are you sure you want to delete?')" class="del_btn">Delete</a> </td>
 						</tr><?php } 
         					}?>

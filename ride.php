@@ -33,6 +33,7 @@ if(isset($_POST['filter'])) {
     $store1 = $Ride-> ride_filterByDate($startdate,$endate);
     //header('Location: request.php');
 }
+
 ?>
 <html>
 <head>
@@ -103,6 +104,9 @@ if(isset($_POST['filter'])) {
 									<td>
 										<?php echo $value['status']; ?>
 									</td>
+
+									
+
 									<td> <a href="deleteRide.php?action=edit&id=<?php echo $value['Rid'];?>" onClick="return confirm('Are you sure you want to delete?')" class="del_btn">Delete</a> </td>
 								</tr>
 								<?php

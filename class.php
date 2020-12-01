@@ -426,6 +426,19 @@ class Ride extends Databases
             return $ride;
         }
     }
+    public function access($id)
+    {
+        $sql1 = " UPDATE `tbl_ride` SET `status`= 1 WHERE `Rid`='$id'";
+        $result = $this->conn->query($sql1);
+    }
+    public function denied($id)
+    {
+        $sql1 = " UPDATE `tbl_ride` SET `status`= 0 WHERE `Rid`='$id'";
+        $result = $this
+            ->conn
+            ->query($sql1);
+
+    }
 }
 /** Location Class  */
 class Location extends Databases

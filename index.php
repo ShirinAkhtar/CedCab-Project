@@ -125,6 +125,14 @@ unset($_SESSION['booking']);}
 		console.log(pick);
 		console.log(drop);
 		console.log(cabType);
+		if(pick == drop)
+		{
+			alert("Pick and Drop location should be different!");
+		}
+		else if(pick =="Current Location" || drop == "Enter drop for ride estimate" || cabType == "Drop Down to select CAB Type")
+		{
+			alert("Pick Select valid input!");
+		}
 		$.ajax({
 			method: 'POST',
 			url: 'cab.php',
@@ -140,7 +148,8 @@ unset($_SESSION['booking']);}
 			}
 		});
 		e.preventDefault();
-    });
+	});
+
         $('#cabff').on("click", function(e) {
 		
 		var pick = $("#msg4").val();
@@ -153,9 +162,6 @@ unset($_SESSION['booking']);}
 		console.log(cabType);
 		console.log(action);
 		<?php if(isset($_SESSION['userdata'])) {?>
-		document.getElementById("rcorners2").style.display = "block";
-       	document.getElementById("wel").style.display = "block";
-        document.getElementById("all").style.display = "block";
         $.ajax({
             method: 'POST',
             url: 'cab.php',
