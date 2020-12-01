@@ -15,7 +15,7 @@ $error = array();
 $message = '';
 $id = $_REQUEST["id"];
 $Registration = new Registration();
-echo $id;
+//echo $id;
 $Registration->get_val($id);
 
 if (isset($_POST['submit']))

@@ -5,7 +5,6 @@ $Location = new Location();
 $lo = $Location->location_avilable();
 // session_destroy();
 if(isset($_SESSION['booking'])){
-//print_r($_SESSION['booking']);
 
 $Ride = new Ride();
 $ride_store = $Ride->store_ride( $_SESSION['userdata']['userid'],$_SESSION['booking']['pick'], $_SESSION['booking']['drop'], $_SESSION['booking']['dist'], $_SESSION['booking']['cabType'], $_SESSION['booking']['lug'], $_SESSION['booking']['amt'],  $_SESSION['booking']['status']);
