@@ -114,7 +114,7 @@ require 'class.php';
 						<li><a href="dashboard.php">Welcome <?php $_SESSION['userdata']['username']?> </a></li>
 						<li><a href="history.php" class="flex-sm-fill text-sm-center">All Ride Records</a> </li>
 						<li>
-							<a href="login.php">
+							<a href="logout.php">
 								<button type="button" class="btn btn-primary" id="rcorners2">Logout</button>
 							</a>
 						</li>

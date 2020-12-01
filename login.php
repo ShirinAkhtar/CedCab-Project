@@ -19,7 +19,8 @@
         $Uname = isset($_POST['Uname'])?$_POST['Uname']:'';
         $pswd = isset($_POST['pswd'])?$_POST['pswd']:'';
         echo  $Registration->regLogin($Uname,$pswd);
-    }
+	}
+	
 ?>
 	<html>
 
@@ -45,7 +46,7 @@
 		<h1 class="header">Login</h1>
 		<form id="SignUp Form" action="login.php" method="POST">
 			<label for="Uname">Username<input type="text" name="Uname"></label><br>
-			<label for="pswd">Password<input type="text" name="pswd"></label><br>
+			<label for="pswd">Password<input type="password" name="pswd"></label><br>
 			<p><input type="submit" name="submit" value="LOGIN"></p>
 		</form><a class="a4" href="password.php?action=pass&id=<?php echo $_SESSION['userdata']['userid'];?>">Forget Password?</a> <a href="reg.php" class="a2" role="button" aria-pressed="true">Register Now</a> </body>
 	</body>

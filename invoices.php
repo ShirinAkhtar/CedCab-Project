@@ -54,13 +54,7 @@ if(isset($_POST['fare'])) {
 									<th>Cab Type</th>
 									<th>Luggage</th>
 									<th>Total Fare</th>
-									<th>Status</th>
-									<th>Action</th>
-									<th>
-										<input type="submit" name="date" value="Date" class="input" />
-										<input type="submit" name="distance" value="Distance" class="input" />
-										<input type="submit" name="fare" value="Total Fare" class="input" />
-									<th>
+									
 								</tr>
 							</thead>
 							<?php foreach($store1 as $key=> $value){
@@ -75,7 +69,7 @@ if(isset($_POST['fare'])) {
 											<td><?php echo $value['cabtype']; ?></td>
 											<td><?php echo $value['lug']; ?></td>
 											<td><?php echo $value['tfare']; ?></td>
-											<td><a href="deleteRide.php?action=edit&id=<?php echo $value['Rid'];?>" onClick="return confirm('Are you sure you want to delete?')" class="del_btn">Delete</a> </td>
+						
 										<?php }?>
 									</tr>
 								<?php }?>

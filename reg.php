@@ -17,20 +17,24 @@ require 'class.php';
     $isAdmin = 0;
     $Registration = new Registration();
     
+    
+
 if (isset($_POST['submit'])) {
-        $Uname = isset($_POST['Uname'])?$_POST['Uname']:'';
-        $name = isset($_POST['name'])?$_POST['name']:'';
-        $Sdate = isset($_POST['Sdate'])?$_POST['Sdate']:'';
-        $mobile = isset($_POST['mobile'])?$_POST['mobile']:'';
-        $pswd = isset($_POST['pswd'])?$_POST['pswd']:'';
-        $rpswd = isset($_POST['rpswd'])?$_POST['rpswd']:'';
-            
-   if (empty($_POST['Uname']) || empty($_POST['name']) || empty($_POST['mobile']) || empty($_POST['pswd'])) {
-        $error[] = array('input'=>'username', 'msg'=>'Please Fill Out all the fields! ');
+    $Uname = isset($_POST['Uname'])?$_POST['Uname']:'';
+    $name = isset($_POST['name'])?$_POST['name']:'';
+    $Sdate = isset($_POST['Sdate'])?$_POST['Sdate']:'';
+    $mobile = isset($_POST['mobile'])?$_POST['mobile']:'';
+    $pswd = isset($_POST['pswd'])?$_POST['pswd']:'';
+    $rpswd = isset($_POST['rpswd'])?$_POST['rpswd']:'';
+    if ($pswd != $rpswd) {
+        $error[] = array('input'=>'password', 'msg'=>'password doesnt match');
     }
-    $Registration->reg($Uname,$name,$mobile,$Isblock,$pswd,$isAdmin);
-    echo "registration success";
+    else {
+        $Registration->reg($Uname,$name,$mobile,$Isblock,$pswd,$isAdmin);
+        echo "registration success";
+    }
 }
+
 ?>
 <html>
     <head>
@@ -38,7 +42,7 @@ if (isset($_POST['submit'])) {
         <link type = "text/css" rel = "stylesheet" href = "style.css">
     </head>
     <body style="padding-left:0px;">
-        <div id="message">
+    <div id="message">
             <?php echo $message; ?>
         </div>
         <div id = "error">
@@ -49,17 +53,19 @@ if (isset($_POST['submit'])) {
                     <?php endforeach; ?>
                 </ul>
             <?php endif;?>
+           
         </div>
         <h1 class="header">Register Yourself with CedCab</h1>
-        <form id="Register Form" action = "reg.php" method = "POST">
+        <form id="form" action = "reg.php" method = "POST">
             <label for="Uname">Username<input type="text" name="Uname" required></label><br>
             <label for="name">Name<br><input type="text" name="name" required></label><br>
-            <label for="mobile">Mobile<input type="text" name="mobile" required></label required><br>
-            <label for="pswd">Password<input type="text" name="pswd" required></label><br>
-            <label for="Sdate">Confirm Password<input type="text" name="pswd" required></label><br>
+            <label for="mobile">Mobile<input type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control ms1" name="mobile" required></label required><br>
+            <label for="pswd">Password<input type="password" name="pswd" required></label><br>
+            <label for="rpswd">Confirm Password<input type="password" name="rpswd" required><span id='message'></span></label><br>
             <p><input type="submit" name="submit" value="Register" required></p>
         </form>
             <p class="p2">Already User?</p><br>
             <a href="login.php" class="a5" role="button" aria-pressed="true">Login</a>
     </body>
+    
 </html>

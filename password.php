@@ -49,7 +49,7 @@
         <h1 class="header">Forget Password</h1>
         <form id="SignUp Form" action = "password.php" method = "POST">
             <label for="Uname">Previous Password<input type="text" name="oldPass" ></label><br>
-            <label for="pswd">New Password<input type="text" name="newPass" ></label><br>
+            <label for="pswd">New Password<input type="password" name="newPass" ></label><br>
             <p><input type="submit" name="submit" value="Update Password"></p>
         </form>
         <?php if ($_SESSION['userdata']['username'] == "admin") { ?>

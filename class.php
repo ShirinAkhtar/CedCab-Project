@@ -16,7 +16,6 @@ define('dbhost', 'localhost');
 define('dbuser', 'root');
 define('dbpass', "");
 define('dbname', 'Cab_Ride');
-
 /** Connection Class  */
 class Databases
 {
@@ -36,16 +35,13 @@ class Databases
 
     }
 }
-
 /** User Class  */
 class Registration extends Databases
 {
     public function reg($Uname, $name, $mobile, $Isblock, $pswd, $isAdmin)
     {
         $sql1 = "SELECT * FROM tbl_user WHERE Uname='" . $Uname . "' AND pswd='" . $pswd . "'";
-        $result = $this
-            ->conn
-            ->query($sql1);
+        $result = $this->conn->query($sql1);
         if ($result->num_rows > 0)
         {
             echo "value Exists";
@@ -53,9 +49,7 @@ class Registration extends Databases
         else
         {
             $paswd = md5($pswd);
-            $sql = $this
-                ->conn
-                ->query("INSERT INTO tbl_user(`Uname`,`name`, `Sdate`, `mobile`, `Isblock`,`pswd`,`isAdmin`)
+            $sql = $this->conn->query("INSERT INTO tbl_user(`Uname`,`name`, `Sdate`, `mobile`, `Isblock`,`pswd`,`isAdmin`)
         VALUES( '$Uname', '$name', NOW(), '$mobile','$Isblock','$paswd','$isAdmin')");
         }
         return $sql;
@@ -67,9 +61,7 @@ class Registration extends Databases
         $sql = "SELECT * FROM tbl_user WHERE Uname='" . $Uname . "' AND pswd='" . $paswd . "'";
         echo $sql;
         $rtn = '';
-        $result = $this
-            ->conn
-            ->query($sql);
+        $result = $this->conn->query($sql);
         print_r($result);
         if ($result->num_rows > 0)
         {
@@ -77,17 +69,18 @@ class Registration extends Databases
             {
                 $_SESSION['userdata'] = array(
                     'userid' => $row['Uid'],
-                    'username' => $row['Uname']
+                    'username' => $row['Uname'],
+                    'dataname' => $row['name'],
+                    'datamobile' => $row['mobile']
                 );
                 if ($row['Uname'] == 'admin' || $row['Uname'] == 'Admin')
                 {
                     header('Location: admin.php');
                     $rtn = 'Login Success';
-
                 }
                 else
                 {
-                    header('Location: cabhome1.php');
+                    header('Location: index.php');
                 }
             }
             return $rtn;
@@ -99,9 +92,7 @@ class Registration extends Databases
         $c = 0;
         $sql = "SELECT * FROM tbl_user ";
 
-        $result = $this
-            ->conn
-            ->query($sql);
+        $result = $this->conn->query($sql);
 
         if ($result->num_rows > 0)
         {
@@ -118,9 +109,7 @@ class Registration extends Databases
     {
         $store = array();
         $sql = "SELECT * FROM `tbl_user` ORDER BY `Sdate`";
-        $result = $this
-            ->conn
-            ->query($sql);
+        $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
         {
             while ($row = $result->fetch_assoc())
@@ -130,13 +119,12 @@ class Registration extends Databases
             return $store;
         }
     }
+
     public function userRequest_sortByName()
     {
         $store = array();
         $sql = "SELECT * FROM `tbl_user` ORDER BY `Uname`";
-        $result = $this
-            ->conn
-            ->query($sql);
+        $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
         {
             while ($row = $result->fetch_assoc())
@@ -169,29 +157,22 @@ class Registration extends Databases
     public function del_user($id)
     {
         $sql = "DELETE FROM `tbl_user` WHERE `Uid` = '$id'";
-        $result = $this
-            ->conn
-            ->query($sql);
+        $result = $this->conn->query($sql);
         if ($result === true)
         {
             echo "Record deleted successfully";
         }
         else
         {
-            echo "Error deleting record: " . $this
-                ->conn->error;
+            echo "Error deleting record: " . $this->conn->error;
         }
 
     }
 
     public function access($id)
     {
-        //$sql = "SELECT * FROM `tbl_user`  WHERE `Uid` = '$id'";
         $sql1 = " UPDATE `tbl_user` SET `Isblock`= 1 WHERE `Uid`='$id'";
-        $result = $this
-            ->conn
-            ->query($sql1);
-
+        $result = $this->conn->query($sql1);
     }
     public function denied($id)
     {
@@ -204,9 +185,7 @@ class Registration extends Databases
     public function get_val($id)
     {
         $sql = 'SELECT * FROM `tbl_user` WHERE `Uid` = "' . $id . '" ';
-        $result = $this
-            ->conn
-            ->query($sql);
+        $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
         {
             while ($row = $result->fetch_assoc())
@@ -225,9 +204,7 @@ class Registration extends Databases
     public function get_pass($id)
     {
         $sql = 'SELECT * FROM `tbl_user` WHERE `Uid` = "' . $id . '" ';
-        $result = $this
-            ->conn
-            ->query($sql);
+        $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
         {
             while ($row = $result->fetch_assoc())
@@ -246,20 +223,14 @@ class Registration extends Databases
     {
         $newPass1 = md5($newPass);
         $sql1 = "UPDATE `tbl_user` SET `pswd`= '$newPass1' WHERE `Uid`='$id'";
-        $result = $this
-            ->conn
-            ->query($sql1);
+        $result = $this->conn->query($sql1);
         return 'Password Updated Succesfully!';
-
     }
 
     public function set_val($id, $name, $mobile)
     {
         $sql1 = "UPDATE `tbl_user` SET `name`='$name', `mobile`='$mobile' WHERE `Uid`='$id'";
-        $result = $this
-            ->conn
-            ->query($sql1);
-
+        $result = $this->conn->query($sql1);
     }
 
 }
@@ -270,9 +241,7 @@ class Ride extends Databases
     {
         $ride = array();
         $sql = "SELECT * FROM tbl_ride";
-        $result = $this
-            ->conn
-            ->query($sql);
+        $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
         {
             while ($row = $result->fetch_assoc())
@@ -307,9 +276,7 @@ class Ride extends Databases
     {
         $ride = array();
         $sql = "SELECT * FROM `tbl_ride` ORDER BY `Rdate` ";
-        $result = $this
-            ->conn
-            ->query($sql);
+        $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
         {
             while ($row = $result->fetch_assoc())
@@ -349,9 +316,7 @@ class Ride extends Databases
     {
         $ride = array();
         $sql = "SELECT * FROM `tbl_ride` ORDER BY `tdistance` ";
-        $result = $this
-            ->conn
-            ->query($sql);
+        $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
         {
             while ($row = $result->fetch_assoc())
@@ -369,9 +334,7 @@ class Ride extends Databases
     {
         $ride = array();
         $sql = "SELECT * FROM `tbl_ride` ORDER BY `tfare` ";
-        $result = $this
-            ->conn
-            ->query($sql);
+        $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
         {
             while ($row = $result->fetch_assoc())
@@ -389,17 +352,14 @@ class Ride extends Databases
     public function del_ride($id)
     {
         $sql = "DELETE FROM `tbl_ride` WHERE `Rid` = '$id'";
-        $result = $this
-            ->conn
-            ->query($sql);
+        $result = $this->conn->query($sql);
         if ($result === true)
         {
             echo "Record deleted successfully";
         }
         else
         {
-            echo "Error deleting record: " . $this
-                ->conn->error;
+            echo "Error deleting record: " . $this->conn->error;
         }
     }
 
@@ -407,9 +367,7 @@ class Ride extends Databases
     {
         $p = 0;
         $sql = "SELECT * FROM tbl_ride WHERE `Uid` = '$Uid'";
-        $result = $this
-            ->conn
-            ->query($sql);
+        $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
         {
             while ($row = $result->fetch_assoc())
@@ -423,9 +381,7 @@ class Ride extends Databases
                 {
                     $sql1 = "INSERT INTO `tbl_ride`(`Uid`,`Rdate`,`Rfrom`, `Rto`, `tdistance`, `cabtype`,`lug`,`tfare`,`status`)
                     VALUES('$Uid',NOW(), '$pick','$drop','$dist','$cabType', '$lug','$amt','$status')";
-                    $result = $this
-                        ->conn
-                        ->query($sql1);
+                    $result = $this->conn->query($sql1);
                     return " Ride Recieved! Request Pending";
                 }
             }
@@ -434,19 +390,29 @@ class Ride extends Databases
         {
             $sql1 = "INSERT INTO `tbl_ride`(`Uid`,`Rdate`,`Rfrom`, `Rto`, `tdistance`,`cabType`, `lug`,`tfare`,`status`)
             VALUES('$Uid',NOW(), '$pick','$drop','$dist', '$cabType','$lug','$amt','$status')";
-            $result = $this
-                ->conn
-                ->query($sql1);
+            $result = $this->conn->query($sql1);
             return " Ride Recieved! Wait for the approval!";
         }
+    }
+
+    public function store_ride_details( $pick, $drop, $dist, $cabType, $lug, $amt, $status)
+    {
+        $_SESSION['booking'] = array(
+          
+            'pick' => $pick,
+            'drop' => $drop,
+            'dist' => $dist,
+            'cabType' => $cabType,
+            'lug' => $lug,
+            'amt' => $amt,
+            'status' => $status
+        );
     }
     public function ride_history($id)
     {
         $ride = array();
         $sql = "SELECT * FROM tbl_ride WHERE `Uid` = '$id'";
-        $result = $this
-            ->conn
-            ->query($sql);
+        $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
         {
             while ($row = $result->fetch_assoc())
@@ -461,16 +427,12 @@ class Ride extends Databases
         }
     }
 }
-
 /** Location Class  */
-
 class Location extends Databases
 {
     public function add_location($Lname, $Ldis, $Lavilable)
     {
-        $sql = $this
-            ->conn
-            ->query("INSERT INTO `tbl_location` (`Lname`, `Ldis`,`Lavilable`) 
+        $sql = $this->conn->query("INSERT INTO `tbl_location` (`Lname`, `Ldis`,`Lavilable`) 
             VALUES ('$Lname', '$Ldis','$Lavilable')");
         return $sql;
     }
@@ -478,22 +440,15 @@ class Location extends Databases
     {
         $location = array();
         $sql = "SELECT * FROM tbl_location";
-        //echo $sql;
         $result = $this
             ->conn
             ->query($sql);
-        //print_r($result);
         if ($result->num_rows > 0)
         {
             while ($row = $result->fetch_assoc())
             {
                 array_push($location, $row);
-                $_SESSION['Locationdata'] = array(
-                    'Locationid' => $row['Lid'],
-                    'locationname' => $row['Lname'],
-                    'location_dis' => $row['Ldis'],
-                    'location_avl' => $row['Lavilable']
-                );
+                
             }
             return $location;
         }
@@ -505,26 +460,20 @@ class Location extends Databases
     public function del_location($id)
     {
         $sql = "DELETE FROM `tbl_location` WHERE `Lid` = '$id'";
-        $result = $this
-            ->conn
-            ->query($sql);
+        $result = $this->conn->query($sql);
         if ($result === true)
         {
             echo "Record deleted successfully";
         }
         else
         {
-            echo "Error deleting record: " . $this
-                ->conn->error;
+            echo "Error deleting record: " . $this->conn->error;
         }
     }
     public function get_loc($id)
     {
         $sql = 'SELECT * FROM `tbl_location` WHERE `Lid` = "' . $id . '" ';
-        $result = $this
-            ->conn
-            ->query($sql);
-        //echo $sql;
+        $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
         {
             while ($row = $result->fetch_assoc())
@@ -541,25 +490,18 @@ class Location extends Databases
     public function set_loc($id, $lname, $ldis, $lavilable)
     {
         $sql1 = "UPDATE `tbl_location` SET `Lname`='$lname', `Ldis`='$ldis',`Lavilable`='$lavilable' WHERE `Lid`='$id'";
-        $result = $this
-            ->conn
-            ->query($sql1);
+        $result = $this->conn->query($sql1);
     }
 
     public function access($id)
     {
-        //$sql = "SELECT * FROM `tbl_user`  WHERE `Uid` = '$id'";
         $sql1 = "UPDATE `tbl_location` SET `Lavilable`= 1 WHERE `Lid`='$id'";
-        $result = $this
-            ->conn
-            ->query($sql1);
+        $result = $this->conn->query($sql1);
     }
     public function denied($id)
     {
         $sql1 = "UPDATE `tbl_location` SET `Lavilable`= 0 WHERE `Lid`='$id'";
-        $result = $this
-            ->conn
-            ->query($sql1);
+        $result = $this->conn->query($sql1);
     }
 }
 ?>

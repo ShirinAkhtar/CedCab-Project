@@ -20,6 +20,8 @@ $drop = isset($_POST['drop']) ? $_POST['drop'] : '';
 $cabType = isset($_POST['cabType']) ? $_POST['cabType'] : '';
 $lug = isset($_POST['lug']) ? $_POST['lug'] : '';
 $action = isset($_POST['action']) ? $_POST['action'] : '';
+
+
 foreach ($lo as $key => $value)
 {
     if ($value['Lname'] == $pick)
@@ -210,4 +212,10 @@ if ($action == 1)
 
     echo $Ride->store_ride($Uid, $pick, $drop, $dist, $cabType, $lug, $amt, $status);
 }
+if ($action == 2)
+{
+
+    echo $Ride->store_ride_details($pick, $drop, $dist, $cabType, $lug, $amt, $status);
+}
+
 ?>

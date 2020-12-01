@@ -68,7 +68,7 @@ if(isset($_POST['filter'])) {
 							<input type="submit" name="id" value="Id" class="input" />
 							<input type="submit" name="username" value="UserName" class="input" />
 							<input type="submit" name="date" value="Date" class="input" />
-							<input type="text" name="Fname"/>
+							<input type="text" name="Fname" id="s1"/>
   							<input type="submit" name="filter" value="Filter"/>
 						</th>
 					</tr>
@@ -83,11 +83,12 @@ if(isset($_POST['filter'])) {
 								<td><?php echo $value['mobile']; ?></td>
 								<td><?php echo $value['Isblock']; ?></td>
 								<td><?php echo $value['isAdmin']; ?></td>
-								<?php if ($value['Isblock'] == "0") { ?>
-								<td><a href="request.php?action=access&Aid=<?php echo $value['Uid'];?>" class="edit_btn" name="access_granted">Access Granted</a> </td>
+								<?php if ($value['Isblock'] == "1") { ?>
+									<td><a href="request.php?action=access&Did=<?php echo $value['Uid'];?>" class="edit_btn1" name="access_granted">Access Denied</a> </td>
 								<?php } else 
-            								{ ?>
-								<td><a href="request.php?action=access&Did=<?php echo $value['Uid'];?>" class="edit_btn1" name="access_granted">Access Denied</a> </td>
+											{ ?>
+								<td><a href="request.php?action=access&Aid=<?php echo $value['Uid'];?>" class="edit_btn" name="access_granted">Access Granted</a> </td>
+								
 								<?php } ?>
 								<td><a href="deleteAccess.php?action=access&id=<?php echo $value['Uid'];?>" onClick="return confirm('Are you sure you want to delete?')" class="del_btn">Delete</a> </td>
 								<?php } ?>

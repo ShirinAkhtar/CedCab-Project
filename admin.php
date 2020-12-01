@@ -149,12 +149,12 @@ $loc = $Location->location_avilable();
 			</div>
 			<div onclick="location.href='pendingRide.php'">
 				<div class="header3">
-					<h1><?php echo sizeof($store2);?></h1>
+					<h1><i class="fa fa-bus" aria-hidden="true" style="font-size:36px;"></i></h1>
 					<h3>Pending Ride</h3> </div>
 			</div>
 			<div onclick="location.href='completedRide.php'">
 				<div class="header4">
-					<h1><?php echo sizeof($loc);?></h1>
+					<h1><i class="fa fa-car" aria-hidden="true" style="font-size:36px;"></i></h1>
 					<h3>Completed Ride</h3> </div>
 			</div>
 			<div onclick="location.href='location.php'">
@@ -164,8 +164,8 @@ $loc = $Location->location_avilable();
 			</div>
 			<div onclick="location.href='invoices.php'">
 				<div class="header6">
-					<h1><?php echo sizeof($loc);?></h1>
-					<h3>Invoices</h3> </div>
+					<h1><i class="fa fa-bar-chart" aria-hidden="true" style="font-size:36px;"></i></h1>
+					<h3>Report Analysis</h3> </div>
 			</div>
 		</div>
 	</body>

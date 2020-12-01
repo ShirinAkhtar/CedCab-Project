@@ -11,8 +11,6 @@
  * @link     http://localhost/
  */
 session_start();
-if (session_destroy()) {
-    header("Location:login.php");
-    exit;
-}
+session_destroy();
+header('Location:index.php');
 ?>
