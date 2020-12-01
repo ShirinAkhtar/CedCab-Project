@@ -3,7 +3,7 @@
 require 'class.php';
 $Location = new Location();  
 $lo = $Location->location_avilable();
-// session_destroy();
+//session_destroy();
 if(isset($_SESSION['booking'])){
 
 $Ride = new Ride();
@@ -33,6 +33,7 @@ unset($_SESSION['booking']);}
 				</div>
 				<div class="collapse navbar-collapse text-sm-center" id="collapsibleNavbar">
 					<ul class="nav navbar-nav navbar-right text-center">
+					<li><a href="index.php">Home</a></li>
 						<?php if(isset($_SESSION['userdata'])) {?>
 						<li><a href="dashboard.php" id="wel">Welcome <?php $_SESSION['userdata']['username'] ?> </a></li>
 						<li><a href="history.php" id="all" class="flex-sm-fill text-sm-center">All Ride Records</a> </li>
@@ -63,20 +64,22 @@ unset($_SESSION['booking']);}
 								<div class="input-group"> <span class="input-group-addon">PICK UP</span>
 									<select id="msg4" class="custom-select form-control" required>
 										<option selected >Current Location</option>
-										<?php	foreach($lo as $key=> $value){ ?>
+										<?php	foreach($lo as $key=> $value){
+											if($value['Lavilable'] == 1 ){ ?>
 											<option value="<?php echo $value['Lname']; ?>">
 												<?php echo $value['Lname']; ?>
-											</option>
+											</option><?php } ?>
 											<?php } ?>
 									</select>
 								</div>
 								<div class="input-group"> <span class="input-group-addon">DROP</span>
 									<select id="msg3" class="custom-select form-control" required>
 										<option selected >Enter drop for ride estimate</option>
-										<?php foreach($lo as $key=> $value) { ?>
+										<?php foreach($lo as $key=> $value) { 
+											if($value['Lavilable'] == 1 ){ ?>
 											<option value="<?php echo $value['Lname']; ?>">
 												<?php echo $value['Lname']; ?>
-											</option>
+											</option><?php } ?>
 											<?php } ?>
 									</select>
 								</div>

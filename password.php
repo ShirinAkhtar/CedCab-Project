@@ -12,6 +12,7 @@
  */
    
     require 'class.php';
+    require 'header3.php';
     $error  = array();
     $message = '';
     $Registration = new Registration();

@@ -11,7 +11,8 @@
  * @link     http://localhost/
  */
    
-    require 'class.php';
+	require 'class.php';
+	require 'header3.php';
     $error  = array();
     $message = '';
     $Registration = new Registration();
@@ -32,6 +33,7 @@
 		<link type="text/css" rel="stylesheet" href="style.css"> </head>
 
 	<body style="padding-left:0px;">
+	
 		<div id="message">
 			<?php echo $message; ?>
 		</div>
@@ -51,8 +53,7 @@
 			<label for="Uname">Username<input type="text" name="Uname" value="<?php if(isset($_COOKIE['username'])) { echo $_COOKIE['username'];}?>"></label><br>
 			<label for="pswd">Password<input type="password" name="pswd"></label><br>
 			<p><input type="submit" name="submit" value="LOGIN"></p>
-			<p class="remember_me">
-      <label><input type="checkbox" name="rememberme" id="remember_me">Remember me </label>
+      		<label>Remember me </label><input type="checkbox" name="rememberme" id="remember_me"/>
 		</form><a class="a4" href="password.php?action=pass&id=<?php echo $_SESSION['userdata']['userid'];?>">Forget Password?</a> <a href="reg.php" class="a2" role="button" aria-pressed="true">Register Now</a> </body>
 	</body>
 </html>

@@ -39,6 +39,7 @@ $store1 = $Ride->ride_history($id);
 			</div>
 			<div class="collapse navbar-collapse text-sm-center" id="collapsibleNavbar">
 				<ul class="nav navbar-nav navbar-right text-center">
+                <li><a href="index.php">Home</a></li>
 				<li><a href="dashboard.php">Welcome <?php $_SESSION['userdata']['username']?> </a></li>
 				<li><a href="history.php" class="flex-sm-fill text-sm-center">All Ride Records</a> </li>
 					

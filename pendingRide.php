@@ -87,13 +87,13 @@ if(isset($_REQUEST["Did"]))
 							<td><?php echo $value['lug']; ?></td>
 							<td><?php echo $value['tfare']; ?></td>
 							<td><?php echo $value['status']; ?></td>
-							<?php if ($value['status'] == "0") { ?>
-								<td><a href="pendingRide.php?action=access&Aid=<?php echo $value['Rid'];?>" class="edit_btn1" name="access_granted">Pending Ride</a> 
+							<?php if ($value['status'] == 1) { ?>
+								<td><a href="pendingRide.php?action=access&Did=<?php echo $value['Rid'];?>" class="edit_btn" name="access_granted">Completed Ride</a> </td>
 								<?php } else 
 											{ ?>
-								<td><a href="pendingRide.php?action=access&Did=<?php echo $value['Rid'];?>" class="edit_btn" name="access_granted">Completed Ride</a> </td>
+								<td><a href="pendingRide.php?action=access&Aid=<?php echo $value['Rid'];?>" class="edit_btn1" name="access_granted">Pending Ride</a></td> 
 								
-								<?php } ?></td>
+								<?php } ?>
 							<td><a href="deleteRide.php?action=edit&id=<?php echo $value['Rid'];?>" onClick="return confirm('Are you sure you want to delete?')" class="del_btn">Delete</a> </td>
 						</tr><?php } 
         					}?>

@@ -372,7 +372,7 @@ class Ride extends Databases
         {
             while ($row = $result->fetch_assoc())
             {
-                if ($row['status'] == 1)
+                if ($row['status'] == 0)
                 {
                     $p = 1;
                     return " Can't Accept any ride already pendding 1";
