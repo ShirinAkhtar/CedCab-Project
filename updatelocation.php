@@ -35,7 +35,7 @@
         <title>Update form </title>
         <link type = "text/css" rel = "stylesheet" href = "style.css">
     </head>
-    <body style="background-color:white;">
+    <body style="background-color:white;padding-left:0px;">
         <div id="message">
             <?php echo $message; ?>
         </div>
@@ -53,8 +53,8 @@
         <?php //print_r($_SESSION['userdata']); ?>
             <form id="Update Form"  method = "POST">
                 <label for="location">Location<br><input type="text" name="Lname" value="<?php echo $_SESSION['Locationdata']['locationname'] ?>" required></label><br>
-                <label for="distance">Location Distance<input type="text" name="Ldistance" value="<?php echo $_SESSION['Locationdata']['location_dis'] ?>" required></label required><br>
-                <label for="avilable">Location Avilable<input type="text" name="Lavil" value="<?php echo $_SESSION['Locationdata']['location_avl'] ?>" required></label required><br>
+                <label for="distance">Location Distance<input type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="Ldistance" value="<?php echo $_SESSION['Locationdata']['location_dis'] ?>" required></label required><br>
+                <label for="avilable">Location Avilable<input type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="Lavil" value="<?php echo $_SESSION['Locationdata']['location_avl'] ?>" required></label required><br>
                 <p><input type="submit" name="submit" value="Update Record" required></p>    
             </form>
             <a href="location.php" class="a4" role="button" aria-pressed="true">Back to Location Table</a>

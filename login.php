@@ -53,7 +53,7 @@
 			<label for="Uname">Username<input type="text" name="Uname" value="<?php if(isset($_COOKIE['username'])) { echo $_COOKIE['username'];}?>"></label><br>
 			<label for="pswd">Password<input type="password" name="pswd"></label><br>
 			<p><input type="submit" name="submit" value="LOGIN"></p>
-      		<label>Remember me </label><input type="checkbox" name="rememberme" id="remember_me"/>
-		</form><a class="a4" href="password.php?action=pass&id=<?php echo $_SESSION['userdata']['userid'];?>">Forget Password?</a> <a href="reg.php" class="a2" role="button" aria-pressed="true">Register Now</a> </body>
+      		<label>Remember me </label><input type="checkbox" name="rememberme" id="remember_me" checked/>
+		</form><!--<a class="a4" href="password.php?action=pass&id=<?php echo $_SESSION['userdata']['userid'];?>">Forget Password?</a> <a href="reg.php" class="a2" role="button" aria-pressed="true">Register Now</a>--> </body>
 	</body>
 </html>

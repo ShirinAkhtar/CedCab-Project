@@ -80,7 +80,6 @@ body {
   </nav>
 
 <a href="index.php">Home</a>
-<a href="login.php">Login</a>
-<a href="password.php">Forget Password</a>
+<a href="password.php">Change Password</a>
 <a href="logout.php">Logout</a>
 </div>

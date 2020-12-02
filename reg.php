@@ -17,8 +17,6 @@ require 'header3.php';
     $Isblock = 0;
     $isAdmin = 0;
     $Registration = new Registration();
-    
-    
 
 if (isset($_POST['submit'])) {
     $Uname = isset($_POST['Uname'])?$_POST['Uname']:'';
@@ -32,7 +30,7 @@ if (isset($_POST['submit'])) {
     }
     else {
         $Registration->reg($Uname,$name,$mobile,$Isblock,$pswd,$isAdmin);
-        echo "registration success";
+        echo "Registration Successful!, Wait for the Admin Approval!";
     }
 }
 

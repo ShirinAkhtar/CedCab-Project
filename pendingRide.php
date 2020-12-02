@@ -96,7 +96,7 @@ if(isset($_REQUEST["Did"]))
 						</tr><?php } 
         					}?>
 						<tr>
-							<td><?php echo "Total Earnings:".$total; ?></td>
+							<td><?php //echo "Total Earnings:".$total; ?></td>
 						</tr>
 					</table>
 				</div>

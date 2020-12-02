@@ -26,7 +26,8 @@
         $oldPass = isset($_POST['oldPass'])?$_POST['oldPass']:'';
         $newPass = isset($_POST['newPass'])?$_POST['newPass']:'';
         $sid = $_SESSION['userdata']['userid'];
-        echo  $Registration->update_pass($sid,$newPass);
+         $Registration->update_pass($sid,$newPass);
+        header('Location:login.php');
     }
 ?>
 <html>

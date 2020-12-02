@@ -11,7 +11,7 @@
  * @link     http://localhost/
  */
 require 'class.php';
-require 'header3.php';
+require 'header4.php';
 $error = array();
 $message = '';
 $id = $_REQUEST["id"];
@@ -58,7 +58,7 @@ if (isset($_POST['submit']))
 		<label for="mobile">Mobile<input type="text" name="mobile" value="<?php echo $_SESSION['userdata']['datamobile'] ?>" required/></label><br>
 		<p><input type="submit" name="submit" value="Update Record" required></p>
 	</form> 
-	<a href="password.php" class="a4" role="button" aria-pressed="true">Change Password</a>
-	<a href="index.php" class="a3" role="button" aria-pressed="true">Dashboard</a>
+<!--	<a href="password.php" class="a4" role="button" aria-pressed="true">Change Password</a>
+	<a href="index.php" class="a3" role="button" aria-pressed="true">Dashboard</a> -->
 </body>
 </html>

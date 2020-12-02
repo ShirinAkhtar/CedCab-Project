@@ -18,13 +18,6 @@ if (!isset($_SESSION['userdata'])) {
 $Ride = new Ride();  
 $id = $_SESSION['userdata']['userid'];
 $store1 = $Ride->ride_history($id);
-
-if(isset($_POST['filter'])) {
-    $id = $_SESSION['userdata']['userid'];
-	$startdate = isset($_POST['startdate'])?$_POST['startdate']:'';
-    $endate = isset($_POST['endate'])?$_POST['endate']:'';
-    $store1 = $Ride-> ride_filterByDate1($startdate,$endate,$id);
-}
 ?>
 <html>
 <head>
@@ -36,7 +29,7 @@ if(isset($_POST['filter'])) {
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="cab1.css"> 
+	<link rel="stylesheet" href="cab.css"> 
 </head>
 <body style="background-color:white">
 <nav class="navbar navbar-inverse nav-pills flex-column flex-sm-row navbar-expand-md">
@@ -63,17 +56,9 @@ if(isset($_POST['filter'])) {
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-        <form method="post">
             <table id="exam_data_table" 
             class="table table-bordered table-striped table-hover">
-            <thead> <tr>
-						<th>
-                            <input type="date" name="startdate"/>
-                            <input type="date" name="endate"/>
-                            <input type="submit" name="filter" value="Filter"/>
-                        </th>
-					</tr>
-            <tr><th>1.All List<th></tr>
+            <thead><tr><th>1.Pending List<th></tr>
                 <tr>
                     <th>Ride Date and Time</th>
                     <th>Ride From</th>
@@ -87,8 +72,10 @@ if(isset($_POST['filter'])) {
             </thead>
             <?php 
             foreach($store1 as $key=> $value){
+                if($value['status'] == 1) {
             ?> 
             <tr>
+            
             <td><?php echo $value['Rdate']; ?></td>
             <td><?php echo $value['Rfrom']; ?></td>
             <td><?php echo $value['Rto']; ?></td>
@@ -97,11 +84,11 @@ if(isset($_POST['filter'])) {
             <td><?php echo $value['lug']; ?></td>
             <td><?php echo $value['tfare']; ?></td>        
         </tr><?php
-         }?>
+         }?><?php
+        }?>
         </table>
-        </form>
     </div>
-
+    
 </div>
 </div>
 </body>

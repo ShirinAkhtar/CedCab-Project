@@ -29,16 +29,17 @@ if(isset($_REQUEST["Did"]))
 }
 if(isset($_POST['username'])) {
     $store1 = $Registration-> userRequest_sortByName();
-    //header('Location: request.php');
 }
 if(isset($_POST['date'])) {
     $store1 = $Registration-> userRequest_sortByDate();
-    //header('Location: request.php');
 }
 if(isset($_POST['filter'])) {
 	$Fname = isset($_POST['Fname'])?$_POST['Fname']:'';
-	$store1 = $Registration-> user_filterByName($Fname);
-    //header('Location: request.php');
+	if($Fname == "")
+	{
+		$store1 = $Registration->userRequest();
+	}else{
+	$store1 = $Registration-> user_filterByName($Fname);}
 }
 ?>
 	<html>
@@ -54,6 +55,15 @@ if(isset($_POST['filter'])) {
 			<table id="exam_data_table" class="table table-bordered table-striped table-hover">
 				<thead>
 					<tr>
+						<th>
+							<input type="submit" name="id" value="Id" class="input" />
+							<input type="submit" name="username" value="UserName" class="input" />
+							<input type="submit" name="date" value="Date" class="input" />
+							<input type="text" name="Fname" id="s1"/>
+  							<input type="submit" name="filter" value="Filter"/>
+						</th>
+					</tr>
+					<tr>
 						<th>User Id</th>
 						<th>UserName</th>
 						<th>Name</th>
@@ -63,14 +73,6 @@ if(isset($_POST['filter'])) {
 						<th>Admin Status</th>
 						<th>Action</th>
 						<th>Action</th>
-						<th>Sort & Filter By</th>
-						<th>
-							<input type="submit" name="id" value="Id" class="input" />
-							<input type="submit" name="username" value="UserName" class="input" />
-							<input type="submit" name="date" value="Date" class="input" />
-							<input type="text" name="Fname" id="s1"/>
-  							<input type="submit" name="filter" value="Filter"/>
-						</th>
 					</tr>
 				</thead>
 				<?php  foreach($store1 as $key=> $value){

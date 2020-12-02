@@ -47,11 +47,24 @@ if(isset($_POST['filter'])) {
 						<h3 class="panel-title"><center>Ride Request List</center></h3> </div>
 				</div>
 			</div>
+			
 			<div class="card-body">
 				<div class="table-responsive">
+				
 					<form method="post">
 						<table id="exam_data_table" class="table table-bordered table-striped table-hover">
+						
 							<thead>
+							<tr>
+								<th>
+									<input type="submit" name="date" value="Date" class="input" />
+									<input type="submit" name="distance" value="Distance" class="input" />
+									<input type="submit" name="fare" value="Total Fare" class="input" />
+									<input type="date" name="startdate"/>
+									<input type="date" name="endate"/>
+  									<input type="submit" name="filter" value="Filter"/>
+								</th>
+							</tr>
 								<tr>
 									<th>Ride Id</th>
 									<th>Ride Date</th>
@@ -64,12 +77,7 @@ if(isset($_POST['filter'])) {
 									<th>Status</th>
 									<th>Action</th>
 									<th>
-										<input type="submit" name="date" value="Date" class="input" />
-										<input type="submit" name="distance" value="Distance" class="input" />
-										<input type="submit" name="fare" value="Total Fare" class="input" />
-									    <input type="date" name="startdate"/>
-										<input type="date" name="endate"/>
-  										<input type="submit" name="filter" value="Filter"/>
+										
 									<th>
 								</tr>
 							</thead>
@@ -114,11 +122,6 @@ if(isset($_POST['filter'])) {
 								</tr>
 								<?php
          }?>
-									<tr>
-										<td>
-											<?php echo "Total Earnings:".$total; ?>
-										</td>
-									</tr>
 						</table>
 					</form>
 				</div>

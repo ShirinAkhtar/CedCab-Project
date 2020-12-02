@@ -58,11 +58,10 @@ class Registration extends Databases
     public function regLogin($Uname, $pswd)
     {
         $paswd = md5($pswd);
-        $sql = "SELECT * FROM tbl_user WHERE Uname='" . $Uname . "' AND pswd='" . $paswd . "'";
-        echo $sql;
+        $sql = "SELECT * FROM tbl_user WHERE binary Uname='" . $Uname . "' AND pswd='" . $paswd . "'  AND Isblock = 1 ";
+       
         $rtn = '';
         $result = $this->conn->query($sql);
-        print_r($result);
         if ($result->num_rows > 0)
         {
             while ($row = $result->fetch_assoc())
@@ -73,7 +72,7 @@ class Registration extends Databases
                     'dataname' => $row['name'],
                     'datamobile' => $row['mobile']
                 );
-                if ($row['Uname'] == 'admin' || $row['Uname'] == 'Admin')
+                if ($row['Uname'] == 'admin')
                 {
                     header('Location: admin.php');
                     $rtn = 'Login Success';
@@ -308,12 +307,35 @@ class Ride extends Databases
             return $ride;
         }
     }
+
     public function ride_filterByDate($startdate,$endate)
     {
         $ride = array();
         $sql = "SELECT * FROM `tbl_ride`";
         if(!empty($startdate) && !empty($endate)){
             $sql .= " WHERE CAST(Rdate AS DATE) between '".$startdate."' AND '".$endate."' ";
+        }
+        $result = $this->conn->query($sql);
+        if ($result->num_rows > 0)
+        {
+            while ($row = $result->fetch_assoc())
+            {
+                array_push($ride, $row);
+            }
+            return $ride;
+        }
+        else
+        {
+            return $ride;
+        }
+    }
+
+    public function ride_filterByDate1($startdate,$endate,$id)
+    {
+        $ride = array();
+        $sql = "SELECT * FROM `tbl_ride`";
+        if(!empty($startdate) && !empty($endate)){
+            $sql .= " WHERE CAST(Rdate AS DATE) between '".$startdate."' AND '".$endate."' AND `Uid`='$id' ";
         }
         $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
@@ -348,6 +370,9 @@ class Ride extends Databases
             return $ride;
         }
     }
+
+    
+
     public function ride_sortByFare()
     {
         $ride = array();
@@ -366,6 +391,8 @@ class Ride extends Databases
             return $ride;
         }
     }
+
+    
 
     public function del_ride($id)
     {
@@ -520,6 +547,7 @@ class Location extends Databases
     {
         $sql1 = "UPDATE `tbl_location` SET `Lname`='$lname', `Ldis`='$ldis',`Lavilable`='$lavilable' WHERE `Lid`='$id'";
         $result = $this->conn->query($sql1);
+        header('Location: location.php');
     }
 
     public function access($id)

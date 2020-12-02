@@ -1,5 +1,7 @@
 <?php
-
+$time = $_SERVER['REQUEST_TIME'];
+//echo $time;
+$timeout_duration = 180;
 require 'class.php';
 $Location = new Location();  
 $lo = $Location->location_avilable();
@@ -9,6 +11,12 @@ if(isset($_SESSION['booking'])){
 $Ride = new Ride();
 $ride_store = $Ride->store_ride( $_SESSION['userdata']['userid'],$_SESSION['booking']['pick'], $_SESSION['booking']['drop'], $_SESSION['booking']['dist'], $_SESSION['booking']['cabType'], $_SESSION['booking']['lug'], $_SESSION['booking']['amt'],  $_SESSION['booking']['status']);
 unset($_SESSION['booking']);}
+if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $timeout_duration) {
+    unset($_SESSION['booking']);
+    session_destroy();
+    session_start();
+}
+$_SESSION['LAST_ACTIVITY'] = $time;
 ?>
 <!DOCTYPE html>
 <html lang="en">

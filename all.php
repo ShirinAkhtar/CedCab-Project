@@ -53,7 +53,7 @@ $lo = $Location->location_avilable();
             </thead>
             <?php 
             foreach($store1 as $key=> $value){
-                if($value['Isblock'] == 0){
+                if(($value['Isblock'] == 0)|| ($value['Isblock'] == 1)){
                     if($value['isAdmin'] == 0){ ?>
             <tr>
             <td><?php echo $value['Uid'] ?></td>
@@ -90,7 +90,7 @@ $lo = $Location->location_avilable();
             </thead>
             <?php 
             foreach($store as $key=> $value){
-               // if($value['Isblock'] == 0){
+                //if(($value['Isblock'] == 0)|| ($value['Isblock'] == 1)){
             ?> 
             <tr>
             <td><?php echo $value['Rid'] ?></td>
@@ -105,7 +105,8 @@ $lo = $Location->location_avilable();
             <td><?php echo $value['tfare']; ?></td>
             <td><?php echo $value['status']; ?></td>            
         </tr><?php
-         }?>
+         }?><?php
+        //}?>
         </table>
         <table id="exam_data_table" 
             class="table table-bordered table-striped table-hover">
