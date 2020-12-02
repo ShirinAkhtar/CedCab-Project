@@ -59,11 +59,6 @@ if(isset($_POST['fare'])) {
 								<th>Total Fare</th>
 								<th>Status</th>
 								<th>Action</th>
-								<th>
-									<input type="submit" name="date" value="Date" class="input" />
-									<input type="submit" name="distance" value="Distance" class="input" />
-									<input type="submit" name="fare" value="Total Fare" class="input" />
-								<th>
 							</tr>
 						</thead>
 						<?php 
@@ -77,7 +72,10 @@ if(isset($_POST['fare'])) {
 									<?php echo $value['Rid'] ?>
 								</td>
 								<td>
-									<?php echo $value['Rdate']; ?>
+								<?php $date = $value['Rdate'];
+									  $createDate = new DateTime($date);
+									  $strip = $createDate->format('Y-m-d');?>
+									<?php echo $strip; ?>
 								</td>
 								<td>
 									<?php echo $value['Rfrom']; ?>
@@ -97,10 +95,10 @@ if(isset($_POST['fare'])) {
 								<td>
 									<?php echo $value['tfare']; ?>
 								</td>
-								<td>
-									<?php echo $value['status']; ?>
-								</td>
-								<td> <a href="deleteRide.php?action=edit&id=<?php echo $value['Rid'];?>" onClick="return confirm('Are you sure you want to delete?')" class="del_btn">Delete</a> </td>
+								<td> <a href="showRideDetails.php?action=show&id=<?php echo $value['Rid'];?>" class="edit_btn">Show Details</a> </td>
+								
+								<td> <a href="deleteComplete.php?action=edit&id=<?php echo $value['Rid'];?>" 
+								onClick="return confirm('Are you sure you want to delete?')" class="del_btn">Delete</a> </td>
 								<?php
          }?>
 							</tr>

@@ -12,8 +12,9 @@
  */
 require 'header2.php';
 require 'class.php';
+$id = $_REQUEST["id"];
 $Ride = new Ride();  
-$store1 = $Ride->avilable_rides();
+$store1 = $Ride->avilable_rides2($id);
 $total=0;
 if(isset($_POST['date'])) {
     $store1 = $Ride-> rides_sortByDate();
@@ -37,7 +38,7 @@ if(isset($_POST['fare'])) {
 			<div class="card-header">
 				<div class="row">
 					<div class="col-md-9">
-						<h3 class="panel-title"><center>Ride Request List</center></h3> </div>
+						<h3 class="panel-title"><center>Invoices</center></h3> </div>
 				</div>
 			</div>
 			<div class="card-body">
@@ -58,7 +59,7 @@ if(isset($_POST['fare'])) {
 								</tr>
 							</thead>
 							<?php foreach($store1 as $key=> $value){
-                					if($value['Uid'] == $_SESSION['userdata']['userid']){
+                					//if($value['Uid'] == $_SESSION['userdata']['userid']){
                    						$total = $total + $value['tfare']; ?>
 										<tr>
 											<td><?php echo $_SESSION['userdata']['dataname'] ?></td>
@@ -70,7 +71,7 @@ if(isset($_POST['fare'])) {
 											<td><?php echo $value['lug']; ?></td>
 											<td><?php echo $value['tfare']; ?></td>
 						
-										<?php }?>
+										<?php //}?>
 									</tr>
 								<?php }?>
 								<tr>

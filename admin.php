@@ -21,11 +21,10 @@ $store2 = $Ride->avilable_rides();
 $Location = new Location();  
 $loc = $Location->location_avilable();
 ?>
-	<html>
-
-	<head>
-		<title>Dashboard</title>
-		<link type="text/css" rel="stylesheet" href="style.css">
+<html>
+<head>
+	<title>Dashboard</title>
+	<link type="text/css" rel="stylesheet" href="style.css">
 		<style>
 		.grid-container {
 			display: grid;
@@ -78,7 +77,7 @@ $loc = $Location->location_avilable();
 		.header4 {
 			padding: 65px;
 			text-align: center;
-			background: yellow;
+			background: #FF5733;
 			color: white;
 			font-size: 10px;
 		}
@@ -131,7 +130,7 @@ $loc = $Location->location_avilable();
 		<div class="topnav-right">
 			<select name="dropDown" onchange="location = this.value;">
 				<option value="admin.php">Admin</option>
-				<option value="password.php">Password</option>
+				<option value="adminPass.php">Password</option>
 				<option value="logout.php"><a href="logout.php">Logout</a></option>
 			</select>
 		</div>
@@ -142,10 +141,10 @@ $loc = $Location->location_avilable();
 					<h3>Pending Request</h3>
 				</div>
 			</div>
-			<div onclick="location.href='request.php'">
+			<div onclick="location.href='all.php'">
 				<div class="header2">
-					<h1><?php echo sizeof($store1);?></h1>
-					<h3>All Request</h3> </div>
+					<h1><i class="fa fa-database" style="font-size:36px;" aria-hidden="true"></i></h1>
+					<h3>All Records</h3> </div>
 			</div>
 			<div onclick="location.href='pendingRide.php'">
 				<div class="header3">

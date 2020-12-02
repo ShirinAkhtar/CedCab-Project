@@ -59,7 +59,10 @@ $lo = $Location->location_avilable();
             <td><?php echo $value['Uid'] ?></td>
             <td><?php echo $value['Uname']; ?></td>
             <td><?php echo $value['name']; ?></td>
-            <td><?php echo $value['Sdate']; ?></td>
+            <?php $date = $value['Sdate'];
+			$createDate = new DateTime($date);
+			$strip = $createDate->format('Y-m-d');?>
+			<td><?php echo $strip ?></td>
             <td><?php echo $value['mobile']; ?></td>
            
            
@@ -91,7 +94,10 @@ $lo = $Location->location_avilable();
             ?> 
             <tr>
             <td><?php echo $value['Rid'] ?></td>
-            <td><?php echo $value['Rdate']; ?></td>
+            <?php $date = $value['Rdate'];
+			$createDate = new DateTime($date);
+			$strip = $createDate->format('Y-m-d');?>
+			<td><?php echo $strip; ?></td>
             <td><?php echo $value['Rfrom']; ?></td>
             <td><?php echo $value['Rto']; ?></td>
             <td><?php echo $value['tdistance']; ?></td>
@@ -109,7 +115,7 @@ $lo = $Location->location_avilable();
                     <th>Location Id</th>
                     <th>Location Name</th>
                     <th>Location Distance</th>
-                    <th>Location Avilable</th>
+                    <th>Location Available</th>
                    
                 </tr>
             </thead>

@@ -12,6 +12,9 @@
  */
 
 require 'class.php';
+if (!isset($_SESSION['userdata'])) {
+    header('Location: login.php');
+}
 $Ride = new Ride();  
 $id = $_SESSION['userdata']['userid'];
 $store1 = $Ride->ride_history($id);
@@ -31,7 +34,7 @@ $store1 = $Ride->ride_history($id);
 <body style="background-color:white">
 <nav class="navbar navbar-inverse nav-pills flex-column flex-sm-row navbar-expand-md">
 		<div class="container-fluid">
-			<div class="navbar-header"> <img src="logo1.png" id="img2" />
+			<div class="navbar-header"> <img src="logo1.png" id="img2" onclick="window.open('index.php', '_blank');"/>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 					<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-border-width" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 						<path d="M0 3.5A.5.5 0 0 1 .5 3h15a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-2zm0 5A.5.5 0 0 1 .5 8h15a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1zm0 4a.5.5 0 0 1 .5-.5h15a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z" /> </svg>
@@ -62,9 +65,8 @@ $store1 = $Ride->ride_history($id);
         <div class="table-responsive">
             <table id="exam_data_table" 
             class="table table-bordered table-striped table-hover">
-            <thead>
+            <thead> <tr><th>1.All List<th></tr>
                 <tr>
-                    <th>Ride Id</th>
                     <th>Ride Date and Time</th>
                     <th>Ride From</th>
                     <th>Ride To</th>
@@ -79,7 +81,6 @@ $store1 = $Ride->ride_history($id);
             foreach($store1 as $key=> $value){
             ?> 
             <tr>
-            <td><?php echo $value['Rid'] ?></td>
             <td><?php echo $value['Rdate']; ?></td>
             <td><?php echo $value['Rfrom']; ?></td>
             <td><?php echo $value['Rto']; ?></td>
@@ -89,6 +90,75 @@ $store1 = $Ride->ride_history($id);
             <td><?php echo $value['tfare']; ?></td>        
         </tr><?php
          }?>
+        </table>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="exam_data_table" 
+            class="table table-bordered table-striped table-hover">
+            <thead><tr><th>1.Pending List<th></tr>
+                <tr>
+                    <th>Ride Date and Time</th>
+                    <th>Ride From</th>
+                    <th>Ride To</th>
+                    <th>Total Distance</th>
+                    <th>Cab Type</th>
+                    <th>Luggage</th>
+                    <th>Total Fare</th>
+                   
+                </tr>
+            </thead>
+            <?php 
+            foreach($store1 as $key=> $value){
+                if($value['status']==0) {
+            ?> 
+            <tr>
+            
+            <td><?php echo $value['Rdate']; ?></td>
+            <td><?php echo $value['Rfrom']; ?></td>
+            <td><?php echo $value['Rto']; ?></td>
+            <td><?php echo $value['tdistance']; ?></td>
+            <td><?php echo $value['cabtype']; ?></td>
+            <td><?php echo $value['lug']; ?></td>
+            <td><?php echo $value['tfare']; ?></td>        
+        </tr><?php
+         }?><?php
+        }?>
+        </table>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="exam_data_table" 
+            class="table table-bordered table-striped table-hover">
+            <thead><tr><th>1.Approved List<th></tr>
+                <tr>
+                    <th>Ride Date and Time</th>
+                    <th>Ride From</th>
+                    <th>Ride To</th>
+                    <th>Total Distance</th>
+                    <th>Cab Type</th>
+                    <th>Luggage</th>
+                    <th>Total Fare</th>
+                   
+                </tr>
+            </thead>
+            <?php 
+            foreach($store1 as $key=> $value){
+                if($value['status']== 1) {
+            ?> 
+            <tr>
+            
+            <td><?php echo $value['Rdate']; ?></td>
+            <td><?php echo $value['Rfrom']; ?></td>
+            <td><?php echo $value['Rto']; ?></td>
+            <td><?php echo $value['tdistance']; ?></td>
+            <td><?php echo $value['cabtype']; ?></td>
+            <td><?php echo $value['lug']; ?></td>
+            <td><?php echo $value['tfare']; ?></td>        
+        </tr><?php
+         }?><?php
+        }?>
         </table>
     </div>
 </div>

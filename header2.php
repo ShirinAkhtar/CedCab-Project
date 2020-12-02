@@ -87,13 +87,12 @@ body {
 <div class="sidenav">
   <nav class="navbar navbar-inverse nav-pills flex-column flex-sm-row navbar-expand-md">
     <div class="container-fluid">
-			<div class="navbar-header"> <img src="logo1.png" id="img2" />
+			<div class="navbar-header"> <img src="logo1.png" id="img2" onclick="window.open('index.php', '_blank');"/>
     </div>
   </div>
   </nav>
   <a href="admin.php">Dashboard</a>
 <a href="request.php">Request</a>
-<a href="invoices.php">Invoices</a>
 <a href="location.php" class="dropbtn">Locations</a>
 <a href="addlocation.php">Add Locations</a>
 <a href="ride.php" class="dropbtn">Ride</a>

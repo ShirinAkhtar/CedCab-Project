@@ -67,11 +67,6 @@ if(isset($_REQUEST["Did"]))
 								<th>Total Fare</th>
 								<th>Status</th>
 								<th>Action</th>
-								<th>
-									<input type="submit" name="date" value="Date" class="input" />
-									<input type="submit" name="distance" value="Distance" class="input" />
-									<input type="submit" name="fare" value="Total Fare" class="input" />
-								</th>
 							</tr>
 						</thead>
 						<?php foreach($store1 as $key=> $value){
@@ -79,7 +74,10 @@ if(isset($_REQUEST["Did"]))
                    					$total = $total + $value['tfare'];?>
 						<tr>
 							<td><?php echo $value['Rid'] ?></td>
-							<td><?php echo $value['Rdate']; ?></td>
+							<?php $date = $value['Rdate'];
+								$createDate = new DateTime($date);
+								$strip = $createDate->format('Y-m-d'); ?>
+							<td><?php echo $strip; ?></td>
 							<td><?php echo $value['Rfrom']; ?></td>
 							<td><?php echo $value['Rto']; ?></td>
 							<td><?php echo $value['tdistance']; ?></td>
@@ -94,7 +92,7 @@ if(isset($_REQUEST["Did"]))
 								<td><a href="pendingRide.php?action=access&Aid=<?php echo $value['Rid'];?>" class="edit_btn1" name="access_granted">Pending Ride</a></td> 
 								
 								<?php } ?>
-							<td><a href="deleteRide.php?action=edit&id=<?php echo $value['Rid'];?>" onClick="return confirm('Are you sure you want to delete?')" class="del_btn">Delete</a> </td>
+							<td><a href="deletePending.php?action=edit&id=<?php echo $value['Rid'];?>" onClick="return confirm('Are you sure you want to delete?')" class="del_btn">Delete</a> </td>
 						</tr><?php } 
         					}?>
 						<tr>

@@ -216,9 +216,9 @@ class Registration extends Databases
                     'dataname' => $row['name'],
                     'datamobile' => $row['mobile']
                 );
-            }
         }
-    }
+    } return "Password Updated Succesfully!";
+}
     public function update_pass($id, $newPass)
     {
         $newPass1 = md5($newPass);
@@ -270,6 +270,24 @@ class Ride extends Databases
             }
         }
         return $ride;
+    }
+    public function avilable_rides2($id)
+    {
+        $ride = array();
+        $sql = "SELECT * FROM tbl_ride  WHERE `Rid`='$id' ";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows > 0)
+        {
+            while ($row = $result->fetch_assoc())
+            {
+                array_push($ride, $row);
+            }
+            return $ride;
+        }
+        else
+        {
+            return $ride;
+        }
     }
 
     public function rides_sortByDate()
@@ -362,7 +380,7 @@ class Ride extends Databases
             echo "Error deleting record: " . $this->conn->error;
         }
     }
-
+    
     public function store_ride($Uid, $pick, $drop, $dist, $cabType, $lug, $amt, $status)
     {
         $p = 0;
@@ -453,9 +471,7 @@ class Location extends Databases
     {
         $location = array();
         $sql = "SELECT * FROM tbl_location";
-        $result = $this
-            ->conn
-            ->query($sql);
+        $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
         {
             while ($row = $result->fetch_assoc())

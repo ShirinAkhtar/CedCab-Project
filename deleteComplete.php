@@ -13,11 +13,8 @@
 
   require 'class.php';
   $id = $_REQUEST["id"];
-  $Registration = new Registration();
-  $lo = $Registration->del_user($id);
   $Ride = new Ride();
-  $lo1 = $Ride->del_ride($id);
-  unset($_SESSION['userdata']['userid']);
-  unset($_SESSION['userdata']['username']);
-  header('Location: request.php');
-?>
+  $lo = $Ride->del_ride($id);
+  unset($_SESSION['Ridedata']['Rid']);
+  unset($_SESSION['Ridedata']['Rname']);
+  header('Location: completedRide.php');?>

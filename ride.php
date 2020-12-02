@@ -80,6 +80,9 @@ if(isset($_POST['filter'])) {
 									<td>
 										<?php echo $value['Rid'] ?>
 									</td>
+									<?php $date = $value['Rdate'];
+									  $createDate = new DateTime($date);
+									  $strip = $createDate->format('Y-m-d');?>
 									<td>
 										<?php echo $value['Rdate']; ?>
 									</td>

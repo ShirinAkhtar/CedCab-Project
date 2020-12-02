@@ -79,6 +79,9 @@ if(isset($_POST['filter'])) {
 								<td><?php echo $value['Uid'] ?></td>
 								<td><?php echo $value['Uname']; ?></td>
 								<td><?php echo $value['name']; ?></td>
+								<?php $date = $value['Sdate'];
+									  $createDate = new DateTime($date);
+									  $strip = $createDate->format('Y-m-d');?>
 								<td><?php echo $value['Sdate']; ?></td>
 								<td><?php echo $value['mobile']; ?></td>
 								<td><?php echo $value['Isblock']; ?></td>

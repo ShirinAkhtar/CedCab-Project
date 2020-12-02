@@ -13,9 +13,8 @@
 
 require 'class.php';
 ?>
-	<!DOCTYPE html>
-	<html lang="en">
-
+<!DOCTYPE html>
+<html lang="en">
 	<head>
 		<title>CedCab</title>
 		<meta charset="UTF-8">
@@ -85,7 +84,6 @@ require 'class.php';
 		
 		.button {
 			background-color: #4CAF50;
-			/* Green */
 			border: none;
 			color: white;
 			padding: 15px 32px;
@@ -97,40 +95,37 @@ require 'class.php';
 			cursor: pointer;
 			background-color: #555555;
 		}
-		</style>
-	</head>
-
-	<body>
-		<nav class="navbar navbar-inverse nav-pills flex-column flex-sm-row navbar-expand-md">
-			<div class="container-fluid">
-				<div class="navbar-header"> <img src="logo1.png" id="img2" />
-					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-						<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-border-width" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-							<path d="M0 3.5A.5.5 0 0 1 .5 3h15a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-2zm0 5A.5.5 0 0 1 .5 8h15a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1zm0 4a.5.5 0 0 1 .5-.5h15a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z" /> </svg>
-					</button>
-				</div>
-				<div class="collapse navbar-collapse text-sm-center" id="collapsibleNavbar">
-					<ul class="nav navbar-nav navbar-right text-center">
-						<li><a href="index.php">Home</a></li>
-						<li><a href="dashboard.php">Welcome <?php $_SESSION['userdata']['username']?> </a></li>
-						<li><a href="history.php" class="flex-sm-fill text-sm-center">All Ride Records</a> </li>
-						<li>
-							<a href="logout.php">
-								<button type="button" class="btn btn-primary" id="rcorners2">Logout</button>
-							</a>
-						</li>
-					</ul>
-				</div>
+	</style>
+</head>
+<body>
+	<nav class="navbar navbar-inverse nav-pills flex-column flex-sm-row navbar-expand-md">
+		<div class="container-fluid">
+			<div class="navbar-header"> <img src="logo1.png" id="img2" onclick="window.open('index.php', '_blank');" />
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+					<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-border-width" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+					<path d="M0 3.5A.5.5 0 0 1 .5 3h15a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-2zm0 5A.5.5 0 0 1 .5 8h15a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1zm0 4a.5.5 0 0 1 .5-.5h15a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z" /> </svg>
+				</button>
 			</div>
-		</nav>
+			<div class="collapse navbar-collapse text-sm-center" id="collapsibleNavbar">
+				<ul class="nav navbar-nav navbar-right text-center">
+					<li><a href="index.php">Home</a></li>
+					<li><a href="dashboard.php">Welcome <?php $_SESSION['userdata']['username']?> </a></li>
+					<li><a href="history.php" class="flex-sm-fill text-sm-center">All Ride Records</a> </li>
+					<li>
+						<a href="logout.php">
+						<button type="button" class="btn btn-primary" id="rcorners2">Logout</button>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
 		<header>
 			<h2>Welcome <?php echo $_SESSION['userdata']['dataname']; ?></h2></header>
 		<section>
 			<nav>
 				<ul>
 					<li><a class="button" href="update.php?action=edit&id=<?php echo $_SESSION['userdata']['userid'];?>"> Edit Your Profile </a></li>
-					<li><a class="button" href="delete1.php?action=delete&id=<?php echo $_SESSION['userdata']['userid'];?>">Delete Your Profile</a></li>
-					<li></li>
 				</ul>
 			</nav>
 			<article>

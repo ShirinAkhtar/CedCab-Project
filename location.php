@@ -28,14 +28,13 @@ if(isset($_REQUEST["Did"]))
     header('Location: location.php');
 }
 ?>
-	<html>
-
-	<head>
-		<title>Location List</title>
-		<link type="text/css" rel="stylesheet" href="style.css">
-	</head>
-	<body style="background-color:white;">
-		<h1><center>Avilable Locations</center></h1><br/>
+<html>
+<head>
+	<title>Location List</title>
+	<link type="text/css" rel="stylesheet" href="style.css">
+</head>
+<body style="background-color:white;">
+	<h1><center>Available Locations</center></h1><br/>
 		<div class="card">
 			<div class="card-body">
 				<div class="table-responsive">
@@ -45,7 +44,7 @@ if(isset($_REQUEST["Did"]))
 								<th>Location Id</th>
 								<th>Location Name</th>
 								<th>Location Distance</th>
-								<th>Location Avilable</th>
+								<th>Location Available</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -56,9 +55,9 @@ if(isset($_REQUEST["Did"]))
 								<td><?php echo $value['Ldis']; ?></td>
 								<td><?php echo $value['Lavilable']; ?></td>
 								<?php if ($value['Lavilable'] == "0") { ?>
-									<td><a href="location.php?action=access&Aid=<?php echo $value['Lid'];?>" class="edit_btn" name="access_granted">Avliable</a> </td>
+									<td><a href="location.php?action=access&Aid=<?php echo $value['Lid'];?>" class="edit_btn" name="access_granted">Available</a> </td>
 									<?php } else { ?>
-										<td><a href="location.php?action=access&Did=<?php echo $value['Lid'];?>" class="edit_btn1" name="access_granted">UnAvliable</a> </td>
+										<td><a href="location.php?action=access&Did=<?php echo $value['Lid'];?>" class="edit_btn1" name="access_granted">UnAvailable</a> </td>
 									<?php } ?>
 								<td><a href="updatelocation.php?action=edit&id=<?php echo $value['Lid'];?>" class="edit_btn">Edit</a> </td>
 								<td><a href="deleteLocation.php?action=delete&id=<?php echo $value['Lid'];?>" onClick="return confirm('Are you sure you want to delete?')" class="del_btn">Delete</a> </td>
