@@ -11,6 +11,7 @@
  * @link     http://localhost/
  */
 require 'class.php';
+require 'header1.php';
     $error  = array();
     $message = '';
     $Isblock = 0;
@@ -23,6 +24,7 @@ if (isset($_POST['submit'])) {
        $Lavilable = isset($_POST['Lavilable'])?$_POST['Lavilable']:'';;
        
     echo $Location->add_location($Lname,$Ldis,$Lavilable);
+    header('Location:location.php');
 }
 ?>
 <html>
@@ -45,12 +47,10 @@ if (isset($_POST['submit'])) {
         </div>
         <h1 class="header">Add Locations</h1>
         <form id="Register Form" action = "addlocation.php" method = "POST">
-            <label for="Lname">Location Name<input type="text" name="Lname" required></label><br>
+            <label for="Lname">Location Name<input type="text" onkeypress="return /[a-z]/i.test(event.key)" name="Lname" required></label><br>
             <label for="Ldis">Location Distance<input type="number" name="Ldis" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required></label><br>
             <label for="Lavilable">Location Avilable<input type="number" name="Lavilable" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required></label><br>
             <p><input type="submit" name="submit" value="Add Location" required></p>
         </form>
-        <p class="p2">Back to Dashboard?</p><br>
-        <a href="admin.php" class="a5" role="button" aria-pressed="true">Dashboard</a>
     </body>
 </html>

@@ -15,15 +15,30 @@ require 'class.php';
 if (!isset($_SESSION['userdata'])) {
     header('Location: login.php');
 }
-$Ride = new Ride();  
 $id = $_SESSION['userdata']['userid'];
+$Ride = new Ride();  
 $store1 = $Ride->ride_history($id);
+
+if(isset($_POST['date'])) {
+    $store1 = $Ride-> rides_sortByDate1($id);
+}
+if(isset($_POST['distance'])) {
+    $store1 = $Ride-> ride_sortByDistance1($id);
+}
+if(isset($_POST['fare'])) {
+    $store1 = $Ride-> ride_sortByFare1($id);
+}
 
 if(isset($_POST['filter'])) {
     $id = $_SESSION['userdata']['userid'];
 	$startdate = isset($_POST['startdate'])?$_POST['startdate']:'';
     $endate = isset($_POST['endate'])?$_POST['endate']:'';
     $store1 = $Ride-> ride_filterByDate1($startdate,$endate,$id);
+}
+if(isset($_POST['fare_filter'])) {
+	$fare = isset($_POST['fare'])?$_POST['fare']:'';
+	$Ride-> FareFilter($fare);
+	$store1 = $Ride-> FareFilter($fare);
 }
 ?>
 <html>
@@ -52,10 +67,7 @@ if(isset($_POST['filter'])) {
                 <li><a href="index.php">Home</a></li>
 				<li><a href="userPending.php">Pending Ride</a></li>
 				<li><a href="userApprove.php" class="flex-sm-fill text-sm-center">Approved Rides</a> </li>
-					
-					<li>
-					<a href="logout.php"><button type="button" class="btn btn-primary" id="rcorners2">Logout</button></a>
-					</li>
+				<li><a href="logout.php"><button type="button" class="btn btn-primary" id="rcorners2">Logout</button></a></li>
 				</ul>
 			</div>
 		</div>
@@ -66,12 +78,22 @@ if(isset($_POST['filter'])) {
         <form method="post">
             <table id="exam_data_table" 
             class="table table-bordered table-striped table-hover">
-            <thead> <tr>
+                <thead> 
+                    <tr>
 						<th>
                             <input type="date" name="startdate"/>
                             <input type="date" name="endate"/>
                             <input type="submit" name="filter" value="Filter"/>
                         </th>
+                        <th>Sort By:-
+                            <input type="submit" name="date" value="Date" class="input" />
+                            <input type="submit" name="distance" value="Distance" class="input" />
+                            <input type="submit" name="fare" value="Total Fare" class="input" />
+                        </th>
+                     <!--   <th>
+                            <input type="text" name="fare" id="s1"/>
+  							<input type="submit" name="fare_filter" value="Filter"/>
+                        </th> -->
 					</tr>
             <tr><th>1.All List<th></tr>
                 <tr>
@@ -82,7 +104,6 @@ if(isset($_POST['filter'])) {
                     <th>Cab Type</th>
                     <th>Luggage</th>
                     <th>Total Fare</th>
-                   
                 </tr>
             </thead>
             <?php 
@@ -92,10 +113,10 @@ if(isset($_POST['filter'])) {
             <td><?php echo $value['Rdate']; ?></td>
             <td><?php echo $value['Rfrom']; ?></td>
             <td><?php echo $value['Rto']; ?></td>
-            <td><?php echo $value['tdistance']; ?></td>
+            <td><?php echo $value['tdistance']; ?> km</td>
             <td><?php echo $value['cabtype']; ?></td>
-            <td><?php echo $value['lug']; ?></td>
-            <td><?php echo $value['tfare']; ?></td>        
+            <td><?php echo $value['lug']; ?> kg</td>
+            <td>Rs. <?php echo $value['tfare']; ?></td>        
         </tr><?php
          }?>
         </table>

@@ -100,9 +100,9 @@ $lo = $Location->location_avilable();
 			<td><?php echo $strip; ?></td>
             <td><?php echo $value['Rfrom']; ?></td>
             <td><?php echo $value['Rto']; ?></td>
-            <td><?php echo $value['tdistance']; ?></td>
-            <td><?php echo $value['lug']; ?></td>
-            <td><?php echo $value['tfare']; ?></td>
+            <td><?php echo $value['tdistance']; ?> km</td>
+            <td><?php echo $value['lug']; ?> kg</td>
+            <td>Rs. <?php echo $value['tfare']; ?></td>
             <td><?php echo $value['status']; ?></td>            
         </tr><?php
          }?><?php
@@ -126,8 +126,8 @@ $lo = $Location->location_avilable();
             <tr>
             <td><?php echo $value['Lid'] ?></td>
             <td><?php echo $value['Lname']; ?></td>
-            <td><?php echo $value['Ldis']; ?></td>
-            <td><?php echo $value['Lavilable']; ?></td>
+            <td><?php echo $value['Ldis']; ?> km </td>
+            <td><?php echo $value['Lavilable']; ?> </td>
         </tr><?php
          }?>
         </table>

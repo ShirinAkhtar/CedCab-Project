@@ -33,6 +33,11 @@ if(isset($_POST['filter'])) {
     $store1 = $Ride-> ride_filterByDate($startdate,$endate);
     //header('Location: request.php');
 }
+if(isset($_POST['fare_filter'])) {
+	$fare = isset($_POST['fare'])?$_POST['fare']:'';
+	$Ride-> FareFilter($fare);
+	$store1 = $Ride-> FareFilter($fare);
+}
 
 ?>
 <html>
@@ -63,6 +68,8 @@ if(isset($_POST['filter'])) {
 									<input type="date" name="startdate"/>
 									<input type="date" name="endate"/>
   									<input type="submit" name="filter" value="Filter"/>
+									<input type="text" name="fare" id="s1"/>
+  									<input type="submit" name="fare_filter" value="Filter"/>
 								</th>
 							</tr>
 								<tr>
@@ -101,16 +108,16 @@ if(isset($_POST['filter'])) {
 										<?php echo $value['Rto']; ?>
 									</td>
 									<td>
-										<?php echo $value['tdistance']; ?>
+										<?php echo $value['tdistance']; ?> km
 									</td>
 									<td>
 										<?php echo $value['cabtype']; ?>
 									</td>
 									<td>
-										<?php echo $value['lug']; ?>
+										<?php echo $value['lug']; ?> kg
 									</td>
 									<td>
-										<?php echo $value['tfare']; ?>
+										<?php echo $value['tfare']; ?> Rupees
 									</td>
 									<td>
 										<?php echo $value['status']; ?>

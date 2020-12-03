@@ -95,6 +95,15 @@ require 'class.php';
 			cursor: pointer;
 			background-color: #555555;
 		}
+		.card-header
+		{
+			margin-left: 400px;
+		}
+		.card-body
+		{
+			margin-left: 400px;
+			padding:20px;
+		}
 	</style>
 </head>
 <body>
@@ -120,34 +129,27 @@ require 'class.php';
 			</div>
 		</div>
 	</nav>
-		<header>
-			<h2>Welcome <?php echo $_SESSION['userdata']['dataname']; ?></h2></header>
-		<section>
-			<nav>
-				<ul>
-					<li><a class="button" href="update.php?action=edit&id=<?php echo $_SESSION['userdata']['userid'];?>"> Edit Your Profile </a></li>
-				</ul>
-			</nav>
-			<article>
-				<ul>
-					<li>User Id:-
-						<?php echo $_SESSION['userdata']['userid']; ?>
-					</li>
-					<li>Your Username:-
-						<?php echo $_SESSION['userdata']['username']; ?>
-					</li>
-					<li>Your Name:-
-						<?php echo $_SESSION['userdata']['dataname']; ?>
-					</li>
-					<li>Your Mobile Number:-
-						<?php echo $_SESSION['userdata']['datamobile']; ?>
-					</li>
-				</ul>
-			</article>
-		</section>
-		<footer>
-			<p>@Cedcab</p>
-		</footer>
-	</body>
+<section>
+	<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-9">
+                <h3 class="panel-title"><center><h2>Welcome <?php echo $_SESSION['userdata']['dataname']; ?></h2></center</h3>
+            </div>
+        </div>
+	</div>
+	<div class="card-body">
+        <div class="table-responsive">
+        <table id="exam_data_table" class="table table-bordered table-striped table-hover">
+			<tr><td>User Id:-</td><td><?php echo $_SESSION['userdata']['userid']; ?></td></tr>
+			<tr><td>Your Username:-</td><td><?php echo $_SESSION['userdata']['username']; ?></td></tr>
+			<tr><td>Your Name:-</td><td><?php echo $_SESSION['userdata']['dataname']; ?></td></tr>		
+			<tr><td>Your Mobile Number:-</td><td><?php echo $_SESSION['userdata']['datamobile']; ?></td></tr>		
+			<tr><td><a class="button" href="update.php?action=edit&id=<?php echo $_SESSION['userdata']['userid'];?>"> Edit Your Profile </a></td></tr>
+	</table>
+	</div>
+	</div>
+</div>
+</body>
 
-	</html>
+</html>

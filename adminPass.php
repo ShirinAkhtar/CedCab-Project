@@ -57,6 +57,6 @@
         <a href="admin.php" class="a5" role="button" aria-pressed="true">Dashboard</a>
         <?php } else if ($_SESSION['userdata']['username'] == "shirin") 
         	{ ?>
-            <a href="cabhome1.php" class="a5" role="button" aria-pressed="true">Dashboard</a> <?php } ?>
+            <a href="index.php" class="a5" role="button" aria-pressed="true">Dashboard</a> <?php } ?>
     </body>
 </html>

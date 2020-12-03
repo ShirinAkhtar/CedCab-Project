@@ -12,12 +12,33 @@
  */
 
 require 'class.php';
+
 if (!isset($_SESSION['userdata'])) {
     header('Location: login.php');
 }
 $Ride = new Ride();  
 $id = $_SESSION['userdata']['userid'];
 $store1 = $Ride->ride_history($id);
+
+if(isset($_POST['filter'])) {
+    //$id = $_SESSION['userdata']['userid'];
+	$startdate = isset($_POST['startdate'])?$_POST['startdate']:'';
+    $endate = isset($_POST['endate'])?$_POST['endate']:'';
+    $store1 = $Ride-> ride_filterByDate1($startdate,$endate,$id);
+}
+if(isset($_POST['date'])) {
+    $store1 = $Ride-> rides_sortByDate1($id);
+    //header('Location: request.php');
+}
+if(isset($_POST['distance'])) {
+    $store1 = $Ride-> ride_sortByDistance1($id);
+    //header('Location: request.php');
+}
+if(isset($_POST['fare'])) {
+    $store1 = $Ride-> ride_sortByFare1($id);
+    //header('Location: request.php');
+}
+//header('Location: userPending.php');
 ?>
 <html>
 <head>
@@ -29,7 +50,7 @@ $store1 = $Ride->ride_history($id);
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="cab.css"> 
+	<link rel="stylesheet" href="cab1.css"> 
 </head>
 <body style="background-color:white">
 <nav class="navbar navbar-inverse nav-pills flex-column flex-sm-row navbar-expand-md">
@@ -56,9 +77,21 @@ $store1 = $Ride->ride_history($id);
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
+        <form method="post">
             <table id="exam_data_table" 
             class="table table-bordered table-striped table-hover">
             <thead><tr><th>1.Pending List<th></tr>
+                <tr>
+                    <th>
+                        <input type="date" name="startdate"/>
+                        <input type="date" name="endate"/>
+                        <input type="submit" name="filter" value="Filter"/>
+                    </th>
+                    <th><input type="submit" name="date" value="Date" class="input" />
+                        <input type="submit" name="distance" value="Distance" class="input" />
+                        <input type="submit" name="fare" value="Total Fare" class="input" />
+                    </th>
+                </tr>
                 <tr>
                     <th>Ride Date and Time</th>
                     <th>Ride From</th>
@@ -79,14 +112,15 @@ $store1 = $Ride->ride_history($id);
             <td><?php echo $value['Rdate']; ?></td>
             <td><?php echo $value['Rfrom']; ?></td>
             <td><?php echo $value['Rto']; ?></td>
-            <td><?php echo $value['tdistance']; ?></td>
+            <td><?php echo $value['tdistance']; ?> km </td>
             <td><?php echo $value['cabtype']; ?></td>
-            <td><?php echo $value['lug']; ?></td>
-            <td><?php echo $value['tfare']; ?></td>        
+            <td><?php echo $value['lug']; ?> kg </td>
+            <td>Rs. <?php echo $value['tfare']; ?></td>        
         </tr><?php
          }?><?php
         }?>
         </table>
+        </form>
     </div>
     
 </div>

@@ -91,7 +91,9 @@ body {
   </div>
   </nav>
 <a href="admin.php">Dashboard</a>
-<a href="request.php">Request</a>
+<a href="request.php">All Users</a>
+<a href="requestApproved.php">Approved Users</a>
+<a href="Disapp.php">Requested Users</a>
 <a href="location.php" class="dropbtn">Locations</a>
 <a href="addlocation.php">Add Locations</a>
 <a href="ride.php" class="dropbtn">Ride</a>

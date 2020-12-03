@@ -52,7 +52,7 @@
         <h1 class="header">Update Locations of CedCab</h1>
         <?php //print_r($_SESSION['userdata']); ?>
             <form id="Update Form"  method = "POST">
-                <label for="location">Location<br><input type="text" name="Lname" value="<?php echo $_SESSION['Locationdata']['locationname'] ?>" required></label><br>
+                <label for="location">Location<br><input type="text" onkeypress="return /[a-z]/i.test(event.key)" name="Lname" value="<?php echo $_SESSION['Locationdata']['locationname'] ?>" required></label><br>
                 <label for="distance">Location Distance<input type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="Ldistance" value="<?php echo $_SESSION['Locationdata']['location_dis'] ?>" required></label required><br>
                 <label for="avilable">Location Avilable<input type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="Lavil" value="<?php echo $_SESSION['Locationdata']['location_avl'] ?>" required></label required><br>
                 <p><input type="submit" name="submit" value="Update Record" required></p>    

@@ -54,8 +54,8 @@ if (isset($_POST['submit']))
 	<h1 class="header">Update Record CedCab</h1>
 	<?php //print_r($_SESSION[ 'userdata']); ?>
 	<form id="Update Form" method="POST">
-		<label for="name">Name<br><input type="text" name="name" value="<?php echo $_SESSION['userdata']['dataname'] ?>" required/></label><br>
-		<label for="mobile">Mobile<input type="text" name="mobile" value="<?php echo $_SESSION['userdata']['datamobile'] ?>" required/></label><br>
+		<label for="name">Name<br><input type="text"  onkeypress="return /[a-z]/i.test(event.key)" name="name" value="<?php echo $_SESSION['userdata']['dataname'] ?>" required/></label><br>
+		<label for="mobile">Mobile<input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="mobile" value="<?php echo $_SESSION['userdata']['datamobile'] ?>" required/></label><br>
 		<p><input type="submit" name="submit" value="Update Record" required></p>
 	</form> 
 <!--	<a href="password.php" class="a4" role="button" aria-pressed="true">Change Password</a>

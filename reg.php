@@ -56,8 +56,8 @@ if (isset($_POST['submit'])) {
         </div>
         <h1 class="header">Register Yourself with CedCab</h1>
         <form id="form" action = "reg.php" method = "POST">
-            <label for="Uname">Username<input type="text" name="Uname" required></label><br>
-            <label for="name">Name<br><input type="text" name="name" required></label><br>
+            <label for="Uname">Username<input type="text" name="Uname"  required></label><br>
+            <label for="name">Name<br><input type="text" name="name" onkeypress="return /[a-z]/i.test(event.key)" required></label><br>
             <label for="mobile">Mobile<input type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control ms1" name="mobile" required></label required><br>
             <label for="pswd">Password<input type="password" name="pswd" required></label><br>
             <label for="rpswd">Confirm Password<input type="password" name="rpswd" required><span id='message'></span></label><br>
@@ -66,5 +66,21 @@ if (isset($_POST['submit'])) {
             <p class="p2">Already User?</p><br>
             <a href="login.php" class="a5" role="button" aria-pressed="true">Login</a>
     </body>
-    
+    <script>
+    $(function(){
+    $("#input").keypress(function(event){
+        var ew = event.which;
+        if(ew == 32)
+            return true;
+        if(48 <= ew && ew <= 57)
+            return true;
+        if(65 <= ew && ew <= 90)
+            return true;
+        if(97 <= ew && ew <= 122)
+            return true;
+        return false;
+    });
+});
+
+    </script>
 </html>

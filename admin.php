@@ -12,11 +12,17 @@
  */
 require 'header1.php';
 require 'class.php';
+if(!isset($_SESSION['userdata'])) {
+	header('Location:login.php');
+}
 $Registration = new Registration();  
 $store1 = $Registration->userRequest();
 
 $Ride = new Ride();  
 $store2 = $Ride->avilable_rides();
+foreach($store2 as $key=> $value){
+	if($value['status'] == 1){
+		$total = $total + $value['tfare'];}}
 
 $Location = new Location();  
 $loc = $Location->location_avilable();
@@ -28,7 +34,7 @@ $loc = $Location->location_avilable();
 		<style>
 		.grid-container {
 			display: grid;
-			height: 700px;
+			height: 800px;
 			align-content: center;
 			grid-template-columns: auto auto auto;
 			grid-gap: 20px;
@@ -44,6 +50,7 @@ $loc = $Location->location_avilable();
 			opacity: 0.8;
 			height: 200px;
 			border-radius: 10px;
+			cursor: pointer;
 		}
 		
 		div {
@@ -94,6 +101,14 @@ $loc = $Location->location_avilable();
 			padding: 65px;
 			text-align: center;
 			background-color: #07c3f5;
+			color: white;
+			font-size: 10px;
+		}
+
+		.header7 {
+			padding: 65px;
+			text-align: center;
+			background-color: #19921f;
 			color: white;
 			font-size: 10px;
 		}
@@ -165,6 +180,11 @@ $loc = $Location->location_avilable();
 				<div class="header6">
 					<h1><i class="fa fa-bar-chart" aria-hidden="true" style="font-size:36px;"></i></h1>
 					<h3>Report Analysis</h3> </div>
+			</div>
+			<div onclick="location.href='completedRide.php'">
+				<div class="header7">
+					<h1>Rs. <?php echo $total ?></h1>
+					<h3>Total Earning</h3> </div>
 			</div>
 		</div>
 	</body>

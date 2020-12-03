@@ -41,7 +41,7 @@ if(isset($_POST['fare'])) {
 			<div class="card-header">
 				<div class="row">
 					<div class="col-md-9">
-						<h3 class="panel-title"><center>Ride Request List</center></h3> </div>
+						<h3 class="panel-title"><center>Completed Rides</center></h3> </div>
 				</div>
 			</div>
 			<div class="card-body">
@@ -84,16 +84,16 @@ if(isset($_POST['fare'])) {
 									<?php echo $value['Rto']; ?>
 								</td>
 								<td>
-									<?php echo $value['tdistance']; ?>
+									<?php echo $value['tdistance']; ?> km
 								</td>
 								<td>
 									<?php echo $value['cabtype']; ?>
 								</td>
 								<td>
-									<?php echo $value['lug']; ?>
+									<?php echo $value['lug']; ?> kg
 								</td>
 								<td>
-									<?php echo $value['tfare']; ?>
+								Rs.	<?php echo $value['tfare']; ?>
 								</td>
 								<td> <a href="showRideDetails.php?action=show&id=<?php echo $value['Rid'];?>" class="edit_btn">Show Details</a> </td>
 								

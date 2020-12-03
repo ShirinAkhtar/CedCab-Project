@@ -79,10 +79,10 @@ $store1 = $Ride->ride_history($id);
             <td><?php echo $value['Rdate']; ?></td>
             <td><?php echo $value['Rfrom']; ?></td>
             <td><?php echo $value['Rto']; ?></td>
-            <td><?php echo $value['tdistance']; ?></td>
+            <td><?php echo $value['tdistance']; ?> km </td>
             <td><?php echo $value['cabtype']; ?></td>
-            <td><?php echo $value['lug']; ?></td>
-            <td><?php echo $value['tfare']; ?></td>        
+            <td><?php echo $value['lug']; ?> kg </td>
+            <td>Rs. <?php echo $value['tfare']; ?></td>        
         </tr><?php
          }?><?php
         }?>

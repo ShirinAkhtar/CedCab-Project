@@ -15,6 +15,13 @@ require 'class.php';
 $id = $_REQUEST["id"];
 $Ride = new Ride();  
 $store1 = $Ride->avilable_rides2($id);
+foreach($store1 as $key=> $value){
+		   $var = $value['Uid'];}
+$Registration = new Registration();  
+$store2 = $Registration->userRequest();
+foreach($store2 as $key1=> $value1){
+	if($value1['Uid'] == $var){
+		$name = $value1['Uname'];}}
 $total=0;
 if(isset($_POST['date'])) {
     $store1 = $Ride-> rides_sortByDate();
@@ -60,9 +67,10 @@ if(isset($_POST['fare'])) {
 							</thead>
 							<?php foreach($store1 as $key=> $value){
                 					//if($value['Uid'] == $_SESSION['userdata']['userid']){
-                   						$total = $total + $value['tfare']; ?>
+										   $total = $total + $value['tfare']; 
+										   $var = $value['Uid'];?>
 										<tr>
-											<td><?php echo $_SESSION['userdata']['dataname'] ?></td>
+											<td><?php echo $name; ?></td>
 											<td><?php echo $value['Rdate']; ?></td>
 											<td><?php echo $value['Rfrom']; ?></td>
 											<td><?php echo $value['Rto']; ?></td>

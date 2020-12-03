@@ -15,6 +15,9 @@
     require 'header3.php';
     $error  = array();
     $message = '';
+    if(!isset($_SESSION['userdata'])){
+        header("Location:login.php");
+    }
     $Registration = new Registration();
     if(isset($_REQUEST["id"]))
     {

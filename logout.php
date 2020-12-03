@@ -11,6 +11,6 @@
  * @link     http://localhost/
  */
 session_start();
-session_destroy();
+unset($_SESSION['userdata']);
 header('Location:index.php');
 ?>

@@ -1,11 +1,10 @@
 <?php
 $time = $_SERVER['REQUEST_TIME'];
-//echo $time;
-$timeout_duration = 180;
+$timeout_duration = 300;
 require 'class.php';
 $Location = new Location();  
 $lo = $Location->location_avilable();
-//print_r($_SESSION['userdata']);
+
 //session_destroy();
 if(isset($_SESSION['booking'])){
 $Ride = new Ride();
@@ -13,8 +12,6 @@ $ride_store = $Ride->store_ride( $_SESSION['userdata']['userid'],$_SESSION['book
 unset($_SESSION['booking']);}
 if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $timeout_duration) {
     unset($_SESSION['booking']);
-    session_destroy();
-    session_start();
 }
 $_SESSION['LAST_ACTIVITY'] = $time;
 ?>
@@ -103,8 +100,8 @@ $_SESSION['LAST_ACTIVITY'] = $time;
 								<div class="input-group"> <span class="input-group-addon">LUGGAGE</span>
 								<input id="msg1" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control ms1" placeholder="Enter weight in kg"> </div>
 								<button id="cabf" class="btn btn-default form-control" type="submit" name="submit">Calculate Your Fair</button>
-								<button id="cabff" style="display:none;" class="btn btn-default form-control" type="submit" name="submit">Book Now</button>
 								<div id="res"></div>
+								<button id="cabff" style="display:none;" class="btn btn-default form-control" type="submit" name="submit">Book Now</button>
 							</form>
 						</div>
 					</div>
@@ -127,7 +124,6 @@ $_SESSION['LAST_ACTIVITY'] = $time;
 	});
 	$('#cabf').on("click", function(e) {
 		document.getElementById("cabff").style.display = "block";
-		document.getElementById("cabf").style.display = "none";
 		var pick = $("#msg4").val();
 		var drop = $("#msg3").val();
 		var cabType = $("#msg2").val();

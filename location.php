@@ -52,7 +52,7 @@ if(isset($_REQUEST["Did"]))
 							<tr>
 								<td><?php echo $value['Lid'] ?></td>
 								<td><?php echo $value['Lname']; ?></td>
-								<td><?php echo $value['Ldis']; ?></td>
+								<td><?php echo $value['Ldis']; ?> km</td>
 								<td><?php echo $value['Lavilable']; ?></td>
 								<?php if ($value['Lavilable'] == "0") { ?>
 									<td><a href="location.php?action=access&Aid=<?php echo $value['Lid'];?>" class="edit_btn" name="access_granted">Available</a> </td>

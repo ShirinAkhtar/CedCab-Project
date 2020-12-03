@@ -79,7 +79,7 @@ class Registration extends Databases
                 }
                 else
                 {
-                    header('Location: index.php');
+                    header('Location: userPending.php');
                 }
             }
             return $rtn;
@@ -273,7 +273,26 @@ class Ride extends Databases
     public function avilable_rides2($id)
     {
         $ride = array();
-        $sql = "SELECT * FROM tbl_ride  WHERE `Rid`='$id' ";
+        $sql = "SELECT * FROM `tbl_ride`  WHERE `Rid`='$id' ";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows > 0)
+        {
+            while ($row = $result->fetch_assoc())
+            {
+                array_push($ride, $row);
+            }
+            return $ride;
+        }
+        else
+        {
+            return $ride;
+        }
+    }
+
+    public function rides_sortByDate1($id)
+    {
+        $ride = array();
+        $sql = "SELECT * FROM `tbl_ride` WHERE `Uid`='$id' ORDER BY `Rdate` ";
         $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
         {
@@ -371,6 +390,25 @@ class Ride extends Databases
         }
     }
 
+    public function ride_sortByDistance1($id)
+    {
+        $ride = array();
+        $sql = "SELECT * FROM `tbl_ride` where `Uid`='$id' ORDER BY cast(`tdistance` as unsigned) ";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows > 0)
+        {
+            while ($row = $result->fetch_assoc())
+            {
+                array_push($ride, $row);
+            }
+            return $ride;
+        }
+        else
+        {
+            return $ride;
+        }
+    }
+
     
 
     public function ride_sortByFare()
@@ -392,7 +430,45 @@ class Ride extends Databases
         }
     }
 
+    public function ride_sortByFare1($id)
+    {
+        $ride = array();
+        $sql = "SELECT * FROM `tbl_ride` where `Uid`='$id' ORDER BY `tfare` ";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows > 0)
+        {
+            while ($row = $result->fetch_assoc())
+            {
+                array_push($ride, $row);
+            }
+            return $ride;
+        }
+        else
+        {
+            return $ride;
+        }
+    }
+
     
+    public function FareFilter($fare)
+    {
+        $ride = array();
+        $sql = "SELECT * FROM `tbl_ride` WHERE  tfare = '" . $fare . "' ";
+        $result = $this->conn->query($sql);
+        $result = $this->conn->query($sql);
+        if ($result->num_rows > 0)
+        {
+            while ($row = $result->fetch_assoc())
+            {
+                array_push($ride, $row);
+            }
+            return $ride;
+        }
+        else
+        {
+            return $ride;
+        }
+    }
 
     public function del_ride($id)
     {

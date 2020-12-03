@@ -37,6 +37,13 @@ if(isset($_REQUEST["Did"]))
     $Ride->denied($id);
     header('Location: pendingRide.php');
 }
+
+if(isset($_POST['filter'])) {
+    $id = $_SESSION['userdata']['userid'];
+	$startdate = isset($_POST['startdate'])?$_POST['startdate']:'';
+    $endate = isset($_POST['endate'])?$_POST['endate']:'';
+    $store1 = $Ride-> ride_filterByDate1($startdate,$endate,$id);
+}
 ?>
 <html>
 	<head>
@@ -56,6 +63,12 @@ if(isset($_REQUEST["Did"]))
 				<div class="table-responsive">
 					<table id="exam_data_table" class="table table-bordered table-striped table-hover">
 						<thead>
+						<!--<tr>
+						<th>
+                            <input type="date" name="startdate"/>
+                            <input type="date" name="endate"/>
+                            <input type="submit" name="filter" value="Filter"/>
+                        </th></tr> -->
 							<tr>
 								<th>Ride Id</th>
 								<th>Ride Date</th>
@@ -80,10 +93,10 @@ if(isset($_REQUEST["Did"]))
 							<td><?php echo $strip; ?></td>
 							<td><?php echo $value['Rfrom']; ?></td>
 							<td><?php echo $value['Rto']; ?></td>
-							<td><?php echo $value['tdistance']; ?></td>
+							<td><?php echo $value['tdistance']; ?> km</td>
 							<td><?php echo $value['cabtype']; ?></td>
-							<td><?php echo $value['lug']; ?></td>
-							<td><?php echo $value['tfare']; ?></td>
+							<td><?php echo $value['lug']; ?> kg</td>
+							<td>  Rs. <?php echo $value['tfare']; ?></td>
 							<td><?php echo $value['status']; ?></td>
 							<?php if ($value['status'] == 1) { ?>
 								<td><a href="pendingRide.php?action=access&Did=<?php echo $value['Rid'];?>" class="edit_btn" name="access_granted">Completed Ride</a> </td>

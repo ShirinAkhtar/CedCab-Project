@@ -50,7 +50,7 @@
         </div>
         <h1 class="header">Update Locations</h1>
         <form id="Register Form"  method = "POST">
-            <label for="Lname">Location Name<input type="text" name="Lname" value="<?php echo $_SESSION['Locationdata']['locationname'] ?>" required></label><br>
+            <label for="Lname">Location Name<input type="text" onkeypress="return /[a-z]/i.test(event.key)" name="Lname" value="<?php echo $_SESSION['Locationdata']['locationname'] ?>" required></label><br>
             <label for="Ldis">Location Distance<input type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="Ldis" value="<?php echo $_SESSION['Locationdata']['location_dis'] ?>" required></label><br>
             <label for="Lavilable">Location Avilable<input type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="Lavilable" value="<?php echo $_SESSION['Locationdata']['location_avl'] ?>" required></label><br>
             <p><input type="submit" name="submit" value="Update Location" required/></p>
