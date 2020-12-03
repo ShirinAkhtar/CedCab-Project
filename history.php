@@ -10,7 +10,6 @@
  * @license  https://opensource.org/licenses/MIT MIT License
  * @link     http://localhost/
  */
-
 require 'class.php';
 if (!isset($_SESSION['userdata'])) {
     header('Location: login.php');
@@ -46,7 +45,6 @@ if(isset($_POST['fare_filter'])) {
     <title>CedCab</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Book Your Cab Ride</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -59,7 +57,7 @@ if(isset($_POST['fare_filter'])) {
 			<div class="navbar-header"> <img src="logo1.png" id="img2" onclick="window.open('index.php', '_blank');"/>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 					<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-border-width" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-						<path d="M0 3.5A.5.5 0 0 1 .5 3h15a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-2zm0 5A.5.5 0 0 1 .5 8h15a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1zm0 4a.5.5 0 0 1 .5-.5h15a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z" /> </svg>
+					<path d="M0 3.5A.5.5 0 0 1 .5 3h15a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-2zm0 5A.5.5 0 0 1 .5 8h15a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1zm0 4a.5.5 0 0 1 .5-.5h15a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z" /> </svg>
 				</button>
 			</div>
 			<div class="collapse navbar-collapse text-sm-center" id="collapsibleNavbar">
@@ -76,8 +74,7 @@ if(isset($_POST['fare_filter'])) {
     <div class="card-body">
         <div class="table-responsive">
         <form method="post">
-            <table id="exam_data_table" 
-            class="table table-bordered table-striped table-hover">
+            <table id="exam_data_table" class="table table-bordered table-striped table-hover">
                 <thead> 
                     <tr>
 						<th>
@@ -90,12 +87,14 @@ if(isset($_POST['fare_filter'])) {
                             <input type="submit" name="distance" value="Distance" class="input" />
                             <input type="submit" name="fare" value="Total Fare" class="input" />
                         </th>
-                     <!--   <th>
+                     <!--<th>
                             <input type="text" name="fare" id="s1"/>
   							<input type="submit" name="fare_filter" value="Filter"/>
                         </th> -->
 					</tr>
-            <tr><th>1.All List<th></tr>
+                <tr>
+                    <th>1.All List<th>
+                </tr>
                 <tr>
                     <th>Ride Date and Time</th>
                     <th>Ride From</th>
@@ -122,7 +121,6 @@ if(isset($_POST['fare_filter'])) {
         </table>
         </form>
     </div>
-
 </div>
 </div>
 </body>

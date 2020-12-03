@@ -14,10 +14,8 @@ require 'header2.php';
 require 'class.php';
 $Ride = new Ride();  
 $dataPoints = $Ride->avilable_rides1('tfare as y, Rdate as label', 'status=1', 'Rdate', 'ASC');
-
 ?>
-	<html>
-
+<html>
 	<head>
 		<title>CedCab</title>
 		<link type="text/css" rel="stylesheet" href="style2.css">
@@ -54,5 +52,4 @@ $dataPoints = $Ride->avilable_rides1('tfare as y, Rdate as label', 'status=1', '
 		<div id="chartContainer" style="height: 380px; width: 100%;"></div>
 		<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 	</body>
-
-	</html>
+</html>

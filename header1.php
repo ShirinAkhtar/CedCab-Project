@@ -6,11 +6,10 @@
   <link type = "text/css" rel = "stylesheet" href = "style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
-body {
+  body 
+{
   font-family: "Lato", sans-serif;
 }
-
-/* Fixed sidenav, full height */
 .sidenav {
   height: 100%;
   width: 200px;
@@ -23,7 +22,6 @@ body {
   padding-top: 20px;
 }
 
-/* Style the sidenav links and the dropdown button */
 .sidenav a, .dropdown-btn {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
@@ -38,38 +36,30 @@ body {
   outline: none;
 }
 
-/* On mouse-over */
 .sidenav a:hover, .dropdown-btn:hover {
   color: #f1f1f1;
 }
 
-/* Main content */
 .main {
-  margin-left: 200px; /* Same as the width of the sidenav */
-  font-size: 20px; /* Increased text to enable scrolling */
+  margin-left: 200px; 
+  font-size: 20px; 
   padding: 0px 10px;
 }
 
-/* Add an active class to the active dropdown button */
 .active {
   background-color: green;
   color: white;
 }
-
-/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
 .dropdown-container {
   display: none;
   background-color: #262626;
   padding-left: 8px;
 }
 
-/* Optional: Style the caret down icon */
 .fa-caret-down {
   float: right;
   padding-right: 8px;
 }
-
-/* Some media queries for responsiveness */
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
@@ -77,6 +67,48 @@ body {
 #img2 {
 	width: 120px;
 	border-radius: 25px;
+}
+
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+  color:black;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
 }
 </style>
 
@@ -91,9 +123,13 @@ body {
   </div>
   </nav>
 <a href="admin.php">Dashboard</a>
-<a href="request.php">All Users</a>
+<div class="dropdown">
+<a href="request.php" class="dropdown">All Users</a>
+<div class="dropdown-content">
 <a href="requestApproved.php">Approved Users</a>
 <a href="Disapp.php">Requested Users</a>
+  </div></div>
+
 <a href="location.php" class="dropbtn">Locations</a>
 <a href="addlocation.php">Add Locations</a>
 <a href="ride.php" class="dropbtn">Ride</a>

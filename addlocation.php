@@ -11,7 +11,7 @@
  * @link     http://localhost/
  */
 require 'class.php';
-require 'header1.php';
+require 'header2.php';
     $error  = array();
     $message = '';
     $Isblock = 0;

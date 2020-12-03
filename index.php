@@ -4,13 +4,16 @@ $timeout_duration = 300;
 require 'class.php';
 $Location = new Location();  
 $lo = $Location->location_avilable();
-
 //session_destroy();
-if(isset($_SESSION['booking'])){
-$Ride = new Ride();
-$ride_store = $Ride->store_ride( $_SESSION['userdata']['userid'],$_SESSION['booking']['pick'], $_SESSION['booking']['drop'], $_SESSION['booking']['dist'], $_SESSION['booking']['cabType'], $_SESSION['booking']['lug'], $_SESSION['booking']['amt'],  $_SESSION['booking']['status']);
-unset($_SESSION['booking']);}
-if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $timeout_duration) {
+if(isset($_SESSION['booking']))
+{
+	$Ride = new Ride();
+	$ride_store = $Ride->store_ride( $_SESSION['userdata']['userid'],$_SESSION['booking']['pick'], $_SESSION['booking']['drop'], $_SESSION['booking']['dist'], $_SESSION['booking']['cabType'], $_SESSION['booking']['lug'], $_SESSION['booking']['amt'],  $_SESSION['booking']['status']);
+	unset($_SESSION['booking']);
+	
+}
+if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $timeout_duration) 
+{
     unset($_SESSION['booking']);
 }
 $_SESSION['LAST_ACTIVITY'] = $time;
@@ -64,7 +67,7 @@ $_SESSION['LAST_ACTIVITY'] = $time;
 						<div class="col-sm-12 col-md-12 col-lg-6">
 							<form method="post">
 								<h4><button>City Taxi</button></h4>
-								<h5>Your Everyday Travel Patner</h5>
+								<h5>Your Everyday Travel Partner</h5>
 								<h6>AC cabs from point to point location</h6>
 								<div class="input-group"> <span class="input-group-addon">PICK UP</span>
 									<select id="msg4" class="custom-select form-control" required>

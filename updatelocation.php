@@ -11,6 +11,7 @@
  * @link     http://localhost/
  */
     require 'class.php';
+    require 'header2.php';
     $error  = array();
     $message = '';
     $id = $_REQUEST["id"];

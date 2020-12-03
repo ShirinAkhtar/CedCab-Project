@@ -86,7 +86,7 @@ if(isset($_POST['filter'])) {
 									  $strip = $createDate->format('Y-m-d');?>
 								<td><?php echo $value['Sdate']; ?></td>
 								<td><?php echo $value['mobile']; ?></td>
-								<td><?php echo $value['Isblock']; ?></td>
+								<td style="text-align:center;"><?php echo $value['Isblock']; ?></td>
 								<td><?php echo $value['isAdmin']; ?></td>
 								<?php if ($value['Isblock'] == "1") { ?>
 									<td><a href="request.php?action=access&Did=<?php echo $value['Uid'];?>" class="edit_btn1" name="access_granted">Access Denied</a> </td>

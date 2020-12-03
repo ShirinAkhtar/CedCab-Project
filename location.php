@@ -10,7 +10,7 @@
  * @license  https://opensource.org/licenses/MIT MIT License
  * @link     http://localhost/
  */
-require 'header1.php';
+require 'header2.php';
 require 'class.php';
 $Location = new Location();  
 $lo = $Location->location_avilable();
@@ -27,19 +27,28 @@ if(isset($_REQUEST["Did"]))
     $Location->denied($id);
     header('Location: location.php');
 }
+if(isset($_POST['name'])) {
+    $lo = $Location-> location_sortByName();
+}
 ?>
 <html>
 <head>
 	<title>Location List</title>
-	<link type="text/css" rel="stylesheet" href="style.css">
+	<link type="text/css" rel="stylesheet" href="style2.css">
 </head>
 <body style="background-color:white;">
 	<h1><center>Available Locations</center></h1><br/>
 		<div class="card">
 			<div class="card-body">
 				<div class="table-responsive">
+				<form method="post">
 					<table id="exam_data_table" class="table table-bordered table-striped table-hover">
 						<thead>
+							<tr>
+								<th>Sort By:
+									<input type="submit" name="name" value="Name" class="input" />
+								</th>
+							</tr>
 							<tr>
 								<th>Location Id</th>
 								<th>Location Name</th>
@@ -64,6 +73,7 @@ if(isset($_REQUEST["Did"]))
 							</tr>
 							<?php } ?>
 					</table>
+				</form>
 				</div>
 			</div>
 		</div>

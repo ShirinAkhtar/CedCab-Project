@@ -79,7 +79,7 @@ class Registration extends Databases
                 }
                 else
                 {
-                    header('Location: userPending.php');
+                    header('Location: history.php');
                 }
             }
             return $rtn;
@@ -156,7 +156,9 @@ class Registration extends Databases
     public function del_user($id)
     {
         $sql = "DELETE FROM `tbl_user` WHERE `Uid` = '$id'";
+        $sql1 = "DELETE FROM `tbl_ride` WHERE `Uid` = '$id'";
         $result = $this->conn->query($sql);
+        $result1 = $this->conn->query($sql1);
         if ($result === true)
         {
             echo "Record deleted successfully";
@@ -311,7 +313,7 @@ class Ride extends Databases
     public function rides_sortByDate()
     {
         $ride = array();
-        $sql = "SELECT * FROM `tbl_ride` ORDER BY `Rdate` ";
+        $sql = " SELECT * FROM `tbl_ride` ORDER BY `Rdate` ";
         $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
         {
@@ -330,7 +332,7 @@ class Ride extends Databases
     public function ride_filterByDate($startdate,$endate)
     {
         $ride = array();
-        $sql = "SELECT * FROM `tbl_ride`";
+        $sql = " SELECT * FROM `tbl_ride` ";
         if(!empty($startdate) && !empty($endate)){
             $sql .= " WHERE CAST(Rdate AS DATE) between '".$startdate."' AND '".$endate."' ";
         }
@@ -352,7 +354,7 @@ class Ride extends Databases
     public function ride_filterByDate1($startdate,$endate,$id)
     {
         $ride = array();
-        $sql = "SELECT * FROM `tbl_ride`";
+        $sql = " SELECT * FROM `tbl_ride`";
         if(!empty($startdate) && !empty($endate)){
             $sql .= " WHERE CAST(Rdate AS DATE) between '".$startdate."' AND '".$endate."' AND `Uid`='$id' ";
         }
@@ -374,7 +376,7 @@ class Ride extends Databases
     public function ride_sortByDistance()
     {
         $ride = array();
-        $sql = "SELECT * FROM `tbl_ride` ORDER BY `tdistance` ";
+        $sql = " SELECT * FROM `tbl_ride` ORDER BY cast(`tdistance` as unsigned)";
         $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
         {
@@ -382,12 +384,9 @@ class Ride extends Databases
             {
                 array_push($ride, $row);
             }
-            return $ride;
+            
         }
-        else
-        {
-            return $ride;
-        }
+        return $ride;
     }
 
     public function ride_sortByDistance1($id)
@@ -453,7 +452,7 @@ class Ride extends Databases
     public function FareFilter($fare)
     {
         $ride = array();
-        $sql = "SELECT * FROM `tbl_ride` WHERE  tfare = '" . $fare . "' ";
+        $sql = " SELECT * FROM `tbl_ride` WHERE  tfare = '" . $fare . "' ";
         $result = $this->conn->query($sql);
         $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
@@ -589,6 +588,24 @@ class Location extends Databases
             return $location;
         }
     }
+
+    public function location_sortByName()
+    {
+        $location = array();
+        $sql = "SELECT * FROM tbl_location order by `Lname`";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows > 0)
+        {
+            while ($row = $result->fetch_assoc())
+            {
+                array_push($location, $row);
+                
+            }
+            
+        }
+        return $location;
+    }
+
     public function del_location($id)
     {
         $sql = "DELETE FROM `tbl_location` WHERE `Lid` = '$id'";

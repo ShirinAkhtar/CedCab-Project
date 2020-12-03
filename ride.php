@@ -10,6 +10,7 @@
  * @license  https://opensource.org/licenses/MIT MIT License
  * @link     http://localhost/
  */
+
 require 'header2.php';
 require 'class.php';
 $Ride = new Ride();  
@@ -17,22 +18,22 @@ $store1 = $Ride->avilable_rides();
 $total=0;
 if(isset($_POST['date'])) {
     $store1 = $Ride-> rides_sortByDate();
-    //header('Location: request.php');
 }
+
 if(isset($_POST['distance'])) {
-    $store1 = $Ride-> ride_sortByDistance();
-    //header('Location: request.php');
+    $store1 = $Ride-> ride_sortByDistance();    
 }
+
 if(isset($_POST['fare'])) {
     $store1 = $Ride-> ride_sortByFare();
-    //header('Location: request.php');
 }
+
 if(isset($_POST['filter'])) {
 	$startdate = isset($_POST['startdate'])?$_POST['startdate']:'';
     $endate = isset($_POST['endate'])?$_POST['endate']:'';
     $store1 = $Ride-> ride_filterByDate($startdate,$endate);
-    //header('Location: request.php');
 }
+
 if(isset($_POST['fare_filter'])) {
 	$fare = isset($_POST['fare'])?$_POST['fare']:'';
 	$Ride-> FareFilter($fare);
@@ -49,17 +50,16 @@ if(isset($_POST['fare_filter'])) {
 			<div class="card-header">
 				<div class="row">
 					<div class="col-md-9">
-						<h3 class="panel-title"><center>Ride Request List</center></h3> </div>
+						<h3 class="panel-title"><center>Ride Request List</center></h3>
+					</div>
 				</div>
 			</div>
 			
 			<div class="card-body">
 				<div class="table-responsive">
-				
 					<form method="post">
 						<table id="exam_data_table" class="table table-bordered table-striped table-hover">
-						
-							<thead>
+						<thead>
 							<tr>
 								<th>
 									<input type="submit" name="date" value="Date" class="input" />
@@ -74,6 +74,7 @@ if(isset($_POST['fare_filter'])) {
 							</tr>
 								<tr>
 									<th>Ride Id</th>
+									<th>User Id</th>
 									<th>Ride Date</th>
 									<th>Ride From</th>
 									<th>Ride To</th>
@@ -83,9 +84,6 @@ if(isset($_POST['fare_filter'])) {
 									<th>Total Fare</th>
 									<th>Status</th>
 									<th>Action</th>
-									<th>
-										
-									<th>
 								</tr>
 							</thead>
 							<?php 
@@ -94,6 +92,9 @@ if(isset($_POST['fare_filter'])) {
 								<tr>
 									<td>
 										<?php echo $value['Rid'] ?>
+									</td>
+									<td>
+										<?php echo $value['Uid'] ?>
 									</td>
 									<?php $date = $value['Rdate'];
 									  $createDate = new DateTime($date);

@@ -49,10 +49,6 @@
     border-radius: 5px;
   }
   
-  #signupForm label{
-      display: block;
-      margin-top: 10px;
-  }
   
   #error
   {
