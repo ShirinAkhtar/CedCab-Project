@@ -12,6 +12,8 @@
  */
 require 'header1.php';
 require 'class.php';
+if(isset($_SESSION['userdata']) && ($_SESSION['userdata']['isAdmin'] == 1)) 
+{
 $Ride = new Ride();  
 $store1 = $Ride->avilable_rides();
 $total=0;
@@ -97,12 +99,12 @@ if(isset($_POST['filter'])) {
 							<td><?php echo $value['cabtype']; ?></td>
 							<td><?php echo $value['lug']; ?> kg</td>
 							<td>  Rs. <?php echo $value['tfare']; ?></td>
-							<td><?php echo $value['status']; ?></td>
+							
 							<?php if ($value['status'] == 1) { ?>
 								<td><a href="pendingRide.php?action=access&Did=<?php echo $value['Rid'];?>" class="edit_btn" name="access_granted">Completed Ride</a> </td>
 								<?php } else 
 											{ ?>
-								<td><a href="pendingRide.php?action=access&Aid=<?php echo $value['Rid'];?>" class="edit_btn1" name="access_granted">Pending Ride</a></td> 
+								<td><a href="pendingRide.php?action=access&Aid=<?php echo $value['Rid'];?>" class="edit_btn1" onClick="return confirm('Are you sure you want to approve the ride?')" name="access_granted">Pending Ride</a></td> 
 								
 								<?php } ?>
 							<td><a href="deletePending.php?action=edit&id=<?php echo $value['Rid'];?>" onClick="return confirm('Are you sure you want to delete?')" class="del_btn">Delete</a> </td>
@@ -116,4 +118,9 @@ if(isset($_POST['filter'])) {
 			</div>
 		</div>
 	</body>
+	<?php require 'footer.php' ?>
 </html>
+<?php } else
+{
+	header('Location:login.php');
+}?>

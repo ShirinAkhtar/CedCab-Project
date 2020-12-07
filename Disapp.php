@@ -12,35 +12,46 @@
  */
 require 'header2.php';
 require 'class.php';
-$Registration = new Registration();  
-$store1 = $Registration->userRequest();
-echo sizeof($store1);
-if(isset($_REQUEST["Aid"]))
+if(isset($_SESSION['userdata']) && ($_SESSION['userdata']['isAdmin'] == 1)) 
 {
-    $id = $_REQUEST["Aid"];
-    $Registration->access($_REQUEST["Aid"]);
-    header('Location: request.php');
-}
-if(isset($_REQUEST["Did"]))
-{
-    $id = $_REQUEST["Did"];
-    $Registration->denied($id);
-    header('Location: request.php');
-}
-if(isset($_POST['username'])) {
-    $store1 = $Registration-> userRequest_sortByName();
-}
-if(isset($_POST['date'])) {
-    $store1 = $Registration-> userRequest_sortByDate();
-}
-if(isset($_POST['filter'])) {
-	$Fname = isset($_POST['Fname'])?$_POST['Fname']:'';
-	if($Fname == "")
+	$Registration = new Registration();  
+	$store1 = $Registration->userRequest();
+	echo sizeof($store1);
+	if(isset($_REQUEST["Aid"]))
 	{
-		$store1 = $Registration->userRequest();
-	}else{
-	$store1 = $Registration-> user_filterByName($Fname);}
-}
+		$id = $_REQUEST["Aid"];
+		$Registration->access($_REQUEST["Aid"]);
+		header('Location: Disapp.php');
+	}
+	if(isset($_REQUEST["Did"]))
+	{
+		$id = $_REQUEST["Did"];
+		$Registration->denied($id);
+		header('Location: Disapp.php');
+	}
+	if(isset($_POST['username'])) {
+		$store1 = $Registration-> userRequest_sortByName();
+	}
+	
+	if(isset($_POST['Downid'])) {
+		$store1 = $Registration-> userRequest_sortByDscend();
+	}
+	
+	if(isset($_POST['Downdate'])) {
+		$store1 = $Registration-> userRequest_sortByDateDESC();
+	}
+	if(isset($_POST['date'])) {
+		$store1 = $Registration-> userRequest_sortByDate();
+	}
+	if(isset($_POST['filter'])) {
+		$Fname = isset($_POST['Fname'])?$_POST['Fname']:'';
+		if($Fname == "")
+		{
+			$store1 = $Registration->userRequest();
+		}else{
+		$store1 = $Registration-> user_filterByName($Fname);
+		}
+	}
 ?>
 	<html>
 
@@ -55,11 +66,6 @@ if(isset($_POST['filter'])) {
 			<table id="exam_data_table" class="table table-bordered table-striped table-hover">
 				<thead>
 					<tr>
-						<th>
-							<input type="submit" name="id" value="Id" class="input" />
-							<input type="submit" name="username" value="UserName" class="input" />
-							<input type="submit" name="date" value="Date" class="input" />
-                        </th>
                         <th>
 							<input type="text" name="Fname" id="s1"/>
   							<input type="submit" name="filter" value="Filter"/>
@@ -71,9 +77,8 @@ if(isset($_POST['filter'])) {
 						<th>Name</th>
 						<th>Date</th>
 						<th>Mobile</th>
-						<th>Block Status</th>
+						<th>Status</th>
 						<th>Action</th>
-						
 					</tr>
 				</thead>
 				<?php  foreach($store1 as $key=> $value){
@@ -86,10 +91,20 @@ if(isset($_POST['filter'])) {
 								<?php $date = $value['Sdate'];
 									  $createDate = new DateTime($date);
 									  $strip = $createDate->format('Y-m-d');?>
-								<td><?php echo $value['Sdate']; ?></td>
+								<td><?php echo $strip ; ?></td>
 								<td><?php echo $value['mobile']; ?></td>
-								<td><?php echo $value['Isblock']; ?></td>							
-								<td><a href="deleteAccess.php?action=access&id=<?php echo $value['Uid'];?>" onClick="return confirm('Are you sure you want to delete?')" class="del_btn">Delete</a> </td>
+								<td> Blocked</td>
+
+								<?php if ($value['Isblock'] == "1") { ?>
+									<td><a href="Disapp.php?action=access&Did=<?php echo $value['Uid'];?>"   class="edit_btn1" name="access_granted">Block</a> </td>
+								<?php } else 
+											{ ?>
+								<td><a href="Disapp.php?action=access&Aid=<?php echo $value['Uid'];?>" onClick="return confirm('Are you sure you want to Unblock?')" class="edit_btn" name="access_granted">Unblock</a> </td>
+								
+								<?php } ?>
+
+
+							<!--	<td><a href="deleteAccess.php?action=access&id=<?php// echo $value['Uid'];?>" onClick="return confirm('Are you sure you want to delete?')" class="del_btn">Delete</a> </td> -->
 								<?php } ?>
 							</tr>
 					<?php } ?><?php } ?>
@@ -99,4 +114,9 @@ if(isset($_POST['filter'])) {
 	</div>
 </div>
 </body>
+<?php require 'footer.php' ?>
 </html>
+<?php } else
+{
+	header('Location:login.php');
+}?>

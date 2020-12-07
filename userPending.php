@@ -11,30 +11,65 @@
  * @link     http://localhost/
  */
 require 'class.php';
-if (!isset($_SESSION['userdata'])) {
-    header('Location: login.php');
+if(isset($_SESSION['userdata']) && ($_SESSION['userdata']['isAdmin'] == 1)) {
+	header('Location:login.php');
 }
+else 
+{
+    if (!isset($_SESSION['userdata'])) {
+        header('Location: login.php');
+    }
 
-$Ride = new Ride();  
-$id = $_SESSION['userdata']['userid'];
-$store1 = $Ride->ride_history($id);
+    $Ride = new Ride();  
+    $id = $_SESSION['userdata']['userid'];
+    $store1 = $Ride->ride_history($id);
 
-if(isset($_POST['filter'])) {
-	$startdate = isset($_POST['startdate'])?$_POST['startdate']:'';
-    $endate = isset($_POST['endate'])?$_POST['endate']:'';
-    $store1 = $Ride-> ride_filterByDate1($startdate,$endate,$id);
-}
-if(isset($_POST['date'])) {
-    $store1 = $Ride-> rides_sortByDate1($id);
-  
-}
-if(isset($_POST['distance'])) {
-    $store1 = $Ride-> ride_sortByDistance1($id);
-}
-if(isset($_POST['fare'])) {
-    $store1 = $Ride-> ride_sortByFare1($id);
-}
-//header('Location: userPending.php');
+    if(isset($_POST['filter'])) {
+        $startdate = isset($_POST['startdate'])?$_POST['startdate']:'';
+        $endate = isset($_POST['endate'])?$_POST['endate']:'';
+        $store1 = $Ride-> ride_filterByDate1($startdate,$endate,$id);
+    }
+    if(isset($_POST['date'])) {
+        $store1 = $Ride-> rides_sortByDate1($id);
+    
+    }if(isset($_POST['Ddate'])) {
+        $store1 = $Ride-> rides_sortByDateDESC();
+    }
+    if(isset($_POST['distance'])) {
+        $store1 = $Ride-> ride_sortByDistance1($id);
+    }
+    if(isset($_POST['Ddistance'])) {
+        $store1 = $Ride->ride_sortByDistanceDESC();    
+    }
+    if(isset($_POST['fare'])) {
+        $store1 = $Ride-> ride_sortByFare1($id);
+    }
+    if(isset($_POST['Dfare'])) {
+        $store1 = $Ride-> ride_sortByFareDESC();
+    }
+
+    if(isset($_POST['cabtype'])) {
+        $store1 = $Ride-> ride_sortByCab();
+    }
+    if(isset($_POST['Dcabtype'])) {
+        $store1 = $Ride-> ride_sortByCabDESC();
+    }
+
+    if(isset($_POST['lugg'])) {
+        $store1 = $Ride-> ride_sortBylugg();
+    }
+    if(isset($_POST['Dlugg'])) {
+        $store1 = $Ride-> ride_sortByDlugg();
+    }
+
+
+    if(isset($_POST['cancel'])) {
+        $id = isset($_POST['rideid'])?$_POST['rideid']:'';
+        $Ride-> CancelRide($id);
+        $store1 = $Ride->ride_history($_SESSION['userdata']['userid']);
+        //print_r( $store1);
+    }
+    //header('Location: userPending.php');
 ?>
 <html>
 <head>
@@ -49,24 +84,27 @@ if(isset($_POST['fare'])) {
 	<link rel="stylesheet" href="cab1.css"> 
 </head>
 <body style="background-color:white">
-<nav class="navbar navbar-inverse nav-pills flex-column flex-sm-row navbar-expand-md">
+    <nav class="navbar navbar-inverse nav-pills flex-column flex-sm-row navbar-expand-md">
 		<div class="container-fluid">
 			<div class="navbar-header"> <img src="logo1.png" id="img2" onclick="window.open('index.php', '_blank');"/>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 					<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-border-width" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-						<path d="M0 3.5A.5.5 0 0 1 .5 3h15a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-2zm0 5A.5.5 0 0 1 .5 8h15a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1zm0 4a.5.5 0 0 1 .5-.5h15a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z" /> </svg>
+					<path d="M0 3.5A.5.5 0 0 1 .5 3h15a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-2zm0 5A.5.5 0 0 1 .5 8h15a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1zm0 4a.5.5 0 0 1 .5-.5h15a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z" /> </svg>
 				</button>
 			</div>
 			<div class="collapse navbar-collapse text-sm-center" id="collapsibleNavbar">
 				<ul class="nav navbar-nav navbar-right text-center">
                     <li><a href="index.php">Home</a></li>
-                    <li><a href="userPending.php">Pending Ride</a></li>
-                    <li><a href="userApprove.php" class="flex-sm-fill text-sm-center">Approved Rides</a> </li>
+                    <li><a href="" id="wel">Welcome <?php echo $_SESSION['userdata']['username'] ?> </a></li>
+                    <li><a href="dashboard.php" id="wel">Profile</a></li>
+                    <li><a href="history.php" id="all" class="flex-sm-fill text-sm-center">All Ride Records</a> </li>
+                    <li><a href="userPending.php" id="all" class="flex-sm-fill text-sm-center">Pending Ride</a> </li>
+                    <li><a href="userApprove.php" id="all" class="flex-sm-fill text-sm-center">Completed Ride</a> </li>
                     <li><a href="logout.php"><button type="button" class="btn btn-primary" id="rcorners2">Logout</button></a></li>
-				</ul>
+                </ul>
 			</div>
 		</div>
-</nav>
+    </nav>
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
@@ -78,24 +116,41 @@ if(isset($_POST['fare'])) {
                     </tr>
                     <tr>
                         <th>
-                            <input type="date" name="startdate"/>
-                            <input type="date" name="endate"/>
-                            <input type="submit" name="filter" value="Filter"/>
-                        </th>
-                        <th><input type="submit" name="date" value="Date" class="input" />
-                            <input type="submit" name="distance" value="Distance" class="input" />
-                            <input type="submit" name="fare" value="Total Fare" class="input" />
+                            <?php if (!isset($_POST['filter'])) {?>
+                                <form method="post">
+                                    <input type="date" name="startdate"/>
+                                    <input type="date" name="endate"/>
+                                    <input type="submit" name="filter" value="Filter Date"/>
+                                </form>
+                            <?php } else {?>
+                                <button><a href="userPending.php">Clear</a></button>
+                            <?php } ?>
                         </th>
                     </tr>
                     <tr>
-                        <th>Ride Date and Time</th>
-                        <th>Ride From</th>
-                        <th>Ride To</th>
-                        <th>Total Distance</th>
-                        <th>Cab Type</th>
-                        <th>Luggage</th>
-                        <th>Total Fare</th>
-                    
+                        <th>Ride Date and Time <button type="submit" name="date" value="Date" class="input"><i class="fa fa-angle-up" aria-hidden="true" style="color:black;"></i></button>
+                            <button type="submit" name="Ddate" value="Date" class="input"><i class="fa fa-angle-down" aria-hidden="true" style="color:black;"></i></button>
+                        </th>
+                    <th>Ride From</th>
+                    <th>Ride To</th>
+                    <th>Total Distance<button type="submit" name="distance" value="Distance" class="input"><i class="fa fa-angle-up" aria-hidden="true" style="color:black;"></i></button>
+                    <button type="submit" name="Ddistance" value="Distance" class="input"><i class="fa fa-angle-down" aria-hidden="true" style="color:black;"></i></button>
+                    </th>
+                        <th>Cab Type
+                        <form method="post">
+                            <button type="submit" name="cabtype"  class="input"><i class="fa fa-angle-up" aria-hidden="true" style="color:black;"></i></button>
+                            <button type="submit" name="Dcabtype"   class="input"><i class="fa fa-angle-down" aria-hidden="true" style="color:black;"></i></button>
+                        </form></th>
+                        <th>Luggage
+                        <form method="post">
+                            <button type="submit" name="lugg"   class="input"><i class="fa fa-angle-up" aria-hidden="true" style="color:black;"></i></button>
+                            <button type="submit" name="Dlugg"   class="input"><i class="fa fa-angle-down" aria-hidden="true" style="color:black;"></i></button>
+                        </form>
+                        </th>
+                    <th>Total Fare<button type="submit" name="fare" value="Total Fare" class="input"><i class="fa fa-angle-up" aria-hidden="true" style="color:black;"></i></button>
+                    <button type="submit" name="Dfare" value="Total Fare" class="input"><i class="fa fa-angle-down" aria-hidden="true" style="color:black;"></i></button>
+                    </th>
+                    <th>Action</th>
                     </tr>
                 </thead>
                 <?php foreach($store1 as $key=> $value)
@@ -109,14 +164,19 @@ if(isset($_POST['fare'])) {
                     <td><?php echo $value['tdistance']; ?> km </td>
                     <td><?php echo $value['cabtype']; ?></td>
                     <td><?php echo $value['lug']; ?> kg </td>
-                    <td>Rs. <?php echo $value['tfare']; ?></td>        
-                </tr><?php
-                        }?><?php
-                    }?>
+                    <td>Rs. <?php echo $value['tfare']; ?></td>
+                    <td><?php if($value['status']==0){ ?><form method="post">
+                    <input type="number" name="rideid" value="<?php echo $value['Rid']; ?>" hidden/>
+                    <button type="submit" name="cancel" value="Cancel" onClick="return confirm('Are you sure you want to delete?')" class="input">Cancel</button></td>
+                    </form>	<?php } ?>	
+                </tr> <?php } ?>
+                <?php } ?>
             </table>
         </form>
     </div>
 </div>
 </div>
 </body>
+<?php require 'footer.php' ?>
 </html>
+<?php } ?>

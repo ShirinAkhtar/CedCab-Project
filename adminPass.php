@@ -26,7 +26,13 @@
         $oldPass = isset($_POST['oldPass'])?$_POST['oldPass']:'';
         $newPass = isset($_POST['newPass'])?$_POST['newPass']:'';
         $sid = $_SESSION['userdata']['userid'];
-        echo  $Registration->update_pass($sid,$newPass);
+        if($oldPass == $newPass)
+        {
+            echo '<script>alert("OOPs!, Same Password!")</script>';
+        }
+        else {
+         $Registration->update_pass($sid,$newPass);
+        header('Location:login.php');}
     }
 ?>
 <html>
@@ -59,4 +65,5 @@
         	{ ?>
             <a href="index.php" class="a5" role="button" aria-pressed="true">Dashboard</a> <?php } ?>
     </body>
+    <?php require 'footer.php' ?>
 </html>

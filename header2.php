@@ -128,7 +128,7 @@ body {
 <a href="ride.php" class="dropbtn">Ride</a>
 <a href="pendingRide.php">Pending Rides</a>
 <a href="completedRide.php">Completed Rides</a> 
-<a href="all.php">All Data</a>
+<a href="adminPass.php">Change Password</a>
 <a href="analysis.php">Analysis Report</a>
 <a href="logout.php">Logout</a>
 </div>

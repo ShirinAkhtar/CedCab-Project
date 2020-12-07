@@ -10,24 +10,27 @@
  * @license  https://opensource.org/licenses/MIT MIT License
  * @link     http://localhost/
  */
+
 require 'header1.php';
 require 'class.php';
-$Ride = new Ride();  
-$store1 = $Ride->avilable_rides();
-$total=0;
+if(isset($_SESSION['userdata']) && ($_SESSION['userdata']['isAdmin'] == 1)) 
+{
+	$Ride = new Ride();  
+	$store1 = $Ride->avilable_rides();
+	$total=0;
 
-if(isset($_POST['date'])) {
-    $store1 = $Ride-> rides_sortByDate();
-    //header('Location: request.php');
-}
-if(isset($_POST['distance'])) {
-    $store1 = $Ride-> ride_sortByDistance();
-    //header('Location: request.php');
-}
-if(isset($_POST['fare'])) {
-    $store1 = $Ride-> ride_sortByFare();
-    //header('Location: request.php');
-}
+	if(isset($_POST['date'])) {
+		$store1 = $Ride-> rides_sortByDate();
+		//header('Location: request.php');
+	}
+	if(isset($_POST['distance'])) {
+		$store1 = $Ride-> ride_sortByDistance();
+		//header('Location: request.php');
+	}
+	if(isset($_POST['fare'])) {
+		$store1 = $Ride-> ride_sortByFare();
+		//header('Location: request.php');
+	}
 ?>
 	<html>
 
@@ -114,5 +117,9 @@ if(isset($_POST['fare'])) {
 			</div>
 		</div>
 	</body>
-
+	<?php require 'footer.php' ?>
 	</html>
+	<?php } else
+			{
+				header('Location:login.php');
+			}?>

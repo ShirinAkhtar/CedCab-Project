@@ -12,6 +12,8 @@
  */
 require 'header2.php';
 require 'class.php';
+if(isset($_SESSION['userdata']) && ($_SESSION['userdata']['isAdmin'] == 1)) 
+{
 $id = $_REQUEST["id"];
 $Ride = new Ride();  
 $store1 = $Ride->avilable_rides2($id);
@@ -45,7 +47,8 @@ if(isset($_POST['fare'])) {
 			<div class="card-header">
 				<div class="row">
 					<div class="col-md-9">
-						<h3 class="panel-title"><center>Invoices</center></h3> </div>
+						<h3 class="panel-title"><center>Invoices</center></h3> 
+					</div>
 				</div>
 			</div>
 			<div class="card-body">
@@ -76,14 +79,14 @@ if(isset($_POST['fare'])) {
 											<td><?php echo $value['Rto']; ?></td>
 											<td><?php echo $value['tdistance']; ?></td>
 											<td><?php echo $value['cabtype']; ?></td>
-											<td><?php echo $value['lug']; ?></td>
-											<td><?php echo $value['tfare']; ?></td>
+											<td><?php echo $value['lug']; ?> kg</td>
+											<td>Rs. <?php echo $value['tfare']; ?></td>
 						
 										<?php //}?>
 									</tr>
 								<?php }?>
 								<tr>
-								<td><?php echo "Total Earnings:".$total; ?></td>
+								<td> <?php echo "Total Earnings:Rs.".$total; ?></td>
 								</tr>
 						</table>
 					</form>
@@ -91,4 +94,9 @@ if(isset($_POST['fare'])) {
 			</div>
 		</div>
 	</body>
+	<?php require 'footer.php' ?>
 </html>
+<?php } else
+{
+	header('Location:login.php');
+}?>

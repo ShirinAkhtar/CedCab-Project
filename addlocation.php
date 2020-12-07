@@ -49,8 +49,12 @@ if (isset($_POST['submit'])) {
         <form id="Register Form" action = "addlocation.php" method = "POST">
             <label for="Lname">Location Name<input type="text" onkeypress="return /[a-z]/i.test(event.key)" name="Lname" required></label><br>
             <label for="Ldis">Location Distance<input type="number" name="Ldis" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required></label><br>
-            <label for="Lavilable">Location Avilable<input type="number" name="Lavilable" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required></label><br>
-            <p><input type="submit" name="submit" value="Add Location" required></p>
+            <label for="distance">Location Available</label>
+            <select name="Lavil" required><br>
+                    <option  value="0" >0</option>
+                    <option  value="1">1</option>
+				</select> <p><input type="submit" name="submit" value="Add Location" required></p>
         </form>
     </body>
+    <?php require 'footer.php' ?>
 </html>

@@ -81,5 +81,7 @@ body {
 
 <a href="index.php">Home</a>
 <a href="password.php">Change Password</a>
+<a href="history.php">All Ride</a>
+<a href="userPending.php">Pending Ride</a>
 <a href="logout.php">Logout</a>
 </div>

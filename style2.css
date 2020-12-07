@@ -102,11 +102,13 @@
   }
   tr {
       border-bottom: 1px solid #cbcbcb;
+      padding:2px;
   }
   th, td{
       border: none;
-      height: 30px;
-      padding: 2px;
+      height: 28px;
+      padding: 10px;
+
   }
   tr:hover {
       background: #F5F5F5;

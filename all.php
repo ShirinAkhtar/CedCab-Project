@@ -12,6 +12,8 @@
  */
 require 'header1.php';
 require 'class.php';
+if(isset($_SESSION['userdata']) && ($_SESSION['userdata']['isAdmin'] == 1)) 
+{
 $Registration = new Registration();  
 $store1 = $Registration->userRequest();
 $Ride = new Ride();  
@@ -127,11 +129,23 @@ $lo = $Location->location_avilable();
             <td><?php echo $value['Lid'] ?></td>
             <td><?php echo $value['Lname']; ?></td>
             <td><?php echo $value['Ldis']; ?> km </td>
-            <td><?php echo $value['Lavilable']; ?> </td>
+            <td><?php if ($value['Lavilable'] == 0)
+            {
+                echo "Available";}
+                else
+                {
+                    echo "UnAvailable";
+                }
+            ?></td>
         </tr><?php
          }?>
         </table>
    </div>
 </div>
 </body>
+<?php require 'footer.php' ?>
 </html>
+<?php } else
+{
+	header('Location:login.php');
+}?>

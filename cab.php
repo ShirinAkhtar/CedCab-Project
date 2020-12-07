@@ -204,7 +204,7 @@ if ($cabType == 'CedSUV')
         $amt = $amt + 400;
     }
 }
-echo 'Total Amount: $ ' . $amt;
+echo 'Total Amount: Rs. ' . $amt;
 
 if ($action == 1)
 {

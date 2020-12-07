@@ -12,6 +12,10 @@
  */
    
 	require 'class.php';
+	if(isset($_SESSION['userdata']))
+	{
+		header('Location:logout.php');
+	}
 	require 'header3.php';
     $error  = array();
     $message = '';
@@ -19,7 +23,8 @@
     if (isset($_POST['submit'])) {
         $Uname = isset($_POST['Uname'])?$_POST['Uname']:'';
         $pswd = isset($_POST['pswd'])?$_POST['pswd']:'';
-        echo  $Registration->regLogin($Uname,$pswd);
+		echo  $Registration->regLogin($Uname,$pswd);
+		
 	}  
 	if(isset($_POST["rememberme"]))
 	{
@@ -56,4 +61,5 @@
       		<label>Remember me </label><input type="checkbox" name="rememberme" id="remember_me" checked/>
 		</form><!--<a class="a4" href="password.php?action=pass&id=<?php echo $_SESSION['userdata']['userid'];?>">Forget Password?</a> <a href="reg.php" class="a2" role="button" aria-pressed="true">Register Now</a>--> </body>
 	</body>
+	<?php require 'footer.php' ?>
 </html>

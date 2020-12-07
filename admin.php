@@ -12,147 +12,35 @@
  */
 require 'header1.php';
 require 'class.php';
-if(!isset($_SESSION['userdata'])) 
+//print_r($_SESSION['userdata']);
+if(isset($_SESSION['userdata']) && ($_SESSION['userdata']['isAdmin'] == 1)) 
 {
-	header('Location:login.php');
-}
-$Registration = new Registration();  
-$store1 = $Registration->userRequest();
-
-$Ride = new Ride();  
-$store2 = $Ride->avilable_rides();
-foreach($store2 as $key=> $value)
-{
-	if($value['status'] == 1)
+	
+	$Registration = new Registration();  
+	$store1 = $Registration->userRequest();
+$total=0;
+	$Ride = new Ride();  
+	$store2 = $Ride->avilable_rides();
+	foreach($store2 as $key=> $value)
 	{
-		$total = $total + $value['tfare'];
+		if($value['status'] == 1)
+		{
+			$total = $total + $value['tfare'];
+			//if($total)
+		}
 	}
-}
-$Location = new Location();  
-$loc = $Location->location_avilable();
-?>
-<html>
-<head>
-	<title>Dashboard</title>
-	<link type="text/css" rel="stylesheet" href="style.css">
-		<style>
-			.grid-container {
-				display: grid;
-				height: 700px;
-				align-content: center;
-				grid-template-columns: auto auto auto;
-				grid-gap: 20px;
-				background-color: black;
-				padding: 20px;
-			}
-			
-			.grid-container > div {
-				background-color: rgba(255, 255, 255, 0.8);
-				text-align: center;
-				padding: 20px 0;
-				font-size: 30px;
-				opacity: 0.8;
-				height: 200px;
-				border-radius: 10px;
-				cursor: pointer;
-			}
-			
-			div {
-				border-radius: 10px;
-			}
-			
-			.header1 {
-				padding: 65px;
-				text-align: center;
-				background:  #8e44ad  ;
-				color: white;
-				font-size: 10px;
-			}
-			
-			.header2 {
-				padding: 65px;
-				text-align: center;
-				background:  #27ae60 ;
-				color: white;
-				font-size: 10px;
-			}
-			
-			.header3 {
-				padding: 65px;
-				text-align: center;
-				background: #c0392b;
-				color: white;
-				font-size: 10px;
-			}
-			
-			.header4 {
-				padding: 65px;
-				text-align: center;
-				background: #FF5733;
-				color: white;
-				font-size: 10px;
-			}
-			
-			.header5 {
-				padding: 65px;
-				text-align: center;
-				background-color:  #f39c12;
-				color: white;
-				font-size: 10px;
-			}
-			
-			.header6 {
-				padding: 65px;
-				text-align: center;
-				background-color: #07c3f5;
-				color: white;
-				font-size: 10px;
-			}
-
-			.header7 {
-				padding: 65px;
-				text-align: center;
-				background-color: #34495e;
-				color: white;
-				font-size: 10px;
-			}
-			
-			body {
-				padding-left: 200px;
-				background-color: #d0cbd0;
-			}
-			
-			.a1:link,
-			.a1:visited {
-				background-color: #f44336;
-				color: white;
-				float: none;
-				padding: 8px 15px;
-				margin-top: 5px;
-				text-align: center;
-				text-decoration: none;
-				display: inline;
-			}
-			
-			.a1:hover,
-			.a1:active {
-				background-color: grey;
-			}
-			
-			.topnav-right {
-				float: right;
-			}
-		</style>
-</head>
+	$Location = new Location();  
+	$loc = $Location->location_avilable();
+?><?php require 'adminHead.php';?>
 
 	<body style="background-color:black">
-		<div class="topnav-right">
+	<!--	<div class="topnav-right">
 			<select name="dropDown" onchange="location = this.value;">
 				<option value="admin.php">Admin</option>
 				<option value="adminPass.php">Password</option>
 				<option value="logout.php"><a href="logout.php">Logout</a></option>
 			</select>
-		</div>
+		</div>-->
 		<div class="grid-container">
 			<div onclick="location.href='completedRide.php'">
 				<div class="header7">
@@ -192,4 +80,11 @@ $loc = $Location->location_avilable();
 			</div>
 		</div>
 	</body>
+	<?php require 'footer.php' ?>
 </html>
+	<?php }
+	else
+	{ 
+		header('Location:login.php');
+	}
+?>

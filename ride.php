@@ -13,32 +13,64 @@
 
 require 'header2.php';
 require 'class.php';
-$Ride = new Ride();  
-$store1 = $Ride->avilable_rides();
-$total=0;
-if(isset($_POST['date'])) {
-    $store1 = $Ride-> rides_sortByDate();
-}
+if(isset($_SESSION['userdata']) && ($_SESSION['userdata']['isAdmin'] == 1)) 
+{
+	$Ride = new Ride();  
+	$store1 = $Ride->avilable_rides();
+	$total=0;
+	
+	if(isset($_POST['Adate'])) {
+		$store1 = $Ride-> rides_sortByDate();
+	}
 
-if(isset($_POST['distance'])) {
-    $store1 = $Ride-> ride_sortByDistance();    
-}
+	if(isset($_POST['Ddate'])) {
+		$store1 = $Ride-> rides_sortByDateDESC();
+	}
 
-if(isset($_POST['fare'])) {
-    $store1 = $Ride-> ride_sortByFare();
-}
+	if(isset($_POST['distance'])) {
+		$store1 = $Ride-> ride_sortByDistance();    
+	}
 
-if(isset($_POST['filter'])) {
-	$startdate = isset($_POST['startdate'])?$_POST['startdate']:'';
-    $endate = isset($_POST['endate'])?$_POST['endate']:'';
-    $store1 = $Ride-> ride_filterByDate($startdate,$endate);
-}
+	if(isset($_POST['Ddistance'])) {
+		$store1 = $Ride->ride_sortByDistanceDESC();    
+	}
 
-if(isset($_POST['fare_filter'])) {
-	$fare = isset($_POST['fare'])?$_POST['fare']:'';
-	$Ride-> FareFilter($fare);
-	$store1 = $Ride-> FareFilter($fare);
-}
+	if(isset($_POST['fare'])) {
+		$store1 = $Ride-> ride_sortByFare();
+	}
+	if(isset($_POST['Dfare'])) {
+		$store1 = $Ride-> ride_sortByFareDESC();
+	}
+
+	if(isset($_POST['cabtype'])) {
+		$store1 = $Ride-> ride_sortByCab();
+	}
+	if(isset($_POST['Dcabtype'])) {
+		$store1 = $Ride-> ride_sortByCabDESC();
+	}
+
+	if(isset($_POST['lugg'])) {
+		$store1 = $Ride-> ride_sortBylugg();
+	}
+	if(isset($_POST['Dlugg'])) {
+		$store1 = $Ride-> ride_sortByDlugg();
+	}
+
+	if(isset($_POST['filter'])) {
+		$startdate = isset($_POST['startdate'])?$_POST['startdate']:'';
+		$endate = isset($_POST['endate'])?$_POST['endate']:'';
+		//echo '<script>alert(' .$startdate. ' from '.$endate. ')</script>';
+		
+		echo $startdate.'<br>';
+		echo $endate;
+		$store1 = $Ride-> ride_filterByDate($startdate,$endate);
+	}
+
+	if(isset($_POST['fare_filter'])) {
+		$fare = isset($_POST['fare'])?$_POST['fare']:'';
+		$Ride-> FareFilter($fare);
+		$store1 = $Ride-> FareFilter($fare);
+	}
 
 ?>
 <html>
@@ -57,32 +89,70 @@ if(isset($_POST['fare_filter'])) {
 			
 			<div class="card-body">
 				<div class="table-responsive">
-					<form method="post">
+					
 						<table id="exam_data_table" class="table table-bordered table-striped table-hover">
 						<thead>
-							<tr>
-								<th>
-									<input type="submit" name="date" value="Date" class="input" />
-									<input type="submit" name="distance" value="Distance" class="input" />
-									<input type="submit" name="fare" value="Total Fare" class="input" />
-									<input type="date" name="startdate"/>
-									<input type="date" name="endate"/>
-  									<input type="submit" name="filter" value="Filter"/>
-									<input type="text" name="fare" id="s1"/>
-  									<input type="submit" name="fare_filter" value="Filter"/>
+							<tr><th>Filter By Date:</th>
+								<th>  <?php if (!isset($_POST['filter'])) {?>
+								<form method="post">
+									<input type="date" name="startdate"/></th>
+								<th><input type="date" name="endate"/></th>
+								  <th><input type="submit" name="filter" value="Filter"/>
+								</form>
+								<?php } else {?>
+                                <button><a href="ride.php">Clear</a></button>
+                            <?php } ?></th>
 								</th>
+								<th>Filter By Fare:</th>
+								<th><?php if (!isset($_POST['fare_filter'])) {?>
+								<form method="post">
+									<input type="text" name="fare" id="s1"/></th>
+								  	<th><input type="submit" name="fare_filter" value="Filter"/>
+								</form>
+								<?php } else {?>
+                                <button><a href="ride.php">Clear</a></button>
+                            <?php } ?></th>
 							</tr>
 								<tr>
 									<th>Ride Id</th>
 									<th>User Id</th>
-									<th>Ride Date</th>
+									<form method="post">
+										<th style="padding-right:25px">Ride Date<button type="submit" name="Adate" class="input">
+										<i class="fa fa-angle-up" aria-hidden="true"></i></button>
+										<button type="submit" name="Ddate" class="input">
+										<i class="fa fa-angle-down" aria-hidden="true"></i></button>
+										</th>
+									</form>
 									<th>Ride From</th>
 									<th>Ride To</th>
-									<th>Total Distance</th>
-									<th>Cab Type</th>
-									<th>Luggage</th>
-									<th>Total Fare</th>
-									<th>Status</th>
+									<th>Total Distance
+									<form method="post">
+										<button type="submit" name="distance"  class="input">
+										<i class="fa fa-angle-up" aria-hidden="true"></i></button>
+										<button type="submit" name="Ddistance" value="Total Fare" class="input">
+										<i class="fa fa-angle-down" aria-hidden="true"></i></button>
+									</form>
+									</th>
+									<th>Cab Type
+									<form method="post">
+										<button type="submit" name="cabtype" value="Total Fare" class="input"><i class="fa fa-angle-up" aria-hidden="true"></i></button>
+										<button type="submit" name="Dcabtype" value="Total Fare" class="input"><i class="fa fa-angle-down" aria-hidden="true"></i></button>
+									</form></th>
+									<th>Luggage
+									<form method="post">
+										<button type="submit" name="lugg" value="Total Fare" class="input"><i class="fa fa-angle-up" aria-hidden="true"></i></button>
+										<button type="submit" name="Dlugg" value="Total Fare" class="input"><i class="fa fa-angle-down" aria-hidden="true"></i></button>
+									</form>
+									</th>
+
+									<th style="padding-right:25px">Total Fare
+									<form method="post">
+										
+										<button type="submit" name="fare" value="Total Fare" class="input"><i class="fa fa-angle-up" aria-hidden="true"></i></button>
+										<button type="submit" name="Dfare" value="Total Fare" class="input"><i class="fa fa-angle-down" aria-hidden="true"></i></button>
+									</form>	
+								</th>
+									
 									<th>Action</th>
 								</tr>
 							</thead>
@@ -120,12 +190,6 @@ if(isset($_POST['fare_filter'])) {
 									<td>
 										<?php echo $value['tfare']; ?> Rupees
 									</td>
-									<td>
-										<?php echo $value['status']; ?>
-									</td>
-
-									
-
 									<td> <a href="deleteRide.php?action=edit&id=<?php echo $value['Rid'];?>" onClick="return confirm('Are you sure you want to delete?')" class="del_btn">Delete</a> </td>
 								</tr>
 								<?php
@@ -145,4 +209,9 @@ if(isset($_POST['fare_filter'])) {
 		});
     });
 </script>
-	</html>
+<?php require 'footer.php' ?>
+</html>
+<?php } else
+{
+	header('Location:login.php');
+}?>

@@ -40,49 +40,71 @@ class Registration extends Databases
 {
     public function reg($Uname, $name, $mobile, $Isblock, $pswd, $isAdmin)
     {
-        $sql1 = "SELECT * FROM tbl_user WHERE Uname='" . $Uname . "' AND pswd='" . $pswd . "'";
+        $sql1 = "SELECT * FROM tbl_user WHERE  Uname='" . $Uname . "' ";
         $result = $this->conn->query($sql1);
         if ($result->num_rows > 0)
         {
-            echo "value Exists";
+           return "Users name already exists";
         }
         else
         {
             $paswd = md5($pswd);
             $sql = $this->conn->query("INSERT INTO tbl_user(`Uname`,`name`, `Sdate`, `mobile`, `Isblock`,`pswd`,`isAdmin`)
-        VALUES( '$Uname', '$name', NOW(), '$mobile','$Isblock','$paswd','$isAdmin')");
+            VALUES( '$Uname', '$name', NOW(), '$mobile','$Isblock','$paswd','$isAdmin')");
+            return "Registration Successful";
         }
-        return $sql;
+        
 
     }
     public function regLogin($Uname, $pswd)
     {
         $paswd = md5($pswd);
-        $sql = "SELECT * FROM tbl_user WHERE binary Uname='" . $Uname . "' AND pswd='" . $paswd . "'  AND Isblock = 1 ";
-       
-        $rtn = '';
-        $result = $this->conn->query($sql);
-        if ($result->num_rows > 0)
+        if ($Uname == 'admin'|| $Uname == 'Admin'|| $Uname == 'ADMIN')
         {
-            while ($row = $result->fetch_assoc())
+            $sql = "SELECT * FROM tbl_user WHERE  Uname='" . $Uname . "' AND pswd='" . $paswd . "'  AND Isblock = 1 ";
+       
+            $rtn = '';
+            $result = $this->conn->query($sql);
+            if ($result->num_rows > 0)
             {
-                $_SESSION['userdata'] = array(
+                while ($row = $result->fetch_assoc())
+                {
+                    $_SESSION['userdata'] = array(
                     'userid' => $row['Uid'],
                     'username' => $row['Uname'],
                     'dataname' => $row['name'],
-                    'datamobile' => $row['mobile']
+                    'datamobile' => $row['mobile'],
+                    'isAdmin' => $row['isAdmin']
                 );
-                if ($row['Uname'] == 'admin')
-                {
+                
                     header('Location: admin.php');
-                    $rtn = 'Login Success';
-                }
-                else
-                {
-                    header('Location: history.php');
+                    
                 }
             }
-            return $rtn;
+        }
+        else
+        {
+            $sql = "SELECT * FROM tbl_user WHERE binary Uname='" . $Uname . "' AND pswd='" . $paswd . "'  AND Isblock = 1 ";
+            $result = $this->conn->query($sql);
+
+            if ($result->num_rows > 0)
+            {
+                while ($row = $result->fetch_assoc())
+                {
+                    
+                    $_SESSION['userdata'] = array(
+                    'userid' => $row['Uid'],
+                    'username' => $row['Uname'],
+                    'dataname' => $row['name'],
+                    'datamobile' => $row['mobile'],
+                    'isAdmin' => $row['isAdmin']
+                );
+                }
+                header('Location: history.php');
+            } else {
+                echo "<script>alert('OOP's something went wrong!')</script>";
+                header('refresh:0; url=login.php');
+            }
         }
     }
     public function userRequest()
@@ -119,10 +141,39 @@ class Registration extends Databases
         }
     }
 
+    public function userRequest_sortByDateDESC()
+    {
+        $store = array();
+        $sql = "SELECT * FROM `tbl_user` ORDER BY `Sdate` DESC";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows > 0)
+        {
+            while ($row = $result->fetch_assoc())
+            {
+                array_push($store, $row);
+            }
+            return $store;
+        }
+    }
+
     public function userRequest_sortByName()
     {
         $store = array();
-        $sql = "SELECT * FROM `tbl_user` ORDER BY `Uname`";
+        $sql = "SELECT * FROM `tbl_user` ORDER BY `Uname` ASC";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows > 0)
+        {
+            while ($row = $result->fetch_assoc())
+            {
+                array_push($store, $row);
+            }
+            return $store;
+        }
+    }
+    public function userRequest_sortByDscend()
+    {
+        $store = array();
+        $sql = "SELECT * FROM `tbl_user` ORDER BY `Uname` DESC";
         $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
         {
@@ -178,9 +229,9 @@ class Registration extends Databases
     public function denied($id)
     {
         $sql1 = " UPDATE `tbl_user` SET `Isblock`= 0 WHERE `Uid`='$id'";
-        $result = $this
-            ->conn
-            ->query($sql1);
+        $sqli = " UPDATE `tbl_ride` SET `status`= 1 WHERE `Uid`='$id' AND  `status`= 0";
+        $result = $this->conn->query($sqli);
+        $result = $this->conn->query($sql1);
 
     }
     public function get_val($id)
@@ -196,43 +247,48 @@ class Registration extends Databases
                     'userid' => $row['Uid'],
                     'username' => $row['Uname'],
                     'dataname' => $row['name'],
-                    'datamobile' => $row['mobile']
+                    'datamobile' => $row['mobile'],
+                    'isAdmin' => $row['isAdmin']
                 );
             }
         }
+        
     }
 
-    public function get_pass($id)
-    {
-        $sql = 'SELECT * FROM `tbl_user` WHERE `Uid` = "' . $id . '" ';
-        $result = $this->conn->query($sql);
-        if ($result->num_rows > 0)
+        public function get_pass($id)
         {
-            while ($row = $result->fetch_assoc())
+            $sql = 'SELECT * FROM `tbl_user` WHERE `Uid` = "' . $id . '" ';
+            $result = $this->conn->query($sql);
+            if ($result->num_rows > 0)
             {
+                while ($row = $result->fetch_assoc())
+                {
 
-                $_SESSION['userdata'] = array(
-                    'userid' => $row['Uid'],
-                    'username' => $row['Uname'],
-                    'dataname' => $row['name'],
-                    'datamobile' => $row['mobile']
-                );
-        }
-    } return "Password Updated Succesfully!";
+                    $_SESSION['userdata'] = array(
+                        'userid' => $row['Uid'],
+                        'username' => $row['Uname'],
+                        'dataname' => $row['name'],
+                        'datamobile' => $row['mobile']
+                    );
+            }
+        } 
+            return "Password Updated Succesfully!";
 }
-    public function update_pass($id, $newPass)
-    {
-        $newPass1 = md5($newPass);
-        $sql1 = "UPDATE `tbl_user` SET `pswd`= '$newPass1' WHERE `Uid`='$id'";
-        $result = $this->conn->query($sql1);
-        return 'Password Updated Succesfully!';
-    }
+        public function update_pass($id, $newPass)
+        {
+            $newPass1 = md5($newPass);
+            $sql1 = "UPDATE `tbl_user` SET `pswd`= '$newPass1' WHERE `Uid`='$id'";
+            $result = $this->conn->query($sql1);
+            header('Location: admin.php');
+            return 'Password Updated Succesfully!';
+        }
 
-    public function set_val($id, $name, $mobile)
-    {
-        $sql1 = "UPDATE `tbl_user` SET `name`='$name', `mobile`='$mobile' WHERE `Uid`='$id'";
-        $result = $this->conn->query($sql1);
-    }
+        public function set_val($id, $name, $mobile)
+        {
+            $sql1 = "UPDATE `tbl_user` SET `name`='$name', `mobile`='$mobile' WHERE `Uid`='$id'";
+            $result = $this->conn->query($sql1);
+            header('Location: dashboard.php');
+        }
 
 }
 /** Ride Class  */
@@ -313,7 +369,83 @@ class Ride extends Databases
     public function rides_sortByDate()
     {
         $ride = array();
-        $sql = " SELECT * FROM `tbl_ride` ORDER BY `Rdate` ";
+        $sql = " SELECT * FROM `tbl_ride` ORDER BY CAST(`Rdate` as unsigned) ASC";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows > 0)
+        {
+            while ($row = $result->fetch_assoc())
+            {
+                array_push($ride, $row);
+            }
+        }
+        return $ride;
+    }
+
+    public function ride_sortByCab()
+    {
+        $ride = array();
+        $sql = " SELECT * FROM `tbl_ride` ORDER BY cabtype ASC";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows > 0)
+        {
+            while ($row = $result->fetch_assoc())
+            {
+                array_push($ride, $row);
+            }
+        }
+        return $ride;
+    }
+
+    public function ride_sortByCabDESC()
+    {
+        $ride = array();
+        $sql = " SELECT * FROM `tbl_ride` ORDER BY cabtype DESC";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows > 0)
+        {
+            while ($row = $result->fetch_assoc())
+            {
+                array_push($ride, $row);
+            }
+        }
+        return $ride;
+    }
+
+    public function ride_sortBylugg()
+    {
+        $ride = array();
+        $sql = " SELECT * FROM `tbl_ride` ORDER BY CAST(`lug` as unsigned) ASC";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows > 0)
+        {
+            while ($row = $result->fetch_assoc())
+            {
+                array_push($ride, $row);
+            }
+        }
+        return $ride;
+    }
+
+    public function ride_sortByDlugg()
+    {
+        $ride = array();
+        $sql = " SELECT * FROM `tbl_ride` ORDER BY CAST(`lug` as unsigned) DESC";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows > 0)
+        {
+            while ($row = $result->fetch_assoc())
+            {
+                array_push($ride, $row);
+            }
+        }
+        return $ride;
+    }
+
+
+    public function rides_sortByDateDESC()
+    {
+        $ride = array();
+        $sql = " SELECT * FROM `tbl_ride` ORDER BY `Rdate` DESC";
         $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
         {
@@ -344,6 +476,7 @@ class Ride extends Databases
                 array_push($ride, $row);
             }
             return $ride;
+            //echo '<script>alert(' .$startdate. ' from '.$endate. ')</script>';
         }
         else
         {
@@ -376,7 +509,23 @@ class Ride extends Databases
     public function ride_sortByDistance()
     {
         $ride = array();
-        $sql = " SELECT * FROM `tbl_ride` ORDER BY cast(`tdistance` as unsigned)";
+        $sql = " SELECT * FROM `tbl_ride` ORDER BY cast(`tdistance` as unsigned) ASC";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows > 0)
+        {
+            while ($row = $result->fetch_assoc())
+            {
+                array_push($ride, $row);
+            }
+            
+        }
+        return $ride;
+    }
+
+    public function ride_sortByDistanceDESC()
+    {
+        $ride = array();
+        $sql = " SELECT * FROM `tbl_ride` ORDER BY cast(`tdistance` as unsigned) DESC";
         $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
         {
@@ -414,6 +563,25 @@ class Ride extends Databases
     {
         $ride = array();
         $sql = "SELECT * FROM `tbl_ride` ORDER BY `tfare` ";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows > 0)
+        {
+            while ($row = $result->fetch_assoc())
+            {
+                array_push($ride, $row);
+            }
+            return $ride;
+        }
+        else
+        {
+            return $ride;
+        }
+    }
+
+    public function ride_sortByFareDESC()
+    {
+        $ride = array();
+        $sql = "SELECT * FROM `tbl_ride` ORDER BY `tfare` DESC";
         $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
         {
@@ -485,6 +653,10 @@ class Ride extends Databases
     
     public function store_ride($Uid, $pick, $drop, $dist, $cabType, $lug, $amt, $status)
     {
+        if($lug == "")
+        {
+            $lug = 0;
+        }
         $p = 0;
         $sql = "SELECT * FROM tbl_ride WHERE `Uid` = '$Uid'";
         $result = $this->conn->query($sql);
@@ -554,9 +726,12 @@ class Ride extends Databases
     public function denied($id)
     {
         $sql1 = " UPDATE `tbl_ride` SET `status`= 0 WHERE `Rid`='$id'";
-        $result = $this
-            ->conn
-            ->query($sql1);
+        $result = $this->conn->query($sql1);
+    }
+    public function CancelRide($id)
+    {
+        $sql1 = " UPDATE `tbl_ride` SET `status`= 2 WHERE `Rid`='$id'";
+        $result = $this->conn->query($sql1);
 
     }
 }
@@ -593,6 +768,24 @@ class Location extends Databases
     {
         $location = array();
         $sql = "SELECT * FROM tbl_location order by `Lname`";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows > 0)
+        {
+            while ($row = $result->fetch_assoc())
+            {
+                array_push($location, $row);
+                
+            }
+            
+        }
+        return $location;
+    }
+
+
+    public function location_sortByNameDESC()
+    {
+        $location = array();
+        $sql = "SELECT * FROM tbl_location order by `Lname` DESC";
         $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
         {

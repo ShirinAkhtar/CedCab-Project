@@ -12,27 +12,40 @@
  */
 require 'header2.php';
 require 'class.php';
+if(isset($_SESSION['userdata']) && ($_SESSION['userdata']['isAdmin'] == 1)) 
+{
 $Registration = new Registration();  
 $store1 = $Registration->userRequest();
-echo sizeof($store1);
+//echo sizeof($store1);
 if(isset($_REQUEST["Aid"]))
 {
     $id = $_REQUEST["Aid"];
     $Registration->access($_REQUEST["Aid"]);
     header('Location: request.php');
 }
+
 if(isset($_REQUEST["Did"]))
 {
     $id = $_REQUEST["Did"];
     $Registration->denied($id);
     header('Location: request.php');
 }
+
 if(isset($_POST['username'])) {
     $store1 = $Registration-> userRequest_sortByName();
+}
+
+if(isset($_POST['Downid'])) {
+    $store1 = $Registration-> userRequest_sortByDscend();
+}
+
+if(isset($_POST['Downdate'])) {
+    $store1 = $Registration-> userRequest_sortByDateDESC();
 }
 if(isset($_POST['date'])) {
     $store1 = $Registration-> userRequest_sortByDate();
 }
+
 if(isset($_POST['filter'])) {
 	$Fname = isset($_POST['Fname'])?$_POST['Fname']:'';
 	if($Fname == "")
@@ -54,25 +67,39 @@ if(isset($_POST['filter'])) {
 		<form method="post">
 			<table id="exam_data_table" class="table table-bordered table-striped table-hover">
 				<thead>
-					<tr>
+					<tr><!--
 						<th>
-							<input type="submit" name="id" value="Id" class="input" />
-							<input type="submit" name="username" value="UserName" class="input" />
+							<input type="submit" name="id" value="Id" class="input"/> 
+							<input type="submit" name="username" value="UserName" class="input"/>
 							<input type="submit" name="date" value="Date" class="input" />
+						</th>-->
+					</tr>
+					<tr>
+						<th> <?php if (!isset($_POST['filter'])) {?>
+                            <form method="post">
 							<input type="text" name="Fname" id="s1"/>
   							<input type="submit" name="filter" value="Filter"/>
+							  </form>
+                            <?php } else {?>
+                                <button><a href="request.php">Clear</a></button>
+                            <?php } ?>
 						</th>
 					</tr>
 					<tr>
 						<th>User Id</th>
-						<th>UserName</th>
+						<form method="post">
+						<th>UserName<button type="submit" name="username" value="Id" class="input"><i class="fa fa-angle-up" aria-hidden="true"></i></button>
+						<button type="submit" name="Downid" value="Id" class="input"><i class="fa fa-angle-down" aria-hidden="true"></i></button></th>
+						</form>
 						<th>Name</th>
-						<th>Date</th>
+						<form method="post">
+						<th>Date<button type="submit" name="date" value="Id" class="input"><i class="fa fa-angle-up" aria-hidden="true"></i></button>
+							<button type="submit" name="Downdate" value="Id" class="input"><i class="fa fa-angle-down" aria-hidden="true"></i></button>
+						</th></form>
 						<th>Mobile</th>
-						<th>Block Status</th>
-						<th>Admin Status</th>
+						<th>Status</th>
 						<th>Action</th>
-						<th>Action</th>
+						
 					</tr>
 				</thead>
 				<?php  foreach($store1 as $key=> $value){
@@ -86,15 +113,15 @@ if(isset($_POST['filter'])) {
 									  $strip = $createDate->format('Y-m-d');?>
 								<td><?php echo $value['Sdate']; ?></td>
 								<td><?php echo $value['mobile']; ?></td>
-								<td style="text-align:center;"><?php echo $value['Isblock']; ?></td>
-								<td><?php echo $value['isAdmin']; ?></td>
+								
 								<?php if ($value['Isblock'] == "1") { ?>
-									<td><a href="request.php?action=access&Did=<?php echo $value['Uid'];?>" class="edit_btn1" name="access_granted">Access Denied</a> </td>
+									<td>Blocked</td>
 								<?php } else 
 											{ ?>
-								<td><a href="request.php?action=access&Aid=<?php echo $value['Uid'];?>" class="edit_btn" name="access_granted">Access Granted</a> </td>
+								<td>Unblocked</td>
 								
 								<?php } ?>
+								
 								<td><a href="deleteAccess.php?action=access&id=<?php echo $value['Uid'];?>" onClick="return confirm('Are you sure you want to delete?')" class="del_btn">Delete</a> </td>
 								<?php } ?>
 							</tr>
@@ -105,4 +132,9 @@ if(isset($_POST['filter'])) {
 	</div>
 </div>
 </body>
+<?php require 'footer.php' ?>
 </html>
+<?php } else
+{
+	header('Location:login.php');
+}?>

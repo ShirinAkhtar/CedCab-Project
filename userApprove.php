@@ -12,12 +12,17 @@
  */
 
 require 'class.php';
-if (!isset($_SESSION['userdata'])) {
-    header('Location: login.php');
+if(isset($_SESSION['userdata']) && ($_SESSION['userdata']['isAdmin'] == 1)) {
+	header('Location:login.php');
 }
-$Ride = new Ride();  
-$id = $_SESSION['userdata']['userid'];
-$store1 = $Ride->ride_history($id);
+else 
+{
+    if (!isset($_SESSION['userdata'])) {
+        header('Location: login.php');
+    }
+    $Ride = new Ride();  
+    $id = $_SESSION['userdata']['userid'];
+    $store1 = $Ride->ride_history($id);
 ?>
 <html>
 <head>
@@ -43,9 +48,11 @@ $store1 = $Ride->ride_history($id);
 			<div class="collapse navbar-collapse text-sm-center" id="collapsibleNavbar">
 				<ul class="nav navbar-nav navbar-right text-center">
                 <li><a href="index.php">Home</a></li>
-				<li><a href="userPending.php">Pending Ride</a></li>
-				<li><a href="userApprove.php" class="flex-sm-fill text-sm-center">Approved Rides</a> </li>
-					
+                <li><a href="" id="wel">Welcome <?php echo $_SESSION['userdata']['username'] ?> </a></li>
+                <li><a href="dashboard.php" id="wel">Profile</a></li>
+                <li><a href="history.php" id="all" class="flex-sm-fill text-sm-center">All Ride Records</a> </li>
+                <li><a href="userPending.php" id="all" class="flex-sm-fill text-sm-center">Pending Ride</a> </li>
+                <li><a href="userApprove.php" id="all" class="flex-sm-fill text-sm-center">Completed Ride</a> </li>	
 					<li>
 					<a href="logout.php"><button type="button" class="btn btn-primary" id="rcorners2">Logout</button></a>
 					</li>
@@ -92,4 +99,6 @@ $store1 = $Ride->ride_history($id);
 </div>
 </div>
 </body>
+<?php require 'footer.php' ?>
 </html>
+<?php } ?>

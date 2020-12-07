@@ -52,4 +52,5 @@ $dataPoints = $Ride->avilable_rides1('tfare as y, Rdate as label', 'status=1', '
 		<div id="chartContainer" style="height: 380px; width: 100%;"></div>
 		<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 	</body>
+	<?php require 'footer.php' ?>
 </html>

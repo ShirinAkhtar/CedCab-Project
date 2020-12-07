@@ -1,22 +1,28 @@
 <?php
 $time = $_SERVER['REQUEST_TIME'];
-$timeout_duration = 300;
+$timeout_duration = 5000;
 require 'class.php';
-$Location = new Location();  
-$lo = $Location->location_avilable();
-//session_destroy();
-if(isset($_SESSION['booking']))
-{
-	$Ride = new Ride();
-	$ride_store = $Ride->store_ride( $_SESSION['userdata']['userid'],$_SESSION['booking']['pick'], $_SESSION['booking']['drop'], $_SESSION['booking']['dist'], $_SESSION['booking']['cabType'], $_SESSION['booking']['lug'], $_SESSION['booking']['amt'],  $_SESSION['booking']['status']);
-	unset($_SESSION['booking']);
-	
+if(isset($_SESSION['userdata']) && ($_SESSION['userdata']['isAdmin'] == 1)) {
+	header('Location:login.php');
 }
-if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $timeout_duration) 
+else 
 {
-    unset($_SESSION['booking']);
-}
-$_SESSION['LAST_ACTIVITY'] = $time;
+	$Location = new Location();  
+	$lo = $Location->location_avilable();
+
+	if(isset($_SESSION['booking']))
+	{
+		
+		$Ride = new Ride();
+		$ride_store = $Ride->store_ride( $_SESSION['userdata']['userid'],$_SESSION['booking']['pick'], $_SESSION['booking']['drop'], $_SESSION['booking']['dist'], $_SESSION['booking']['cabType'], $_SESSION['booking']['lug'], $_SESSION['booking']['amt'],  $_SESSION['booking']['status']);
+		unset($_SESSION['booking']);
+		
+	}
+	if (isset($_SESSION['LAST_ACTIVITY']) && ($time - $_SESSION['LAST_ACTIVITY']) > $timeout_duration) 
+	{
+		unset($_SESSION['booking']);
+	}
+	$_SESSION['LAST_ACTIVITY'] = $time;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,8 +49,12 @@ $_SESSION['LAST_ACTIVITY'] = $time;
 					<ul class="nav navbar-nav navbar-right text-center">
 					<li><a href="index.php">Home</a></li>
 						<?php if(isset($_SESSION['userdata'])) {?>
-						<li><a href="dashboard.php" id="wel">Welcome <?php echo $_SESSION['userdata']['username'] ?> </a></li>
+							<li><a href="" id="wel">Welcome <?php echo $_SESSION['userdata']['username'] ?> </a></li>
+						<li><a href="dashboard.php" id="wel">Profile</a></li>
 						<li><a href="history.php" id="all" class="flex-sm-fill text-sm-center">All Ride Records</a> </li>
+						<li><a href="userPending.php" id="all" class="flex-sm-fill text-sm-center">Pending Ride</a> </li>
+						<li><a href="userApprove.php" id="all" class="flex-sm-fill text-sm-center">Completed Ride</a> </li>
+						
 						<li>
 							<a href="logout.php">
 								<button type="button" class="btn btn-primary" id="rcorners2">Logout</button>
@@ -102,7 +112,7 @@ $_SESSION['LAST_ACTIVITY'] = $time;
 								</div>
 								<div class="input-group"> <span class="input-group-addon">LUGGAGE</span>
 								<input id="msg1" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control ms1" placeholder="Enter weight in kg"> </div>
-								<button id="cabf" class="btn btn-default form-control" type="submit" name="submit">Calculate Your Fair</button>
+								<button id="cabf" class="btn btn-default form-control" type="submit" name="submit">Calculate Your Fair</button><br>
 								<div id="res"></div>
 								<button id="cabff" style="display:none;" class="btn btn-default form-control" type="submit" name="submit">Book Now</button>
 							</form>
@@ -118,9 +128,13 @@ $_SESSION['LAST_ACTIVITY'] = $time;
 		</div>
 	</body>
 	<script>
+	
 	$('#msg2').change(function() {
 		if($(this).val() == 'CedMicro') {
 			$('#msg1').prop("disabled", true);
+			document.getElementById("msg1").placeholder = "";
+			document.getElementById("msg1").value = "";
+
 		} else {
 			$('#msg1').prop("disabled", false);
 		}
@@ -136,11 +150,15 @@ $_SESSION['LAST_ACTIVITY'] = $time;
 		console.log(cabType);
 		if(pick == drop)
 		{
+			document.getElementById("cabff").style.display = "none";
 			alert("Pick and Drop location should be different!");
+			
 		}
 		else if(pick =="Current Location" || drop == "Enter drop for ride estimate" || cabType == "Drop Down to select CAB Type")
 		{
+			document.getElementById("cabff").style.display = "none";
 			alert("Pick Select valid input!");
+			
 		}
 		else {
 		$.ajax({
@@ -161,64 +179,89 @@ $_SESSION['LAST_ACTIVITY'] = $time;
 		});
 
         $('#cabff').on("click", function(e) {
-		
-		var pick = $("#msg4").val();
-		var drop = $("#msg3").val();
-		var cabType = $("#msg2").val();
-		var lug = $("#msg1").val();
-		var action = 1;
-		console.log(pick);
-		console.log(drop);
-		console.log(cabType);
-		console.log(action);
-		if(pick == drop)
-		{
-			alert("Pick and Drop location should be different!");
-		}
-		else if(pick =="Current Location" || drop == "Enter drop for ride estimate" || cabType == "Drop Down to select CAB Type")
-		{
-			alert("Pick Select valid input!");
-		}
+			
+			var pick = $("#msg4").val();
+			var drop = $("#msg3").val();
+			var cabType = $("#msg2").val();
+			var lug = $("#msg1").val();
+			var action = 1;
+			console.log(pick);
+			console.log(drop);
+			console.log(cabType);
+			console.log(action);
+			if(pick == drop)
+			{
+				alert("Pick and Drop location should be different!");
+			}
+			else if(pick =="Current Location" || drop == "Enter drop for ride estimate" || cabType == "Drop Down to select CAB Type")
+			{
+				alert("Pick Select valid input!");
+			}
 		else {
-		<?php if(isset($_SESSION['userdata'])) {?>
-		
-        $.ajax({
-            method: 'POST',
-            url: 'cab.php',
-            dataType: 'html',
-            data: {
-                pick: pick,
-                drop: drop,
-                cabType: cabType,
-                lug: lug,
-                action: 1
-            },
-            success: function(response) {
-				$("#res").html(response);
-				console.log($text);
-				
-            }
-		});
-		<?php }
-		else { ?>
+			<?php if(isset($_SESSION['userdata'])) {?>
+			
 			$.ajax({
-            method: 'POST',
-            url: 'cab.php',
-            dataType: 'html',
-            data: {
-                pick: pick,
-                drop: drop,
-                cabType: cabType,
-                lug: lug,
-                action: 2
-            },
-            success: function(response) {
-                window.location.href = "login.php";
-            }
+				method: 'POST',
+				url: 'cab.php',
+				dataType: 'html',
+				data: {
+					pick: pick,
+					drop: drop,
+					cabType: cabType,
+					lug: lug,
+					action: 1
+				},
+				success: function(response) {
+					$("#res").html(response);
+					console.log($text);
+					
+				}
+			});
+			<?php }
+			else { ?>
+				$.ajax({
+				method: 'POST',
+				url: 'cab.php',
+				dataType: 'html',
+				data: {
+					pick: pick,
+					drop: drop,
+					cabType: cabType,
+					lug: lug,
+					action: 2
+				},
+				success: function(response) {
+					window.location.href = "login.php";
+				}
+			});
+		<?php } ?> }
+			e.preventDefault();
 		});
-	<?php } ?> }
-		e.preventDefault();
-	});
+		$(document).on('change','#msg4',function()
+		{
+			//$('#cabf').html("");
+			$('#res').html("");
+			document.getElementById("cabff").style.display = "none";
+		});
+		$(document).on('change','#msg3',function()
+		{
+			//$('#cabf').html("");
+			$('#res').html("");
+			document.getElementById("cabff").style.display = "none";
+		});
+		$(document).on('change','#msg2',function()
+		{
+			//$('#cabf').html("");
+			$('#res').html("");
+			document.getElementById("cabff").style.display = "none";
+		});
+		$(document).on('change','#msg1',function()
+		{
+			//$('#cabf').html("");
+			$('#res').html("");
+			document.getElementById("cabff").style.display = "none";
+		});
 </script>
 
 </html>
+<?php } ?>

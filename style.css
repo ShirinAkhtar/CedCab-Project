@@ -38,11 +38,12 @@
     border-radius: 5px;
     border: 1px solid gray;
   }
-  input label {
+  input label  {
     display: block;
     text-align: left;
     margin: 3px;
   }
+
   
   .btn {
     padding: 10px;

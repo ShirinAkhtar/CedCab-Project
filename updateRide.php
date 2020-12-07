@@ -56,4 +56,5 @@
         </form>
         <a href="change.php" class="a2" role="button" aria-pressed="true">Change Password</a>
     </body>
+    <?php require 'footer.php' ?>
 </html>

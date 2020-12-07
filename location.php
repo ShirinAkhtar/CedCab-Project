@@ -12,24 +12,29 @@
  */
 require 'header2.php';
 require 'class.php';
-$Location = new Location();  
-$lo = $Location->location_avilable();
-//print_r($lo);
-if(isset($_REQUEST["Aid"]))
+if(isset($_SESSION['userdata']) && ($_SESSION['userdata']['isAdmin'] == 1)) 
 {
-    $id = $_REQUEST["Aid"];
-    $Location->access($_REQUEST["Aid"]);
-    header('Location: location.php');
-}
-if(isset($_REQUEST["Did"]))
-{
-    $id = $_REQUEST["Did"];
-    $Location->denied($id);
-    header('Location: location.php');
-}
-if(isset($_POST['name'])) {
-    $lo = $Location-> location_sortByName();
-}
+	$Location = new Location();  
+	$lo = $Location->location_avilable();
+	//print_r($lo);
+	if(isset($_REQUEST["Aid"]))
+	{
+		$id = $_REQUEST["Aid"];
+		$Location->access($_REQUEST["Aid"]);
+		header('Location: location.php');
+	}
+	if(isset($_REQUEST["Did"]))
+	{
+		$id = $_REQUEST["Did"];
+		$Location->denied($id);
+		header('Location: location.php');
+	}
+	if(isset($_POST['name'])) {
+		$lo = $Location-> location_sortByName();
+	}
+	if(isset($_POST['Dname'])) {
+		$lo = $Location-> location_sortByNameDESC();
+	}
 ?>
 <html>
 <head>
@@ -45,13 +50,11 @@ if(isset($_POST['name'])) {
 					<table id="exam_data_table" class="table table-bordered table-striped table-hover">
 						<thead>
 							<tr>
-								<th>Sort By:
-									<input type="submit" name="name" value="Name" class="input" />
-								</th>
-							</tr>
-							<tr>
 								<th>Location Id</th>
-								<th>Location Name</th>
+								<th>Location Name
+								<button type="submit" name="name" value="Name" class="input"><i class="fa fa-angle-up" aria-hidden="true"></i></button>
+								<button type="submit" name="Dname" value="Name" class="input"><i class="fa fa-angle-down" aria-hidden="true"></i></button>
+								</th>
 								<th>Location Distance</th>
 								<th>Location Available</th>
 								<th>Action</th>
@@ -62,7 +65,14 @@ if(isset($_POST['name'])) {
 								<td><?php echo $value['Lid'] ?></td>
 								<td><?php echo $value['Lname']; ?></td>
 								<td><?php echo $value['Ldis']; ?> km</td>
-								<td><?php echo $value['Lavilable']; ?></td>
+								<td><?php if ($value['Lavilable'] == 0)
+								{
+									echo "Available";}
+									else
+									{
+										echo "UnAvailable";
+									}
+								 ?></td>
 								<?php if ($value['Lavilable'] == "0") { ?>
 									<td><a href="location.php?action=access&Aid=<?php echo $value['Lid'];?>" class="edit_btn" name="access_granted">Available</a> </td>
 									<?php } else { ?>
@@ -78,4 +88,9 @@ if(isset($_POST['name'])) {
 			</div>
 		</div>
 	</body>
+	<?php require 'footer.php' ?>
 </html>
+<?php } else
+{
+	header('Location:login.php');
+}?>
