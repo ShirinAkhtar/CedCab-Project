@@ -14,29 +14,35 @@ require 'header2.php';
 require 'class.php';
 if(isset($_SESSION['userdata']) && ($_SESSION['userdata']['isAdmin'] == 1)) 
 {
-$id = $_REQUEST["id"];
-$Ride = new Ride();  
-$store1 = $Ride->avilable_rides2($id);
-foreach($store1 as $key=> $value){
-		   $var = $value['Uid'];}
-$Registration = new Registration();  
-$store2 = $Registration->userRequest();
-foreach($store2 as $key1=> $value1){
-	if($value1['Uid'] == $var){
-		$name = $value1['Uname'];}}
-$total=0;
-if(isset($_POST['date'])) {
-    $store1 = $Ride-> rides_sortByDate();
-    //header('Location: request.php');
-}
-if(isset($_POST['distance'])) {
-    $store1 = $Ride-> ride_sortByDistance();
-    //header('Location: request.php');
-}
-if(isset($_POST['fare'])) {
-    $store1 = $Ride-> ride_sortByFare();
-    
-}
+	$id = $_REQUEST["id"];
+	$Ride = new Ride();  
+	$store1 = $Ride->avilable_rides2($id);
+	foreach($store1 as $key=> $value)
+	{
+		$var = $value['Uid'];
+	}
+	$Registration = new Registration();  
+	$store2 = $Registration->userRequest();
+		foreach($store2 as $key1=> $value1)
+		{
+			if($value1['Uid'] == $var)
+			{
+				$name = $value1['Uname'];
+			}
+		}
+		$total=0;
+		if(isset($_POST['date'])) 
+		{
+			$store1 = $Ride-> rides_sortByDate();
+			
+		}
+		if(isset($_POST['distance'])) {
+			$store1 = $Ride-> ride_sortByDistance();
+			
+		}
+		if(isset($_POST['fare'])) {
+			$store1 = $Ride-> ride_sortByFare();	
+		}
 ?>
 <html>
 	<head>
@@ -64,8 +70,7 @@ if(isset($_POST['fare'])) {
 									<th>Total Distance</th>
 									<th>Cab Type</th>
 									<th>Luggage</th>
-									<th>Total Fare</th>
-									
+									<th>Total Fare</th>									
 								</tr>
 							</thead>
 							<?php foreach($store1 as $key=> $value){

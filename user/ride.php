@@ -118,9 +118,9 @@ if(isset($_SESSION['userdata']) && ($_SESSION['userdata']['isAdmin'] == 1))
 									<th>User Id</th>
 									<form method="post">
 										<th style="padding-right:25px">Ride Date<button type="submit" name="Adate" class="input">
-										<i class="fa fa-angle-up" aria-hidden="true"></i></button>
-										<button type="submit" name="Ddate" class="input">
-										<i class="fa fa-angle-down" aria-hidden="true"></i></button>
+											<i class="fa fa-angle-up" aria-hidden="true"></i></button>
+											<button type="submit" name="Ddate" class="input">
+											<i class="fa fa-angle-down" aria-hidden="true"></i></button>
 										</th>
 									</form>
 									<th>Ride From</th>

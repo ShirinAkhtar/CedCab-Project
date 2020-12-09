@@ -53,8 +53,6 @@ class Registration extends Databases
             VALUES( '$Uname', '$name', NOW(), '$mobile','$Isblock','$paswd','$isAdmin')");
             return "Registration Successful";
         }
-        
-
     }
     public function regLogin($Uname, $pswd)
     {
@@ -188,7 +186,7 @@ class Registration extends Databases
     public function user_filterByName($Fname)
     {
         $ride = array();
-        $sql = "SELECT * FROM `tbl_user` WHERE  Uname = '" . $Fname . "' ";
+        $sql = "SELECT * FROM `tbl_user` WHERE  `Uname` = '" . $Fname . "' ";
         $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
         {
@@ -270,10 +268,11 @@ class Registration extends Databases
                         'dataname' => $row['name'],
                         'datamobile' => $row['mobile']
                     );
-            }
-        } 
+                }
+            } 
             return "Password Updated Succesfully!";
-}
+        }
+        
         public function update_pass($id, $newPass)
         {
             $newPass1 = md5($newPass);
@@ -297,7 +296,7 @@ class Ride extends Databases
     public function avilable_rides()
     {
         $ride = array();
-        $sql = "SELECT * FROM tbl_ride";
+        $sql = "SELECT * FROM `tbl_ride`";
         $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
         {
@@ -620,7 +619,7 @@ class Ride extends Databases
     public function FareFilter($fare)
     {
         $ride = array();
-        $sql = " SELECT * FROM `tbl_ride` WHERE  tfare = '" . $fare . "' ";
+        $sql = " SELECT * FROM `tbl_ride` WHERE  `tfare` = '" . $fare . "' ";
         $result = $this->conn->query($sql);
         $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
@@ -703,7 +702,7 @@ class Ride extends Databases
     public function ride_history($id)
     {
         $ride = array();
-        $sql = "SELECT * FROM tbl_ride WHERE `Uid` = '$id'";
+        $sql = "SELECT * FROM `tbl_ride` WHERE `Uid` = '$id'";
         $result = $this->conn->query($sql);
         if ($result->num_rows > 0)
         {
@@ -720,12 +719,12 @@ class Ride extends Databases
     }
     public function access($id)
     {
-        $sql1 = " UPDATE `tbl_ride` SET `status`= 1 WHERE `Rid`='$id'";
+        $sql1 = "UPDATE `tbl_ride` SET `status`= 1 WHERE `Rid`='$id'";
         $result = $this->conn->query($sql1);
     }
     public function denied($id)
     {
-        $sql1 = " UPDATE `tbl_ride` SET `status`= 0 WHERE `Rid`='$id'";
+        $sql1 = "UPDATE `tbl_ride` SET `status`= 0 WHERE `Rid`='$id'";
         $result = $this->conn->query($sql1);
     }
     public function CancelRide($id)
